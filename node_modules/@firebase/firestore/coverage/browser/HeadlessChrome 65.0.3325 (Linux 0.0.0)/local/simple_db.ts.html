@@ -1,0 +1,1667 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for local/simple_db.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">local</a> simple_db.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>168/175</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>33/35</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.74% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>49/54</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.86% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>162/169</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">171x</span>
+<span class="cline-any cline-yes">171x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">830x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">830x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">830x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">830x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6964x</span>
+<span class="cline-any cline-yes">6964x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6964x</span>
+<span class="cline-any cline-yes">6964x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1186x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1294x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">348x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6964x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7352x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19743x</span>
+<span class="cline-any cline-yes">19743x</span>
+<span class="cline-any cline-yes">19743x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">19743x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4430x</span>
+<span class="cline-any cline-yes">2705x</span>
+<span class="cline-any cline-yes">2705x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1725x</span>
+<span class="cline-any cline-yes">1725x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-yes">1902x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-yes">10181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">131x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4922x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4920x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4922x</span>
+<span class="cline-any cline-yes">4922x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">6141x</span>
+<span class="cline-any cline-yes">6141x</span>
+<span class="cline-any cline-yes">3682x</span>
+<span class="cline-any cline-yes">3682x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-yes">804x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2459x</span>
+<span class="cline-any cline-yes">1294x</span>
+<span class="cline-any cline-yes">1165x</span>
+<span class="cline-any cline-yes">1144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-yes">867x</span>
+<span class="cline-any cline-yes">867x</span>
+<span class="cline-any cline-yes">94x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">773x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4109x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16348x</span>
+<span class="cline-any cline-yes">16348x</span>
+<span class="cline-any cline-yes">16348x</span>
+<span class="cline-any cline-yes">16348x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16348x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import { assert } from '../util/assert';
+import { debug } from '../util/log';
+import { AnyDuringMigration } from '../util/misc';
+&nbsp;
+import { PersistencePromise } from './persistence_promise';
+import { SCHEMA_VERSION } from './indexeddb_schema';
+&nbsp;
+const LOG_TAG = 'SimpleDb';
+&nbsp;
+/**
+ * Provides a wrapper around IndexedDb with a simplified interface that uses
+ * Promise-like return values to chain operations. Real promises cannot be used
+ * since .then() continuations are executed asynchronously (e.g. via
+ * .setImmediate), which would cause IndexedDB to end the transaction.
+ * See PersistencePromise for more details.
+ */
+export class SimpleDb {
+  /** Opens the specified database, creating or upgrading it if necessary. */
+  static openOrCreate(
+    name: string,
+    version: number,
+    runUpgrade: (
+      db: IDBDatabase,
+      txn: SimpleDbTransaction,
+      fromVersion: number,
+      toVersion: number
+    ) =&gt; PersistencePromise&lt;void&gt;
+  ): Promise&lt;SimpleDb&gt; {
+    assert(
+      SimpleDb.isAvailable(),
+      'IndexedDB not supported in current environment.'
+    );
+    debug(LOG_TAG, 'Opening database:', name);
+    return new PersistencePromise&lt;SimpleDb&gt;((resolve, reject) =&gt; {
+      // TODO(mikelehen): Investigate browser compatibility.
+      // https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB
+      // suggests IE9 and older WebKit browsers handle upgrade
+      // differently. They expect setVersion, as described here:
+      // https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeRequest/setVersion
+      const request = window.indexedDB.open(name, version);
+&nbsp;
+      request.onsuccess = (event: Event) =&gt; {
+        const db = (event.target as IDBOpenDBRequest).result;
+        resolve(new SimpleDb(db));
+      };
+&nbsp;
+      request.onerror = <span class="fstat-no" title="function not covered" >(</span>event: ErrorEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject((event.target as IDBOpenDBRequest).error);</span>
+      };
+&nbsp;
+      request.onupgradeneeded = (event: IDBVersionChangeEvent) =&gt; {
+        debug(
+          LOG_TAG,
+          'Database "' + name + '" requires upgrade from version:',
+          event.oldVersion
+        );
+        const db = (event.target as IDBOpenDBRequest).result;
+        // We are provided a version upgrade transaction from the request, so
+        // we wrap that in a SimpleDbTransaction to allow use of our friendlier
+        // API for schema migration operations.
+        const txn = new SimpleDbTransaction(request.transaction);
+        runUpgrade(db, txn, event.oldVersion, SCHEMA_VERSION).next(() =&gt; {
+          debug(
+            LOG_TAG,
+            'Database upgrade to version ' + SCHEMA_VERSION + ' complete'
+          );
+        });
+      };
+    }).toPromise();
+  }
+&nbsp;
+  /** Deletes the specified database. */
+  static delete(name: string): Promise&lt;void&gt; {
+    debug(LOG_TAG, 'Removing database:', name);
+    return wrapRequest&lt;void&gt;(window.indexedDB.deleteDatabase(name)).toPromise();
+  }
+&nbsp;
+  /** Returns true if IndexedDB is available in the current environment. */
+  static isAvailable(): boolean {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof window === 'undefined' || window.indexedDB == null) {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+    // We extensively use indexed array values and compound keys,
+    // which IE and Edge do not support. However, they still have indexedDB
+    // defined on the window, so we need to check for them here and make sure
+    // to return that persistence is not enabled for those browsers.
+    // For tracking support of this feature, see here:
+    // https://developer.microsoft.com/en-us/microsoft-edge/platform/status/indexeddbarraysandmultientrysupport/
+&nbsp;
+    // Check the UA string to find out the browser.
+    const ua = window.navigator.userAgent;
+&nbsp;
+    // IE 10
+    // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
+&nbsp;
+    // IE 11
+    // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+&nbsp;
+    // Edge
+    // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
+    // like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (
+      ua.indexOf('MSIE ') &gt; 0 ||
+      ua.indexOf('Trident/') &gt; 0 ||
+      ua.indexOf('Edge/') &gt; 0
+    ) {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    } else {
+      return true;
+    }
+  }
+&nbsp;
+  constructor(private db: IDBDatabase) {}
+&nbsp;
+  runTransaction&lt;T&gt;(
+    mode: 'readonly' | 'readwrite',
+    objectStores: string[],
+    transactionFn: (transaction: SimpleDbTransaction) =&gt; PersistencePromise&lt;T&gt;
+  ): Promise&lt;T&gt; {
+    const transaction = SimpleDbTransaction.open(this.db, mode, objectStores);
+    const transactionFnResult = transactionFn(transaction)
+      .catch(error =&gt; {
+        // Abort the transaction if there was an
+        // error.
+        transaction.abort();
+        return PersistencePromise.reject(error);
+      })
+      .toPromise();
+&nbsp;
+    // Wait for the transaction to complete (i.e. IndexedDb's onsuccess event to
+    // fire), but still return the original transactionFnResult back to the
+    // caller.
+    return transaction.completionPromise.then(
+      () =&gt; transactionFnResult
+    ) as AnyDuringMigration;
+  }
+&nbsp;
+  close() {
+    this.db.close();
+  }
+}
+&nbsp;
+/**
+ * A controller for iterating over a key range or index. It allows an iterate
+ * callback to delete the currently-referenced object, or jump to a new key
+ * within the key range or index.
+ */
+export class IterationController {
+  private shouldStop = false;
+  private nextKey: IDBValidKey | IDBKeyRange | null = null;
+&nbsp;
+  constructor(private dbCursor: IDBCursorWithValue) {}
+&nbsp;
+  get isDone(): boolean {
+    return this.shouldStop;
+  }
+&nbsp;
+  get skipToKey(): IDBValidKey | IDBKeyRange | null {
+    return this.nextKey;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set cursor(</span>value: IDBCursorWithValue) {
+<span class="cstat-no" title="statement not covered" >    this.dbCursor = value;</span>
+  }
+&nbsp;
+  /**
+   * This function can be called to stop iteration at any point.
+   */
+  done(): void {
+    this.shouldStop = true;
+  }
+&nbsp;
+  /**
+   * This function can be called to skip to that next key, which could be
+   * an index or a primary key.
+   */
+  skip(key: IDBValidKey | IDBKeyRange): void {
+    this.nextKey = key;
+  }
+&nbsp;
+  /**
+   * Delete the current cursor value from the object store.
+   *
+   * NOTE: You CANNOT do this with a keysOnly query.
+   */
+  delete(): PersistencePromise&lt;void&gt; {
+    return wrapRequest&lt;void&gt;(this.dbCursor.delete());
+  }
+}
+&nbsp;
+/**
+ * Callback used with iterate() method.
+ */
+export type IterateCallback&lt;KeyType, ValueType&gt; = (
+  key: KeyType,
+  value: ValueType,
+  control: IterationController
+) =&gt; void | PersistencePromise&lt;void&gt;;
+&nbsp;
+/** Options available to the iterate() method. */
+export interface IterateOptions {
+  /** Index to iterate over (else primary keys will be iterated) */
+  index?: string;
+&nbsp;
+  /** IndxedDB Range to iterate over (else entire store will be iterated) */
+  range?: IDBKeyRange;
+&nbsp;
+  /** If true, values aren't read while iterating. */
+  keysOnly?: boolean;
+&nbsp;
+  /** If true, iterate over the store in reverse. */
+  reverse?: boolean;
+}
+&nbsp;
+/**
+ * Wraps an IDBTransaction and exposes a store() method to get a handle to a
+ * specific object store.
+ */
+export class SimpleDbTransaction {
+  private aborted = false;
+&nbsp;
+  /**
+   * A promise that resolves with the result of the IndexedDb transaction.
+   *
+   * Note: A transaction explicitly aborted via abort() is considered successful
+   * and this promise will resolve as successful.
+   */
+  readonly completionPromise: Promise&lt;void&gt;;
+&nbsp;
+  static open(
+    db: IDBDatabase,
+    mode: string,
+    objectStoreNames: string[]
+  ): SimpleDbTransaction {
+    return new SimpleDbTransaction(
+      db.transaction(objectStoreNames, mode as AnyDuringMigration)
+    );
+  }
+&nbsp;
+  constructor(private readonly transaction: IDBTransaction) {
+    this.completionPromise = new Promise&lt;void&gt;((resolve, reject) =&gt; {
+      // We consider aborting to be "normal" and just resolve the promise.
+      // May need to revisit if/when we actually need to abort transactions.
+      this.transaction.onabort = this.transaction.oncomplete = event =&gt; {
+        resolve();
+      };
+      this.transaction.onerror = <span class="fstat-no" title="function not covered" >(</span>event: Event) =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject((event.target as IDBRequest).error);</span>
+      };
+    });
+  }
+&nbsp;
+  abort(): void {
+    if (!this.aborted) {
+      debug(LOG_TAG, 'Aborting transaction.');
+      this.aborted = true;
+      this.transaction.abort();
+    }
+  }
+&nbsp;
+  /**
+   * Returns a SimpleDbStore&lt;KeyType, ValueType&gt; for the specified store. All
+   * operations performed on the SimpleDbStore happen within the context of this
+   * transaction and it cannot be used anymore once the transaction is
+   * completed.
+   *
+   * Note that we can't actually enforce that the KeyType and ValueType are
+   * correct, but they allow type safety through the rest of the consuming code.
+   */
+  store&lt;KeyType extends IDBValidKey, ValueType&gt;(
+    storeName: string
+  ): SimpleDbStore&lt;KeyType, ValueType&gt; {
+    const store = this.transaction.objectStore(storeName);
+    assert(!!store, 'Object store not part of transaction: ' + storeName);
+    return new SimpleDbStore&lt;KeyType, ValueType&gt;(store);
+  }
+}
+&nbsp;
+/**
+ * A wrapper around an IDBObjectStore providing an API that:
+ *
+ * 1) Has generic KeyType / ValueType parameters to provide strongly-typed
+ * methods for acting against the object store.
+ * 2) Deals with IndexedDB's onsuccess / onerror event callbacks, making every
+ * method return a PersistencePromise instead.
+ * 3) Provides a higher-level API to avoid needing to do excessive wrapping of
+ * intermediate IndexedDB types (IDBCursorWithValue, etc.)
+ */
+export class SimpleDbStore&lt;KeyType extends IDBValidKey, ValueType&gt; {
+  constructor(private store: IDBObjectStore) {}
+&nbsp;
+  /**
+   * Writes a value into the Object Store.
+   *
+   * @param key Optional explicit key to use when writing the object, else the
+   * key will be auto-assigned (e.g. via the defined keyPath for the store).
+   * @param value The object to write.
+   */
+  put(value: ValueType): PersistencePromise&lt;void&gt;;
+  put(key: KeyType, value: ValueType): PersistencePromise&lt;void&gt;;
+  put(
+    keyOrValue: KeyType | ValueType,
+    value?: ValueType
+  ): PersistencePromise&lt;void&gt; {
+    let request;
+    if (value !== undefined) {
+      debug(LOG_TAG, 'PUT', this.store.name, keyOrValue, value);
+      request = this.store.put(value, keyOrValue as KeyType);
+    } else {
+      debug(LOG_TAG, 'PUT', this.store.name, '&lt;auto-key&gt;', keyOrValue);
+      request = this.store.put(keyOrValue as ValueType);
+    }
+    return wrapRequest&lt;void&gt;(request);
+  }
+&nbsp;
+  /**
+   * Gets the object with the specified key from the specified store, or null
+   * if no object exists with the specified key.
+   *
+   * @key The key of the object to get.
+   * @return The object with the specified key or null if no object exists.
+   */
+  get(key: KeyType): PersistencePromise&lt;ValueType | null&gt; {
+    const request = this.store.get(key);
+    // tslint:disable-next-line:no-any We're doing an unsafe cast to ValueType.
+    return wrapRequest&lt;any&gt;(request).next(result =&gt; {
+      // Normalize nonexistence to null.
+      if (result === undefined) {
+        result = null;
+      }
+      debug(LOG_TAG, 'GET', this.store.name, key, result);
+      return result;
+    });
+  }
+&nbsp;
+  delete(key: KeyType | IDBKeyRange): PersistencePromise&lt;void&gt; {
+    debug(LOG_TAG, 'DELETE', this.store.name, key);
+    const request = this.store.delete(key);
+    return wrapRequest&lt;void&gt;(request);
+  }
+&nbsp;
+  /**
+   * If we ever need more of the count variants, we can add overloads. For now,
+   * all we need is to count everything in a store.
+   *
+   * Returns the number of rows in the store.
+   */
+  count(): PersistencePromise&lt;number&gt; {
+    debug(LOG_TAG, 'COUNT', this.store.name);
+    const request = this.store.count();
+    return wrapRequest&lt;number&gt;(request);
+  }
+&nbsp;
+  loadAll(): PersistencePromise&lt;ValueType[]&gt;;
+  loadAll(range: IDBKeyRange): PersistencePromise&lt;ValueType[]&gt;;
+  loadAll(index: string, range: IDBKeyRange): PersistencePromise&lt;ValueType[]&gt;;
+  loadAll(
+    indexOrRange?: string | IDBKeyRange,
+    range?: IDBKeyRange
+  ): PersistencePromise&lt;ValueType[]&gt; {
+    const cursor = this.cursor(this.options(indexOrRange, range));
+    const results: ValueType[] = [];
+    return this.iterateCursor(cursor, (key, value) =&gt; {
+      results.push(value);
+    }).next(() =&gt; {
+      return results;
+    });
+  }
+&nbsp;
+  deleteAll(): PersistencePromise&lt;void&gt;;
+  deleteAll(range: IDBKeyRange): PersistencePromise&lt;void&gt;;
+  deleteAll(index: string, range: IDBKeyRange): PersistencePromise&lt;void&gt;;
+  deleteAll(
+    indexOrRange?: string | IDBKeyRange,
+    range?: IDBKeyRange
+  ): PersistencePromise&lt;void&gt; {
+    debug(LOG_TAG, 'DELETE ALL', this.store.name);
+    const options = this.options(indexOrRange, range);
+    options.keysOnly = false;
+    const cursor = this.cursor(options);
+    return this.iterateCursor(cursor, (key, value, control) =&gt; {
+      // NOTE: Calling delete() on a cursor is documented as more efficient than
+      // calling delete() on an object store with a single key
+      // (https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/delete),
+      // however, this requires us *not* to use a keysOnly cursor
+      // (https://developer.mozilla.org/en-US/docs/Web/API/IDBCursor/delete). We
+      // may want to compare the performance of each method.
+      return control.delete();
+    });
+  }
+&nbsp;
+  /**
+   * Iterates over keys and values in an object store.
+   *
+   * @param options Options specifying how to iterate the objects in the store.
+   * @param callback will be called for each iterated object. Iteration can be
+   * canceled at any point by calling the doneFn passed to the callback.
+   * The callback can return a PersistencePromise if it performs async
+   * operations but note that iteration will continue without waiting for them
+   * to complete.
+   * @returns A PersistencePromise that resolves once all PersistencePromises
+   * returned by callbacks resolve.
+   */
+  iterate(
+    callback: IterateCallback&lt;KeyType, ValueType&gt;
+  ): PersistencePromise&lt;void&gt;;
+  iterate(
+    options: IterateOptions,
+    callback: IterateCallback&lt;KeyType, ValueType&gt;
+  ): PersistencePromise&lt;void&gt;;
+  iterate(
+    optionsOrCallback: IterateOptions | IterateCallback&lt;KeyType, ValueType&gt;,
+    callback?: IterateCallback&lt;KeyType, ValueType&gt;
+  ): PersistencePromise&lt;void&gt; {
+    let options;
+    if (!callback) {
+      options = {};
+      callback = optionsOrCallback as IterateCallback&lt;KeyType, ValueType&gt;;
+    } else {
+      options = optionsOrCallback;
+    }
+    const cursor = this.cursor(options);
+    return this.iterateCursor(cursor, callback);
+  }
+&nbsp;
+  private iterateCursor(
+    cursorRequest: IDBRequest,
+    fn: IterateCallback&lt;KeyType, ValueType&gt;
+  ): PersistencePromise&lt;void&gt; {
+    const results: Array&lt;PersistencePromise&lt;void&gt;&gt; = [];
+    return new PersistencePromise((resolve, reject) =&gt; {
+      cursorRequest.onerror = <span class="fstat-no" title="function not covered" >(</span>event: Event) =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject((event.target as IDBRequest).error);</span>
+      };
+      cursorRequest.onsuccess = (event: Event) =&gt; {
+        const cursor: IDBCursorWithValue = (event.target as IDBRequest).result;
+        if (!cursor) {
+          resolve();
+          return;
+        }
+        const controller = new IterationController(cursor);
+        const userResult = fn(cursor.primaryKey, cursor.value, controller);
+        if (userResult instanceof PersistencePromise) {
+          results.push(userResult);
+        }
+        if (controller.isDone) {
+          resolve();
+        } else if (controller.skipToKey === null) {
+          cursor.continue();
+        } else {
+          cursor.continue(controller.skipToKey);
+        }
+      };
+    }).next(() =&gt; {
+      return PersistencePromise.waitFor(results);
+    });
+  }
+&nbsp;
+  private options(
+    indexOrRange?: string | IDBKeyRange,
+    range?: IDBKeyRange
+  ): IterateOptions {
+    let indexName: string | undefined = undefined;
+    if (indexOrRange !== undefined) {
+      if (typeof indexOrRange === 'string') {
+        indexName = indexOrRange;
+      } else {
+        assert(
+          range === undefined,
+          '3rd argument must not be defined if 2nd is a range.'
+        );
+        range = indexOrRange;
+      }
+    }
+    return { index: indexName, range };
+  }
+&nbsp;
+  private cursor(options: IterateOptions): IDBRequest {
+    let direction = 'next';
+    if (options.reverse) {
+      direction = 'prev';
+    }
+    if (options.index) {
+      const index = this.store.index(options.index);
+      if (options.keysOnly) {
+        return index.openKeyCursor(
+          options.range,
+          direction as AnyDuringMigration
+        );
+      } else {
+        return index.openCursor(options.range, direction as AnyDuringMigration);
+      }
+    } else {
+      return this.store.openCursor(
+        options.range,
+        direction as AnyDuringMigration
+      );
+    }
+  }
+}
+&nbsp;
+/**
+ * Wraps an IDBRequest in a PersistencePromise, using the onsuccess / onerror
+ * handlers to resolve / reject the PersistencePromise as appropriate.
+ */
+function wrapRequest&lt;R&gt;(request: IDBRequest): PersistencePromise&lt;R&gt; {
+  return new PersistencePromise&lt;R&gt;((resolve, reject) =&gt; {
+    request.onsuccess = (event: Event) =&gt; {
+      const result = (event.target as IDBRequest).result;
+      resolve(result);
+    };
+&nbsp;
+    request.onerror = <span class="fstat-no" title="function not covered" >(</span>event: Event) =&gt; {
+<span class="cstat-no" title="statement not covered" >      reject((event.target as IDBRequest).error);</span>
+    };
+  });
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

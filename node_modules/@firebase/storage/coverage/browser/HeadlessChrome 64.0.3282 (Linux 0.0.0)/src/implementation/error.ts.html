@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/implementation/error.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/implementation</a> error.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.48% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>66/81</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.82% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>20/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">81.25% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>65/80</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { configOption } from './constants';
+&nbsp;
+export class FirebaseStorageError implements Error {
+  private code_: string;
+  private message_: string;
+  private serverResponse_: string | null;
+  private name_: string;
+&nbsp;
+  constructor(code: Code, message: string) {
+    this.code_ = prependCode(code);
+    this.message_ = 'Firebase Storage: ' + message;
+    this.serverResponse_ = null;
+    this.name_ = 'FirebaseError';
+  }
+&nbsp;
+  codeProp(): string {
+    return this.code;
+  }
+&nbsp;
+  codeEquals(code: Code): boolean {
+    return prependCode(code) === this.codeProp();
+  }
+&nbsp;
+  serverResponseProp(): string | null {
+    return this.serverResponse_;
+  }
+&nbsp;
+  setServerResponseProp(serverResponse: string | null) {
+    this.serverResponse_ = serverResponse;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get name(): string {</span>
+<span class="cstat-no" title="statement not covered" >    return this.name_;</span>
+  }
+&nbsp;
+  get code(): string {
+    return this.code_;
+  }
+&nbsp;
+  get message(): string {
+    return this.message_;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  get serverResponse(): null | string {</span>
+<span class="cstat-no" title="statement not covered" >    return this.serverResponse_;</span>
+  }
+}
+&nbsp;
+export const errors = {};
+&nbsp;
+/**
+ * @enum {string}
+ */
+export type Code = string;
+export const Code = {
+  // Shared between all platforms
+  UNKNOWN: 'unknown',
+  OBJECT_NOT_FOUND: 'object-not-found',
+  BUCKET_NOT_FOUND: 'bucket-not-found',
+  PROJECT_NOT_FOUND: 'project-not-found',
+  QUOTA_EXCEEDED: 'quota-exceeded',
+  UNAUTHENTICATED: 'unauthenticated',
+  UNAUTHORIZED: 'unauthorized',
+  RETRY_LIMIT_EXCEEDED: 'retry-limit-exceeded',
+  INVALID_CHECKSUM: 'invalid-checksum',
+  CANCELED: 'canceled',
+  // JS specific
+  INVALID_EVENT_NAME: 'invalid-event-name',
+  INVALID_URL: 'invalid-url',
+  INVALID_DEFAULT_BUCKET: 'invalid-default-bucket',
+  NO_DEFAULT_BUCKET: 'no-default-bucket',
+  CANNOT_SLICE_BLOB: 'cannot-slice-blob',
+  SERVER_FILE_WRONG_SIZE: 'server-file-wrong-size',
+  NO_DOWNLOAD_URL: 'no-download-url',
+  INVALID_ARGUMENT: 'invalid-argument',
+  INVALID_ARGUMENT_COUNT: 'invalid-argument-count',
+  APP_DELETED: 'app-deleted',
+  INVALID_ROOT_OPERATION: 'invalid-root-operation',
+  INVALID_FORMAT: 'invalid-format',
+  INTERNAL_ERROR: 'internal-error'
+};
+&nbsp;
+export function prependCode(code: Code): string {
+  return 'storage/' + code;
+}
+&nbsp;
+export function unknown(): FirebaseStorageError {
+  let message =
+    'An unknown error occurred, please check the error payload for ' +
+    'server response.';
+  return new FirebaseStorageError(Code.UNKNOWN, message);
+}
+&nbsp;
+export function objectNotFound(path: string): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.OBJECT_NOT_FOUND,
+    "Object '" + path + "' does not exist."
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function bucketNotFound(</span>bucket: string): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.BUCKET_NOT_FOUND,
+    "Bucket '" + bucket + "' does not exist."
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function projectNotFound(</span>project: string): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.PROJECT_NOT_FOUND,
+    "Project '" + project + "' does not exist."
+  );
+}
+&nbsp;
+export function quotaExceeded(bucket: string): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.QUOTA_EXCEEDED,
+    "Quota for bucket '" +
+      bucket +
+      "' exceeded, please view quota on " +
+      'https://firebase.google.com/pricing/.'
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function unauthenticated(): FirebaseStorageError {</span>
+  let message =
+<span class="cstat-no" title="statement not covered" >    'User is not authenticated, please authenticate using Firebase ' +</span>
+    'Authentication and try again.';
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(Code.UNAUTHENTICATED, message);</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function unauthorized(</span>path: string): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.UNAUTHORIZED,
+    "User does not have permission to access '" + path + "'."
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function retryLimitExceeded(): FirebaseStorageError {</span>
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.RETRY_LIMIT_EXCEEDED,
+    'Max retry time for operation exceeded, please try again.'
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function invalidChecksum(</span>
+  path: string,
+  checksum: string,
+  calculated: string
+): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.INVALID_CHECKSUM,
+    "Uploaded/downloaded object '" +
+      path +
+      "' has checksum '" +
+      checksum +
+      "' which does not match '" +
+      calculated +
+      "'. Please retry the upload/download."
+  );
+}
+&nbsp;
+export function canceled(): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.CANCELED,
+    'User canceled the upload/download.'
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function invalidEventName(</span>name: string): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.INVALID_EVENT_NAME,
+    "Invalid event name '" + name + "'."
+  );
+}
+&nbsp;
+export function invalidUrl(url: string): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.INVALID_URL,
+    "Invalid URL '" + url + "'."
+  );
+}
+&nbsp;
+export function invalidDefaultBucket(bucket: string): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.INVALID_DEFAULT_BUCKET,
+    "Invalid default bucket '" + bucket + "'."
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function noDefaultBucket(): FirebaseStorageError {</span>
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.NO_DEFAULT_BUCKET,
+    'No default bucket ' +
+      "found. Did you set the '" +
+      configOption +
+      "' property when initializing the app?"
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function cannotSliceBlob(): FirebaseStorageError {</span>
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.CANNOT_SLICE_BLOB,
+    'Cannot slice blob for upload. Please retry the upload.'
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function serverFileWrongSize(): FirebaseStorageError {</span>
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.SERVER_FILE_WRONG_SIZE,
+    'Server recorded incorrect upload file size, please retry the upload.'
+  );
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >export function noDownloadURL(): FirebaseStorageError {</span>
+<span class="cstat-no" title="statement not covered" >  return new FirebaseStorageError(</span>
+    Code.NO_DOWNLOAD_URL,
+    'The given file does not have any download URLs.'
+  );
+}
+&nbsp;
+export function invalidArgument(
+  index: number,
+  fnName: string,
+  message: string
+): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.INVALID_ARGUMENT,
+    'Invalid argument in `' + fnName + '` at index ' + index + ': ' + message
+  );
+}
+&nbsp;
+export function invalidArgumentCount(
+  argMin: number,
+  argMax: number,
+  fnName: string,
+  real: number
+): FirebaseStorageError {
+  let countPart;
+  let plural;
+  if (argMin === argMax) {
+    countPart = argMin;
+    plural = argMin === 1 ? 'argument' : 'arguments';
+  } else {
+    countPart = 'between ' + argMin + ' and ' + argMax;
+    plural = 'arguments';
+  }
+  return new FirebaseStorageError(
+    Code.INVALID_ARGUMENT_COUNT,
+    'Invalid argument count in `' +
+      fnName +
+      '`: Expected ' +
+      countPart +
+      ' ' +
+      plural +
+      ', received ' +
+      real +
+      '.'
+  );
+}
+&nbsp;
+export function appDeleted(): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.APP_DELETED,
+    'The Firebase app was deleted.'
+  );
+}
+&nbsp;
+/**
+ * @param name The name of the operation that was invalid.
+ */
+export function invalidRootOperation(name: string): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.INVALID_ROOT_OPERATION,
+    "The operation '" +
+      name +
+      "' cannot be performed on a root reference, create a non-root " +
+      "reference using child, such as .child('file.png')."
+  );
+}
+&nbsp;
+/**
+ * @param format The format that was not valid.
+ * @param message A message describing the format violation.
+ */
+export function invalidFormat(
+  format: string,
+  message: string
+): FirebaseStorageError {
+  return new FirebaseStorageError(
+    Code.INVALID_FORMAT,
+    "String does not match format '" + format + "': " + message
+  );
+}
+&nbsp;
+/**
+ * @param message A message describing the internal error.
+ */
+<span class="fstat-no" title="function not covered" >export function internalError(</span>message: string): FirebaseStorageError {
+<span class="cstat-no" title="statement not covered" >  throw new FirebaseStorageError(</span>
+    Code.INTERNAL_ERROR,
+    'Internal error: ' + message
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Feb 22 2018 14:17:02 GMT-0800 (PST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

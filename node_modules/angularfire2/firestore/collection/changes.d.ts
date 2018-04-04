@@ -1,0 +1,10 @@
+import { Query, DocumentChangeType, DocumentChange } from '@firebase/firestore-types';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/scan';
+import { DocumentChangeAction } from '../interfaces';
+export declare function docChanges(query: Query): Observable<DocumentChangeAction[]>;
+export declare function sortedChanges(query: Query, events: DocumentChangeType[]): Observable<DocumentChangeAction[]>;
+export declare function combineChanges(current: DocumentChange[], changes: DocumentChange[], events: DocumentChangeType[]): DocumentChange[];
+export declare function combineChange(combined: DocumentChange[], change: DocumentChange): DocumentChange[];

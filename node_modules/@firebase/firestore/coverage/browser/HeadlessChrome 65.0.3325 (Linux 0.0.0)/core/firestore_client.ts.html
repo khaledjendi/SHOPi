@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for core/firestore_client.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">core</a> firestore_client.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.35% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>103/114</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.24% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>30/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.22% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>91/102</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-yes">410x</span>
+<span class="cline-any cline-yes">410x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">246x</span>
+<span class="cline-any cline-yes">246x</span>
+<span class="cline-any cline-yes">246x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import { CredentialsProvider } from '../api/credentials';
+import { User } from '../auth/user';
+import {
+  EventManager,
+  ListenOptions,
+  Observer,
+  QueryListener
+} from './event_manager';
+import { SyncEngine } from './sync_engine';
+import { EagerGarbageCollector } from '../local/eager_garbage_collector';
+import { GarbageCollector } from '../local/garbage_collector';
+import { IndexedDbPersistence } from '../local/indexeddb_persistence';
+import { LocalStore } from '../local/local_store';
+import { MemoryPersistence } from '../local/memory_persistence';
+import { NoOpGarbageCollector } from '../local/no_op_garbage_collector';
+import { Persistence } from '../local/persistence';
+import { Mutation } from '../model/mutation';
+import { Platform } from '../platform/platform';
+import { Datastore } from '../remote/datastore';
+import { RemoteStore } from '../remote/remote_store';
+import { JsonProtoSerializer } from '../remote/serializer';
+import { AsyncQueue } from '../util/async_queue';
+import { Code, FirestoreError } from '../util/error';
+import { debug } from '../util/log';
+import { Deferred } from '../util/promise';
+&nbsp;
+import { DatabaseId, DatabaseInfo } from './database_info';
+import { Query } from './query';
+import { Transaction } from './transaction';
+import { OnlineState } from './types';
+import { ViewSnapshot } from './view_snapshot';
+&nbsp;
+const LOG_TAG = 'FirestoreClient';
+&nbsp;
+/**
+ * FirestoreClient is a top-level class that constructs and owns all of the
+ * pieces of the client SDK architecture. It is responsible for creating the
+ * async queue that is shared by all of the other components in the system.
+ */
+export class FirestoreClient {
+  // NOTE: These should technically have '|undefined' in the types, since
+  // they're initialized asynchronously rather than in the constructor, but
+  // given that all work is done on the async queue and we assert that
+  // initialization completes before any other work is queued, we're cheating
+  // with the types rather than littering the code with '!' or unnecessary
+  // undefined checks.
+  private eventMgr: EventManager;
+  private garbageCollector: GarbageCollector;
+  private persistence: Persistence;
+  private localStore: LocalStore;
+  private remoteStore: RemoteStore;
+  private syncEngine: SyncEngine;
+&nbsp;
+  constructor(
+    private platform: Platform,
+    private databaseInfo: DatabaseInfo,
+    private credentials: CredentialsProvider,
+    /**
+     * Asynchronous queue responsible for all of our internal processing. When
+     * we get incoming work from the user (via public API) or the network
+     * (incoming GRPC messages), we should always schedule onto this queue.
+     * This ensures all of our work is properly serialized (e.g. we don't
+     * start processing a new operation while the previous one is waiting for
+     * an async I/O to complete).
+     */
+    private asyncQueue: AsyncQueue
+  ) {}
+&nbsp;
+  /**
+   * Starts up the FirestoreClient, returning only whether or not enabling
+   * persistence succeeded.
+   *
+   * The intent here is to "do the right thing" as far as users are concerned.
+   * Namely, in cases where offline persistence is requested and possible,
+   * enable it, but otherwise fall back to persistence disabled. For the most
+   * part we expect this to succeed one way or the other so we don't expect our
+   * users to actually wait on the firestore.enablePersistence Promise since
+   * they generally won't care.
+   *
+   * Of course some users actually do care about whether or not persistence
+   * was successfully enabled, so the Promise returned from this method
+   * indicates this outcome.
+   *
+   * This presents a problem though: even before enablePersistence resolves or
+   * rejects, users may have made calls to e.g. firestore.collection() which
+   * means that the FirestoreClient in there will be available and will be
+   * enqueuing actions on the async queue.
+   *
+   * Meanwhile any failure of an operation on the async queue causes it to
+   * panic and reject any further work, on the premise that unhandled errors
+   * are fatal.
+   *
+   * Consequently the fallback is handled internally here in start, and if the
+   * fallback succeeds we signal success to the async queue even though the
+   * start() itself signals failure.
+   *
+   * @param usePersistence Whether or not to attempt to enable persistence.
+   * @returns A deferred result indicating the user-visible result of enabling
+   *     offline persistence. This method will reject this if IndexedDB fails to
+   *     start for any reason. If usePersistence is false this is
+   *     unconditionally resolved.
+   */
+  start(usePersistence: boolean): Promise&lt;void&gt; {
+    // We defer our initialization until we get the current user from
+    // setUserChangeListener(). We block the async queue until we got the
+    // initial user and the initialization is completed. This will prevent
+    // any scheduled work from happening before initialization is completed.
+    //
+    // If initializationDone resolved then the FirestoreClient is in a usable
+    // state.
+    const initializationDone = new Deferred&lt;void&gt;();
+&nbsp;
+    // If usePersistence is true, certain classes of errors while starting are
+    // recoverable but only by falling back to persistence disabled.
+    //
+    // If there's an error in the first case but not in recovery we cannot
+    // reject the promise blocking the async queue because this will cause the
+    // async queue to panic.
+    const persistenceResult = new Deferred&lt;void&gt;();
+&nbsp;
+    let initialized = false;
+    this.credentials.setUserChangeListener(user =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!initialized) {
+        initialized = true;
+&nbsp;
+        this.initializePersistence(usePersistence, persistenceResult)
+          .then(() =&gt; this.initializeRest(user))
+          .then(initializationDone.resolve, initializationDone.reject);
+      } else {
+<span class="cstat-no" title="statement not covered" >        this.asyncQueue.enqueue(<span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >          return this.handleUserChange(user);</span>
+        });
+      }
+    });
+&nbsp;
+    // Block the async queue until initialization is done
+    this.asyncQueue.enqueue(() =&gt; {
+      return initializationDone.promise;
+    });
+&nbsp;
+    // Return only the result of enabling persistence. Note that this does not
+    // need to await the completion of initializationDone because the result of
+    // this method should not reflect any other kind of failure to start.
+    return persistenceResult.promise;
+  }
+&nbsp;
+  /** Enables the network connection and requeues all pending operations. */
+  enableNetwork(): Promise&lt;void&gt; {
+    return this.asyncQueue.enqueue(() =&gt; {
+      return this.remoteStore.enableNetwork();
+    });
+  }
+&nbsp;
+  /**
+   * Initializes persistent storage, attempting to use IndexedDB if
+   * usePersistence is true or memory-only if false.
+   *
+   * If IndexedDB fails because it's already open in another tab or because the
+   * platform can't possibly support our implementation then this method rejects
+   * the persistenceResult and falls back on memory-only persistence.
+   *
+   * @param usePersistence indicates whether or not to use offline persistence
+   * @param persistenceResult A deferred result indicating the user-visible
+   *     result of enabling offline persistence. This method will reject this if
+   *     IndexedDB fails to start for any reason. If usePersistence is false
+   *     this is unconditionally resolved.
+   * @returns a Promise indicating whether or not initialization should
+   *     continue, i.e. that one of the persistence implementations actually
+   *     succeeded.
+   */
+  private initializePersistence(
+    usePersistence: boolean,
+    persistenceResult: Deferred&lt;void&gt;
+  ): Promise&lt;void&gt; {
+    if (usePersistence) {
+      return this.startIndexedDbPersistence()
+        .then(persistenceResult.resolve)
+        .catch(<span class="fstat-no" title="function not covered" >(</span>error: FirestoreError) =&gt; {
+          // Regardless of whether or not the retry succeeds, from an user
+          // perspective, offline persistence has failed.
+<span class="cstat-no" title="statement not covered" >          persistenceResult.reject(error);</span>
+&nbsp;
+          // An unknown failure on the first stage shuts everything down.
+<span class="cstat-no" title="statement not covered" >          if (!this.canFallback(error)) {</span>
+<span class="cstat-no" title="statement not covered" >            return Promise.reject(error);</span>
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          console.warn(</span>
+            'Error enabling offline storage. Falling back to' +
+              ' storage disabled: ' +
+              error
+          );
+<span class="cstat-no" title="statement not covered" >          return this.startMemoryPersistence();</span>
+        });
+    } else {
+      // When usePersistence == false, enabling offline persistence is defined
+      // to unconditionally succeed. This allows start() to have the same
+      // signature for both cases, despite the fact that the returned promise
+      // is only used in the enablePersistence call.
+      persistenceResult.resolve();
+      return this.startMemoryPersistence();
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private canFallback(</span>error: FirestoreError): boolean {
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      error.code === Code.FAILED_PRECONDITION ||
+      error.code === Code.UNIMPLEMENTED
+    );
+  }
+&nbsp;
+  /**
+   * Starts IndexedDB-based persistence.
+   *
+   * @returns A promise indicating success or failure.
+   */
+  private startIndexedDbPersistence(): Promise&lt;void&gt; {
+    // TODO(http://b/33384523): For now we just disable garbage collection
+    // when persistence is enabled.
+    this.garbageCollector = new NoOpGarbageCollector();
+    const storagePrefix = IndexedDbPersistence.buildStoragePrefix(
+      this.databaseInfo
+    );
+    // Opt to use proto3 JSON in case the platform doesn't support Uint8Array.
+    const serializer = new JsonProtoSerializer(this.databaseInfo.databaseId, {
+      useProto3Json: true
+    });
+    this.persistence = new IndexedDbPersistence(storagePrefix, serializer);
+    return this.persistence.start();
+  }
+&nbsp;
+  /**
+   * Starts Memory-backed persistence. In practice this cannot fail.
+   *
+   * @returns A promise that will successfully resolve.
+   */
+  private startMemoryPersistence(): Promise&lt;void&gt; {
+    this.garbageCollector = new EagerGarbageCollector();
+    this.persistence = new MemoryPersistence();
+    return this.persistence.start();
+  }
+&nbsp;
+  /**
+   * Initializes the rest of the FirestoreClient, assuming the initial user
+   * has been obtained from the credential provider and some persistence
+   * implementation is available in this.persistence.
+   */
+  private initializeRest(user: User): Promise&lt;void&gt; {
+    return this.platform
+      .loadConnection(this.databaseInfo)
+      .then(connection =&gt; {
+        this.localStore = new LocalStore(
+          this.persistence,
+          user,
+          this.garbageCollector
+        );
+        const serializer = this.platform.newSerializer(
+          this.databaseInfo.databaseId
+        );
+        const datastore = new Datastore(
+          this.asyncQueue,
+          connection,
+          this.credentials,
+          serializer
+        );
+&nbsp;
+        const onlineStateChangedHandler = (onlineState: OnlineState) =&gt; {
+          this.syncEngine.applyOnlineStateChange(onlineState);
+          this.eventMgr.applyOnlineStateChange(onlineState);
+        };
+&nbsp;
+        this.remoteStore = new RemoteStore(
+          this.localStore,
+          datastore,
+          this.asyncQueue,
+          onlineStateChangedHandler
+        );
+&nbsp;
+        this.syncEngine = new SyncEngine(
+          this.localStore,
+          this.remoteStore,
+          user
+        );
+&nbsp;
+        // Setup wiring between sync engine and remote store
+        this.remoteStore.syncEngine = this.syncEngine;
+&nbsp;
+        this.eventMgr = new EventManager(this.syncEngine);
+&nbsp;
+        // NOTE: RemoteStore depends on LocalStore (for persisting stream
+        // tokens, refilling mutation queue, etc.) so must be started after
+        // LocalStore.
+        return this.localStore.start();
+      })
+      .then(() =&gt; {
+        return this.remoteStore.start();
+      });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private handleUserChange(</span>user: User): Promise&lt;void&gt; {
+<span class="cstat-no" title="statement not covered" >    this.asyncQueue.verifyOperationInProgress();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    debug(LOG_TAG, 'User Changed: ' + user.uid);</span>
+<span class="cstat-no" title="statement not covered" >    return this.syncEngine.handleUserChange(user);</span>
+  }
+&nbsp;
+  /** Disables the network connection. Pending operations will not complete. */
+  disableNetwork(): Promise&lt;void&gt; {
+    return this.asyncQueue.enqueue(() =&gt; {
+      return this.remoteStore.disableNetwork();
+    });
+  }
+&nbsp;
+  shutdown(): Promise&lt;void&gt; {
+    return this.asyncQueue
+      .enqueue(() =&gt; {
+        this.credentials.removeUserChangeListener();
+        return this.remoteStore.shutdown();
+      })
+      .then(() =&gt; {
+        // PORTING NOTE: LocalStore does not need an explicit shutdown on web.
+        return this.persistence.shutdown();
+      });
+  }
+&nbsp;
+  listen(
+    query: Query,
+    observer: Observer&lt;ViewSnapshot&gt;,
+    options: ListenOptions
+  ): QueryListener {
+    const listener = new QueryListener(query, observer, options);
+    this.asyncQueue.enqueue(() =&gt; {
+      return this.eventMgr.listen(listener);
+    });
+    return listener;
+  }
+&nbsp;
+  unlisten(listener: QueryListener): void {
+    this.asyncQueue.enqueue(() =&gt; {
+      return this.eventMgr.unlisten(listener);
+    });
+  }
+&nbsp;
+  write(mutations: Mutation[]): Promise&lt;void&gt; {
+    const deferred = new Deferred&lt;void&gt;();
+    this.asyncQueue.enqueue(() =&gt; this.syncEngine.write(mutations, deferred));
+    return deferred.promise;
+  }
+&nbsp;
+  databaseId(): DatabaseId {
+    return this.databaseInfo.databaseId;
+  }
+&nbsp;
+  transaction&lt;T&gt;(
+    updateFunction: (transaction: Transaction) =&gt; Promise&lt;T&gt;
+  ): Promise&lt;T&gt; {
+    // We have to wait for the async queue to be sure syncEngine is initialized.
+    return this.asyncQueue
+      .enqueue(async () =&gt; {})
+      .then(() =&gt; this.syncEngine.runTransaction(updateFunction));
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

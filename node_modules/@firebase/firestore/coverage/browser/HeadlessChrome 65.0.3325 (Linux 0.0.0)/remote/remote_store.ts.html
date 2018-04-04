@@ -1,0 +1,2342 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for remote/remote_store.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">remote</a> remote_store.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.25% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>231/240</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.06% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>74/87</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.96% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>48/49</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.14% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>224/233</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">595x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7735x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7735x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">633x</span>
+<span class="cline-any cline-yes">633x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">615x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">629x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">630x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">594x</span>
+<span class="cline-any cline-yes">594x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">594x</span>
+<span class="cline-any cline-yes">594x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">346x</span>
+<span class="cline-any cline-yes">116x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">296x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">296x</span>
+<span class="cline-any cline-yes">296x</span>
+<span class="cline-any cline-yes">294x</span>
+<span class="cline-any cline-yes">294x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">540x</span>
+<span class="cline-any cline-yes">540x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">300x</span>
+<span class="cline-any cline-yes">300x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">840x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">418x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">418x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">418x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1571x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">690x</span>
+<span class="cline-any cline-yes">690x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">414x</span>
+<span class="cline-any cline-yes">422x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2274x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2274x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-yes">2268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-yes">567x</span>
+<span class="cline-any cline-yes">444x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">444x</span>
+<span class="cline-any cline-yes">444x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">664x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2387x</span>
+<span class="cline-any cline-yes">2337x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2337x</span>
+<span class="cline-any cline-yes">1721x</span>
+<span class="cline-any cline-yes">933x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3003x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">616x</span>
+<span class="cline-any cline-yes">308x</span>
+<span class="cline-any cline-yes">308x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1026x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">340x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">340x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">334x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">328x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">328x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">659x</span>
+<span class="cline-any cline-yes">659x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import { User } from '../auth/user';
+import { SnapshotVersion } from '../core/snapshot_version';
+import { Transaction } from '../core/transaction';
+import { BatchId, OnlineState, TargetId } from '../core/types';
+import { LocalStore } from '../local/local_store';
+import { QueryData, QueryPurpose } from '../local/query_data';
+import { NoDocument } from '../model/document';
+import { DocumentKey } from '../model/document_key';
+import { MutationResult } from '../model/mutation';
+import {
+  BATCHID_UNKNOWN,
+  MutationBatch,
+  MutationBatchResult
+} from '../model/mutation_batch';
+import { emptyByteString } from '../platform/platform';
+import { assert } from '../util/assert';
+import { Code, FirestoreError } from '../util/error';
+import * as log from '../util/log';
+import * as objUtils from '../util/obj';
+&nbsp;
+import { Datastore } from './datastore';
+import { ExistenceFilter } from './existence_filter';
+import {
+  PersistentListenStream,
+  PersistentWriteStream
+} from './persistent_stream';
+import { ResetMapping, UpdateMapping } from './remote_event';
+import { RemoteSyncer } from './remote_syncer';
+import { isPermanentError } from './rpc_error';
+import {
+  WatchChange,
+  WatchChangeAggregator,
+  WatchTargetChange,
+  WatchTargetChangeState
+} from './watch_change';
+import { OnlineStateTracker } from './online_state_tracker';
+import { AsyncQueue } from '../util/async_queue';
+&nbsp;
+const LOG_TAG = 'RemoteStore';
+&nbsp;
+// TODO(b/35853402): Negotiate this with the stream.
+const MAX_PENDING_WRITES = 10;
+&nbsp;
+/**
+ * RemoteStore - An interface to remotely stored data, basically providing a
+ * wrapper around the Datastore that is more reliable for the rest of the
+ * system.
+ *
+ * RemoteStore is responsible for maintaining the connection to the server.
+ * - maintaining a list of active listens.
+ * - reconnecting when the connection is dropped.
+ * - resuming all the active listens on reconnect.
+ *
+ * RemoteStore handles all incoming events from the Datastore.
+ * - listening to the watch stream and repackaging the events as RemoteEvents
+ * - notifying SyncEngine of any changes to the active listens.
+ *
+ * RemoteStore takes writes from other components and handles them reliably.
+ * - pulling pending mutations from LocalStore and sending them to Datastore.
+ * - retrying mutations that failed because of network problems.
+ * - acking mutations to the SyncEngine once they are accepted or rejected.
+ */
+export class RemoteStore {
+  private pendingWrites: MutationBatch[] = [];
+  private lastBatchSeen: BatchId = BATCHID_UNKNOWN;
+&nbsp;
+  /**
+   * A mapping of watched targets that the client cares about tracking and the
+   * user has explicitly called a 'listen' for this target.
+   *
+   * These targets may or may not have been sent to or acknowledged by the
+   * server. On re-establishing the listen stream, these targets should be sent
+   * to the server. The targets removed with unlistens are removed eagerly
+   * without waiting for confirmation from the listen stream.
+   */
+  private listenTargets: { [targetId: number]: QueryData } = {};
+&nbsp;
+  /**
+   * A mapping of targetId to pending acks needed.
+   *
+   * If a targetId is present in this map, then we're waiting for watch to
+   * acknowledge a removal or addition of the target. If a target is not in this
+   * mapping, and it's in the listenTargets map, then we consider the target to
+   * be active.
+   *
+   * We increment the count here every time we issue a request over the stream
+   * to watch or unwatch. We then decrement the count every time we get a target
+   * added or target removed message from the server. Once the count is equal to
+   * 0 we know that the client and server are in the same state (once this state
+   * is reached the targetId is removed from the map to free the memory).
+   */
+  private pendingTargetResponses: { [targetId: number]: number } = {};
+&nbsp;
+  private accumulatedWatchChanges: WatchChange[] = [];
+&nbsp;
+  private watchStream: PersistentListenStream = null;
+  private writeStream: PersistentWriteStream = null;
+&nbsp;
+  private onlineStateTracker: OnlineStateTracker;
+&nbsp;
+  constructor(
+    /**
+     * The local store, used to fill the write pipeline with outbound
+     * mutations and resolve existence filter mismatches.
+     */
+    private localStore: LocalStore,
+    /** The client-side proxy for interacting with the backend. */
+    private datastore: Datastore,
+    asyncQueue: AsyncQueue,
+    onlineStateHandler: (onlineState: OnlineState) =&gt; void
+  ) {
+    this.onlineStateTracker = new OnlineStateTracker(
+      asyncQueue,
+      onlineStateHandler
+    );
+  }
+&nbsp;
+  /** SyncEngine to notify of watch and write events. */
+  syncEngine: RemoteSyncer;
+&nbsp;
+  /**
+   * Starts up the remote store, creating streams, restoring state from
+   * LocalStore, etc.
+   */
+  start(): Promise&lt;void&gt; {
+    return this.enableNetwork();
+  }
+&nbsp;
+  private isNetworkEnabled(): boolean {
+    assert(
+      (this.watchStream == null) === (this.writeStream == null),
+      'WatchStream and WriteStream should both be null or non-null'
+    );
+    return this.watchStream != null;
+  }
+&nbsp;
+  /** Re-enables the network. Idempotent. */
+  enableNetwork(): Promise&lt;void&gt; {
+    if (this.isNetworkEnabled()) {
+      return Promise.resolve();
+    }
+&nbsp;
+    // Create new streams (but note they're not started yet).
+    this.watchStream = this.datastore.newPersistentWatchStream();
+    this.writeStream = this.datastore.newPersistentWriteStream();
+&nbsp;
+    // Load any saved stream token from persistent storage
+    return this.localStore.getLastStreamToken().then(token =&gt; {
+      this.writeStream.lastStreamToken = token;
+&nbsp;
+      if (this.shouldStartWatchStream()) {
+        this.startWatchStream();
+      } else {
+        this.onlineStateTracker.set(OnlineState.Unknown);
+      }
+&nbsp;
+      return this.fillWritePipeline(); // This may start the writeStream.
+    });
+  }
+&nbsp;
+  /**
+   * Temporarily disables the network. The network can be re-enabled using
+   * enableNetwork().
+   */
+  async disableNetwork(): Promise&lt;void&gt; {
+    this.disableNetworkInternal();
+    // Set the OnlineState to Offline so get()s return from cache, etc.
+    this.onlineStateTracker.set(OnlineState.Offline);
+  }
+&nbsp;
+  /**
+   * Disables the network, if it is currently enabled.
+   */
+  private disableNetworkInternal(): void {
+    if (this.isNetworkEnabled()) {
+      // NOTE: We're guaranteed not to get any further events from these streams (not even a close
+      // event).
+      this.watchStream.stop();
+      this.writeStream.stop();
+&nbsp;
+      this.cleanUpWatchStreamState();
+      this.cleanUpWriteStreamState();
+&nbsp;
+      this.writeStream = null;
+      this.watchStream = null;
+    }
+  }
+&nbsp;
+  shutdown(): Promise&lt;void&gt; {
+    log.debug(LOG_TAG, 'RemoteStore shutting down.');
+    this.disableNetworkInternal();
+    // Set the OnlineState to Unknown (rather than Offline) to avoid potentially
+    // triggering spurious listener events with cached data, etc.
+    this.onlineStateTracker.set(OnlineState.Unknown);
+    return Promise.resolve();
+  }
+&nbsp;
+  /** Starts new listen for the given query. Uses resume token if provided */
+  listen(queryData: QueryData): void {
+    assert(
+      !objUtils.contains(this.listenTargets, queryData.targetId),
+      'listen called with duplicate targetId!'
+    );
+    // Mark this as something the client is currently listening for.
+    this.listenTargets[queryData.targetId] = queryData;
+&nbsp;
+    if (this.shouldStartWatchStream()) {
+      // The listen will be sent in onWatchStreamOpen
+      this.startWatchStream();
+    } else if (this.isNetworkEnabled() &amp;&amp; this.watchStream.isOpen()) {
+      this.sendWatchRequest(queryData);
+    }
+  }
+&nbsp;
+  /** Removes the listen from server */
+  unlisten(targetId: TargetId): void {
+    assert(
+      objUtils.contains(this.listenTargets, targetId),
+      'unlisten called without assigned target ID!'
+    );
+    delete this.listenTargets[targetId];
+    if (this.isNetworkEnabled() &amp;&amp; this.watchStream.isOpen()) {
+      this.sendUnwatchRequest(targetId);
+      if (objUtils.isEmpty(this.listenTargets)) {
+        this.watchStream.markIdle();
+      }
+    }
+  }
+&nbsp;
+  /**
+   * We need to increment the the expected number of pending responses we're due
+   * from watch so we wait for the ack to process any messages from this target.
+   */
+  private sendWatchRequest(queryData: QueryData): void {
+    this.recordPendingTargetRequest(queryData.targetId);
+    this.watchStream.watch(queryData);
+  }
+&nbsp;
+  /**
+   * We need to increment the expected number of pending responses we're due
+   * from watch so we wait for the removal on the server before we process any
+   * messages from this target.
+   */
+  private sendUnwatchRequest(targetId: TargetId): void {
+    this.recordPendingTargetRequest(targetId);
+    this.watchStream.unwatch(targetId);
+  }
+&nbsp;
+  /**
+   * Increment the mapping of how many acks are needed from watch before we can
+   * consider the server to be 'in-sync' with the client's active targets.
+   */
+  private recordPendingTargetRequest(targetId: TargetId): void {
+    // For each request we get we need to record we need a response for it.
+    this.pendingTargetResponses[targetId] =
+      (this.pendingTargetResponses[targetId] || 0) + 1;
+  }
+&nbsp;
+  private startWatchStream(): void {
+    assert(
+      this.shouldStartWatchStream(),
+      'startWriteStream() called when shouldStartWatchStream() is false.'
+    );
+    this.watchStream.start({
+      onOpen: this.onWatchStreamOpen.bind(this),
+      onClose: this.onWatchStreamClose.bind(this),
+      onWatchChange: this.onWatchStreamChange.bind(this)
+    });
+&nbsp;
+    this.onlineStateTracker.handleWatchStreamStart();
+  }
+&nbsp;
+  /**
+   * Returns whether the watch stream should be started because it's necessary
+   * and has not yet been started.
+   */
+  private shouldStartWatchStream(): boolean {
+    return (
+      this.isNetworkEnabled() &amp;&amp;
+      !this.watchStream.isStarted() &amp;&amp;
+      !objUtils.isEmpty(this.listenTargets)
+    );
+  }
+&nbsp;
+  private cleanUpWatchStreamState(): void {
+    // If the connection is closed then we'll never get a snapshot version for
+    // the accumulated changes and so we'll never be able to complete the batch.
+    // When we start up again the server is going to resend these changes
+    // anyway, so just toss the accumulated state.
+    this.accumulatedWatchChanges = [];
+    this.pendingTargetResponses = {};
+  }
+&nbsp;
+  private async onWatchStreamOpen(): Promise&lt;void&gt; {
+    // TODO(b/35852690): close the stream again (with some timeout?) if no watch
+    // targets are active
+    objUtils.forEachNumber(this.listenTargets, (targetId, queryData) =&gt; {
+      this.sendWatchRequest(queryData);
+    });
+  }
+&nbsp;
+  private async onWatchStreamClose(
+    error: FirestoreError | null
+  ): Promise&lt;void&gt; {
+    assert(
+      this.isNetworkEnabled(),
+      'onWatchStreamClose() should only be called when the network is enabled'
+    );
+&nbsp;
+    this.cleanUpWatchStreamState();
+    this.onlineStateTracker.handleWatchStreamFailure();
+&nbsp;
+    // If there was an error, retry the connection.
+    if (this.shouldStartWatchStream()) {
+      this.startWatchStream();
+    } else {
+      // No need to restart watch stream because there are no active targets.
+      // The online state is set to unknown because there is no active attempt
+      // at establishing a connection
+      this.onlineStateTracker.set(OnlineState.Unknown);
+    }
+  }
+&nbsp;
+  private async onWatchStreamChange(
+    watchChange: WatchChange,
+    snapshotVersion: SnapshotVersion
+  ): Promise&lt;void&gt; {
+    // Mark the client as online since we got a message from the server
+    this.onlineStateTracker.set(OnlineState.Online);
+&nbsp;
+    if (
+      watchChange instanceof WatchTargetChange &amp;&amp;
+      watchChange.state === WatchTargetChangeState.Removed &amp;&amp;
+      watchChange.cause
+    ) {
+      // There was an error on a target, don't wait for a consistent snapshot
+      // to raise events
+      return this.handleTargetError(watchChange);
+    }
+    // Accumulate watch changes but don't process them if there's no
+    // snapshotVersion or it's older than a previous snapshot we've processed
+    // (can happen after we resume a target using a resume token).
+    this.accumulatedWatchChanges.push(watchChange);
+    if (
+      !snapshotVersion.isEqual(SnapshotVersion.MIN) &amp;&amp;
+      snapshotVersion.compareTo(
+        this.localStore.getLastRemoteSnapshotVersion()
+      ) &gt;= 0
+    ) {
+      const changes = this.accumulatedWatchChanges;
+      this.accumulatedWatchChanges = [];
+      return this.handleWatchChangeBatch(snapshotVersion, changes);
+    }
+  }
+&nbsp;
+  /**
+   * Takes a batch of changes from the Datastore, repackages them as a
+   * RemoteEvent, and passes that on to the listener, which is typically the
+   * SyncEngine.
+   */
+  private handleWatchChangeBatch(
+    snapshotVersion: SnapshotVersion,
+    changes: WatchChange[]
+  ): Promise&lt;void&gt; {
+    const aggregator = new WatchChangeAggregator(
+      snapshotVersion,
+      this.listenTargets,
+      this.pendingTargetResponses
+    );
+    aggregator.addChanges(changes);
+    const remoteEvent = aggregator.createRemoteEvent();
+    // Get the new response counts from the aggregator
+    this.pendingTargetResponses = aggregator.pendingTargetResponses;
+&nbsp;
+    const promises: Array&lt;Promise&lt;void&gt;&gt; = [];
+    // Handle existence filters and existence filter mismatches.
+    objUtils.forEachNumber(
+      aggregator.existenceFilters,
+      (targetId: TargetId, filter: ExistenceFilter) =&gt; {
+        const queryData = this.listenTargets[targetId];
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!queryData) {
+          // A watched target might have been removed already.
+<span class="cstat-no" title="statement not covered" >          return;</span>
+        }
+        const query = queryData.query;
+        if (query.isDocumentQuery()) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (filter.count === 0) {
+            // The existence filter told us the document does not exist.
+            // We need to deduce that this document does not exist and apply
+            // a deleted document to our updates. Without applying a deleted
+            // document there might be another query that will raise this
+            // document as part of a snapshot until it is resolved,
+            // essentially exposing inconsistency between queries.
+            const key = new DocumentKey(query.path);
+            const deletedDoc = new NoDocument(key, snapshotVersion);
+            remoteEvent.addDocumentUpdate(deletedDoc);
+          } else {
+<span class="cstat-no" title="statement not covered" >            assert(</span>
+              filter.count === 1,
+              'Single document existence filter with count: ' + filter.count
+            );
+          }
+        } else {
+          // Not a document query.
+          const promise = this.localStore
+            .remoteDocumentKeys(targetId)
+            .then(trackedRemote =&gt; {
+              if (remoteEvent.targetChanges[targetId]) {
+                const mapping = remoteEvent.targetChanges[targetId].mapping;
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (mapping !== null) {
+                  <span class="missing-if-branch" title="else path not taken" >E</span>if (mapping instanceof UpdateMapping) {
+                    trackedRemote = mapping.applyToKeySet(trackedRemote);
+                  } else {
+<span class="cstat-no" title="statement not covered" >                    assert(</span>
+                      mapping instanceof ResetMapping,
+                      'Expected either reset or update mapping but got something else: ' +
+                        mapping
+                    );
+<span class="cstat-no" title="statement not covered" >                    trackedRemote = mapping.documents;</span>
+                  }
+                }
+              }
+&nbsp;
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (trackedRemote.size !== filter.count) {
+                // Existence filter mismatch, resetting mapping.
+&nbsp;
+                // Make sure the mismatch is exposed in the remote event.
+                remoteEvent.handleExistenceFilterMismatch(targetId);
+&nbsp;
+                // Clear the resume token for the query, since we're in a
+                // known mismatch state.
+                const newQueryData = new QueryData(
+                  query,
+                  targetId,
+                  queryData.purpose
+                );
+                this.listenTargets[targetId] = newQueryData;
+&nbsp;
+                // Cause a hard reset by unwatching and rewatching
+                // immediately, but deliberately don't send a resume token
+                // so that we get a full update.
+                // Make sure we expect that this acks are going to happen.
+                this.sendUnwatchRequest(targetId);
+&nbsp;
+                // Mark the query we send as being on behalf of an existence
+                // filter mismatch, but don't actually retain that in
+                // listenTargets. This ensures that we flag the first
+                // re-listen this way without impacting future listens of
+                // this target (that might happen e.g. on reconnect).
+                const requestQueryData = new QueryData(
+                  query,
+                  targetId,
+                  QueryPurpose.ExistenceFilterMismatch
+                );
+                this.sendWatchRequest(requestQueryData);
+              }
+            });
+          promises.push(promise);
+        }
+      }
+    );
+&nbsp;
+    return Promise.all(promises).then(() =&gt; {
+      // Update in-memory resume tokens. LocalStore will update the
+      // persistent view of these when applying the completed RemoteEvent.
+      objUtils.forEachNumber(remoteEvent.targetChanges, (targetId, change) =&gt; {
+        if (change.resumeToken.length &gt; 0) {
+          const queryData = this.listenTargets[targetId];
+          // A watched target might have been removed already.
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (queryData) {
+            this.listenTargets[targetId] = queryData.update({
+              resumeToken: change.resumeToken,
+              snapshotVersion: change.snapshotVersion
+            });
+          }
+        }
+      });
+&nbsp;
+      // Finally handle remote event
+      return this.syncEngine.applyRemoteEvent(remoteEvent);
+    });
+  }
+&nbsp;
+  /** Handles an error on a target */
+  private handleTargetError(watchChange: WatchTargetChange): Promise&lt;void&gt; {
+    assert(!!watchChange.cause, 'Handling target error without a cause');
+    const error = watchChange.cause!;
+    let promiseChain = Promise.resolve();
+    watchChange.targetIds.forEach(targetId =&gt; {
+      promiseChain = promiseChain.then(async () =&gt; {
+        // A watched target might have been removed already.
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (objUtils.contains(this.listenTargets, targetId)) {
+          delete this.listenTargets[targetId];
+          return this.syncEngine.rejectListen(targetId, error);
+        }
+      });
+    });
+    return promiseChain;
+  }
+&nbsp;
+  cleanUpWriteStreamState() {
+    this.lastBatchSeen = BATCHID_UNKNOWN;
+    log.debug(
+      LOG_TAG,
+      'Stopping write stream with ' +
+        this.pendingWrites.length +
+        ' pending writes'
+    );
+    this.pendingWrites = [];
+  }
+&nbsp;
+  /**
+   * Notifies that there are new mutations to process in the queue. This is
+   * typically called by SyncEngine after it has sent mutations to LocalStore.
+   */
+  async fillWritePipeline(): Promise&lt;void&gt; {
+    if (this.canWriteMutations()) {
+      return this.localStore
+        .nextMutationBatch(this.lastBatchSeen)
+        .then(batch =&gt; {
+          if (batch === null) {
+            if (this.pendingWrites.length === 0) {
+              this.writeStream.markIdle();
+            }
+          } else {
+            this.commit(batch);
+            return this.fillWritePipeline();
+          }
+        });
+    }
+  }
+&nbsp;
+  /**
+   * Returns true if the backend can accept additional write requests.
+   *
+   * When sending mutations to the write stream (e.g. in fillWritePipeline),
+   * call this method first to check if more mutations can be sent.
+   *
+   * Currently the only thing that can prevent the backend from accepting
+   * write requests is if there are too many requests already outstanding. As
+   * writes complete the backend will be able to accept more.
+   */
+  canWriteMutations(): boolean {
+    return (
+      this.isNetworkEnabled() &amp;&amp; this.pendingWrites.length &lt; MAX_PENDING_WRITES
+    );
+  }
+&nbsp;
+  // For testing
+  outstandingWrites(): number {
+    return this.pendingWrites.length;
+  }
+&nbsp;
+  /**
+   * Given mutations to commit, actually commits them to the Datastore. Note
+   * that this does *not* return a Promise specifically because the AsyncQueue
+   * should not block operations for this.
+   */
+  private commit(batch: MutationBatch): void {
+    assert(
+      this.canWriteMutations(),
+      "commit called when batches can't be written"
+    );
+    this.lastBatchSeen = batch.batchId;
+&nbsp;
+    this.pendingWrites.push(batch);
+&nbsp;
+    if (this.shouldStartWriteStream()) {
+      this.startWriteStream();
+    } else if (this.isNetworkEnabled() &amp;&amp; this.writeStream.handshakeComplete) {
+      this.writeStream.writeMutations(batch.mutations);
+    }
+  }
+&nbsp;
+  private shouldStartWriteStream(): boolean {
+    return (
+      this.isNetworkEnabled() &amp;&amp;
+      !this.writeStream.isStarted() &amp;&amp;
+      this.pendingWrites.length &gt; 0
+    );
+  }
+&nbsp;
+  private startWriteStream(): void {
+    assert(
+      this.shouldStartWriteStream(),
+      'startWriteStream() called when shouldStartWriteStream() is false.'
+    );
+    this.writeStream.start({
+      onOpen: this.onWriteStreamOpen.bind(this),
+      onClose: this.onWriteStreamClose.bind(this),
+      onHandshakeComplete: this.onWriteHandshakeComplete.bind(this),
+      onMutationResult: this.onMutationResult.bind(this)
+    });
+  }
+&nbsp;
+  private async onWriteStreamOpen(): Promise&lt;void&gt; {
+    this.writeStream.writeHandshake();
+  }
+&nbsp;
+  private onWriteHandshakeComplete(): Promise&lt;void&gt; {
+    // Record the stream token.
+    return this.localStore
+      .setLastStreamToken(this.writeStream.lastStreamToken)
+      .then(() =&gt; {
+        // Drain any pending writes.
+        //
+        // Note that at this point pendingWrites contains mutations that
+        // have already been accepted by fillWritePipeline/commitBatch. If
+        // the pipeline is full, canWriteMutations will be false, despite
+        // the fact that we actually need to send mutations over.
+        //
+        // This also means that this method indirectly respects the limits
+        // imposed by canWriteMutations since writes can't be added to the
+        // pendingWrites array when canWriteMutations is false. If the
+        // limits imposed by canWriteMutations actually protect us from
+        // DOSing ourselves then those limits won't be exceeded here and
+        // we'll continue to make progress.
+        for (const batch of this.pendingWrites) {
+          this.writeStream.writeMutations(batch.mutations);
+        }
+      });
+  }
+&nbsp;
+  private onMutationResult(
+    commitVersion: SnapshotVersion,
+    results: MutationResult[]
+  ): Promise&lt;void&gt; {
+    // This is a response to a write containing mutations and should be
+    // correlated to the first pending write.
+    assert(
+      this.pendingWrites.length &gt; 0,
+      'Got result for empty pending writes'
+    );
+    const batch = this.pendingWrites.shift()!;
+    const success = MutationBatchResult.from(
+      batch,
+      commitVersion,
+      results,
+      this.writeStream.lastStreamToken
+    );
+    return this.syncEngine.applySuccessfulWrite(success).then(() =&gt; {
+      // It's possible that with the completion of this mutation another
+      // slot has freed up.
+      return this.fillWritePipeline();
+    });
+  }
+&nbsp;
+  private async onWriteStreamClose(error?: FirestoreError): Promise&lt;void&gt; {
+    assert(
+      this.isNetworkEnabled(),
+      'onWriteStreamClose() should only be called when the network is enabled'
+    );
+&nbsp;
+    // If the write stream closed due to an error, invoke the error callbacks if
+    // there are pending writes.
+    if (error &amp;&amp; this.pendingWrites.length &gt; 0) {
+      assert(
+        !!error,
+        'We have pending writes, but the write stream closed without an error'
+      );
+      // A promise that is resolved after we processed the error
+      let errorHandling: Promise&lt;void&gt;;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (this.writeStream.handshakeComplete) {
+        // This error affects the actual write.
+        errorHandling = this.handleWriteError(error!);
+      } else {
+        // If there was an error before the handshake has finished, it's
+        // possible that the server is unable to process the stream token
+        // we're sending. (Perhaps it's too old?)
+<span class="cstat-no" title="statement not covered" >        errorHandling = this.handleHandshakeError(error!);</span>
+      }
+&nbsp;
+      return errorHandling.then(() =&gt; {
+        // The write stream might have been started by refilling the write
+        // pipeline for failed writes
+        if (this.shouldStartWriteStream()) {
+          this.startWriteStream();
+        }
+      });
+    }
+    // No pending writes, nothing to do
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private async handleHandshakeError(</span>error: FirestoreError): Promise&lt;void&gt; {
+    // Reset the token if it's a permanent error or the error code is
+    // ABORTED, signaling the write stream is no longer valid.
+<span class="cstat-no" title="statement not covered" >    if (isPermanentError(error.code) || error.code === Code.ABORTED) {</span>
+<span class="cstat-no" title="statement not covered" >      log.debug(</span>
+        LOG_TAG,
+        'RemoteStore error before completed handshake; resetting stream token: ',
+        this.writeStream.lastStreamToken
+      );
+<span class="cstat-no" title="statement not covered" >      this.writeStream.lastStreamToken = emptyByteString();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return this.localStore.setLastStreamToken(emptyByteString());</span>
+    } else {
+      // Some other error, don't reset stream token. Our stream logic will
+      // just retry with exponential backoff.
+    }
+  }
+&nbsp;
+  private async handleWriteError(error: FirestoreError): Promise&lt;void&gt; {
+    if (isPermanentError(error.code)) {
+      // This was a permanent error, the request itself was the problem
+      // so it's not going to succeed if we resend it.
+      const batch = this.pendingWrites.shift()!;
+&nbsp;
+      // In this case it's also unlikely that the server itself is melting
+      // down -- this was just a bad request so inhibit backoff on the next
+      // restart.
+      this.writeStream.inhibitBackoff();
+&nbsp;
+      return this.syncEngine
+        .rejectFailedWrite(batch.batchId, error)
+        .then(() =&gt; {
+          // It's possible that with the completion of this mutation
+          // another slot has freed up.
+          return this.fillWritePipeline();
+        });
+    } else {
+      // Transient error, just let the retry logic kick in.
+    }
+  }
+&nbsp;
+  createTransaction(): Transaction {
+    return new Transaction(this.datastore);
+  }
+&nbsp;
+  handleUserChange(user: User): Promise&lt;void&gt; {
+    log.debug(LOG_TAG, 'RemoteStore changing users: uid=', user.uid);
+&nbsp;
+    // If the network has been explicitly disabled, make sure we don't
+    // accidentally re-enable it.
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.isNetworkEnabled()) {
+      // Tear down and re-create our network streams. This will ensure we get a fresh auth token
+      // for the new user and re-fill the write pipeline with new mutations from the LocalStore
+      // (since mutations are per-user).
+      this.disableNetworkInternal();
+      this.onlineStateTracker.set(OnlineState.Unknown);
+      return this.enableNetwork();
+    }
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

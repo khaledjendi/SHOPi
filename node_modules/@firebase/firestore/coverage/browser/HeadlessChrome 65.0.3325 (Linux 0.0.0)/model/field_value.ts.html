@@ -1,0 +1,2096 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for model/field_value.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">model</a> field_value.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.09% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>327/330</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.03% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>145/151</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.82% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>84/85</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>297/300</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">418x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">402x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3564x</span>
+<span class="cline-any cline-yes">3564x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7979x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7979x</span>
+<span class="cline-any cline-yes">7979x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">191x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">807x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">334x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">288x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">311x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6181x</span>
+<span class="cline-any cline-yes">6181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4034x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">49227x</span>
+<span class="cline-any cline-yes">47308x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1919x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47308x</span>
+<span class="cline-any cline-yes">20581x</span>
+<span class="cline-any cline-yes">26727x</span>
+<span class="cline-any cline-yes">22599x</span>
+<span class="cline-any cline-yes">4128x</span>
+<span class="cline-any cline-yes">4052x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">76x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1388x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1042x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">346x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1374x</span>
+<span class="cline-any cline-yes">1062x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">312x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3479x</span>
+<span class="cline-any cline-yes">3479x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">567x</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">241x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3460x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3460x</span>
+<span class="cline-any cline-yes">3460x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3704x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1343x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1272x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1008x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">344x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">284x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">256x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">67x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">167x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">272x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">256x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">270x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">680x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">630x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-yes">142x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">460x</span>
+<span class="cline-any cline-yes">310x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">850x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">757x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">286x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1632x</span>
+<span class="cline-any cline-yes">288x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1344x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10331x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10331x</span>
+<span class="cline-any cline-yes">10331x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1312x</span>
+<span class="cline-any cline-yes">1312x</span>
+<span class="cline-any cline-yes">1717x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1312x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2977x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2055x</span>
+<span class="cline-any cline-yes">1849x</span>
+<span class="cline-any cline-yes">1849x</span>
+<span class="cline-any cline-yes">1849x</span>
+<span class="cline-any cline-yes">2014x</span>
+<span class="cline-any cline-yes">2014x</span>
+<span class="cline-any cline-yes">2014x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1489x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">683x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">630x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4329x</span>
+<span class="cline-any cline-yes">4329x</span>
+<span class="cline-any cline-yes">4243x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">97396x</span>
+<span class="cline-any cline-yes">97396x</span>
+<span class="cline-any cline-yes">97396x</span>
+<span class="cline-any cline-yes">97569x</span>
+<span class="cline-any cline-yes">97544x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">97396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">536x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4329x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">723x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">190x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">170x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">819x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">744x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import { Blob } from '../api/blob';
+import { GeoPoint } from '../api/geo_point';
+import { SnapshotOptions } from '../api/database';
+import { DatabaseId } from '../core/database_info';
+import { Timestamp } from '../core/timestamp';
+import { assert, fail } from '../util/assert';
+import { primitiveComparator } from '../util/misc';
+import { SortedMap } from '../util/sorted_map';
+&nbsp;
+import { DocumentKey } from './document_key';
+import { FieldPath } from './path';
+&nbsp;
+/**
+ * Supported data value types:
+ *  - Null
+ *  - Boolean
+ *  - Long
+ *  - Double
+ *  - String
+ *  - Object
+ *  - Array
+ *  - Binary
+ *  - Timestamp
+ *  - ServerTimestamp (a sentinel used in uncommitted writes)
+ *  - GeoPoint
+ *  - (Document) References
+ */
+&nbsp;
+export interface JsonObject&lt;T&gt; {
+  [name: string]: T;
+}
+&nbsp;
+export enum TypeOrder {
+  // This order is defined by the backend.
+  NullValue = 0,
+  BooleanValue = 1,
+  NumberValue = 2,
+  TimestampValue = 3,
+  StringValue = 4,
+  BlobValue = 5,
+  RefValue = 6,
+  GeoPointValue = 7,
+  ArrayValue = 8,
+  ObjectValue = 9
+}
+&nbsp;
+/** Defines the return value for pending server timestamps. */
+export enum ServerTimestampBehavior {
+  Default,
+  Estimate,
+  Previous
+}
+&nbsp;
+/** Holds properties that define field value deserialization options. */
+export class FieldValueOptions {
+  static readonly defaultOptions = new FieldValueOptions(
+    ServerTimestampBehavior.Default
+  );
+&nbsp;
+  constructor(readonly serverTimestampBehavior: ServerTimestampBehavior) {}
+&nbsp;
+  static fromSnapshotOptions(options: SnapshotOptions) {
+    switch (options.serverTimestamps) {
+      case 'estimate':
+        return new FieldValueOptions(ServerTimestampBehavior.Estimate);
+      case 'previous':
+        return new FieldValueOptions(ServerTimestampBehavior.Previous);
+<span class="branch-2 cbranch-no" title="branch not covered" >      case 'none': </span>// Fall-through intended.
+      case undefined:
+        return FieldValueOptions.defaultOptions;
+<span class="branch-4 cbranch-no" title="branch not covered" >      default:</span>
+<span class="cstat-no" title="statement not covered" >        return fail('fromSnapshotOptions() called with invalid options.');</span>
+    }
+  }
+}
+&nbsp;
+/**
+ * Potential types returned by FieldValue.value(). This could be stricter
+ * (instead of using {}), but there's little benefit.
+ *
+ * Note that currently we use AnyJs (which is identical except includes
+ * undefined) for incoming user data as a convenience to the calling code (but
+ * we'll throw if the data contains undefined). This should probably be changed
+ * to use FieldType, but all consuming code will have to be updated to
+ * explicitly handle undefined and then cast to FieldType or similar. Perhaps
+ * we should tackle this when adding robust argument validation to the API.
+ */
+export type FieldType = null | boolean | number | string | {};
+&nbsp;
+/**
+ * A field value represents a datatype as stored by Firestore.
+ */
+export abstract class FieldValue {
+  readonly typeOrder: TypeOrder;
+&nbsp;
+  abstract value(options?: FieldValueOptions): FieldType;
+  abstract isEqual(other: FieldValue): boolean;
+  abstract compareTo(other: FieldValue): number;
+&nbsp;
+  toString(): string {
+    const val = this.value();
+    return val === null ? 'null' : val.toString();
+  }
+&nbsp;
+  defaultCompareTo(other: FieldValue): number {
+    assert(
+      this.typeOrder !== other.typeOrder,
+      'Default compareTo should not be used for values of same type.'
+    );
+    const cmp = primitiveComparator(this.typeOrder, other.typeOrder);
+    return cmp;
+  }
+}
+&nbsp;
+export class NullValue extends FieldValue {
+  typeOrder = TypeOrder.NullValue;
+&nbsp;
+  // internalValue is unused but we add it to work around
+  // https://github.com/Microsoft/TypeScript/issues/15585
+  readonly internalValue = null;
+&nbsp;
+  private constructor() {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): null {
+    return null;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return other instanceof NullValue;
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof NullValue) {
+      return 0;
+    }
+    return this.defaultCompareTo(other);
+  }
+&nbsp;
+  static INSTANCE = new NullValue();
+}
+&nbsp;
+export class BooleanValue extends FieldValue {
+  typeOrder = TypeOrder.BooleanValue;
+&nbsp;
+  private constructor(readonly internalValue: boolean) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): boolean {
+    return this.internalValue;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof BooleanValue &amp;&amp;
+      this.internalValue === other.internalValue
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof BooleanValue) {
+      return primitiveComparator(this, other);
+    }
+    return this.defaultCompareTo(other);
+  }
+&nbsp;
+  static of(value: boolean): BooleanValue {
+    return value ? BooleanValue.TRUE : BooleanValue.FALSE;
+  }
+&nbsp;
+  static TRUE = new BooleanValue(true);
+  static FALSE = new BooleanValue(false);
+}
+&nbsp;
+/** Base class for IntegerValue and DoubleValue. */
+export abstract class NumberValue extends FieldValue {
+  typeOrder = TypeOrder.NumberValue;
+&nbsp;
+  constructor(readonly internalValue: number) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): number {
+    return this.internalValue;
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof NumberValue) {
+      return numericComparator(this.internalValue, other.internalValue);
+    }
+    return this.defaultCompareTo(other);
+  }
+}
+&nbsp;
+/** Utility function to compare doubles (using Firestore semantics for NaN). */
+function numericComparator(left: number, right: number): number {
+  if (left &lt; right) {
+    return -1;
+  } else if (left &gt; right) {
+    return 1;
+  } else if (left === right) {
+    return 0;
+  } else {
+    // one or both are NaN.
+    if (isNaN(left)) {
+      return isNaN(right) ? 0 : -1;
+    } else {
+      return 1;
+    }
+  }
+}
+&nbsp;
+/**
+ * Utility function to check numbers for equality using Firestore semantics
+ * (NaN === NaN, -0.0 !== 0.0).
+ */
+function numericEquals(left: number, right: number): boolean {
+  // Implemented based on Object.is() polyfill from
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+  if (left === right) {
+    // +0 != -0
+    return left !== 0 || 1 / left === 1 / right;
+  } else {
+    // NaN == NaN
+    return left !== left &amp;&amp; right !== right;
+  }
+}
+&nbsp;
+export class IntegerValue extends NumberValue {
+  constructor(internalValue: number) {
+    super(internalValue)<span class="branch-1 cbranch-no" title="branch not covered" >;</span>
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    // NOTE: DoubleValue and IntegerValue instances may compareTo() the same,
+    // but that doesn't make them equal via isEqual().
+    if (other instanceof IntegerValue) {
+      return numericEquals(this.internalValue, other.internalValue);
+    } else {
+      return false;
+    }
+  }
+&nbsp;
+  // NOTE: compareTo() is implemented in NumberValue.
+}
+&nbsp;
+export class DoubleValue extends NumberValue {
+  constructor(readonly internalValue: number) {
+    super(internalValue)<span class="branch-1 cbranch-no" title="branch not covered" >;</span>
+  }
+&nbsp;
+  static NAN = new DoubleValue(NaN);
+  static POSITIVE_INFINITY = new DoubleValue(Infinity);
+  static NEGATIVE_INFINITY = new DoubleValue(-Infinity);
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    // NOTE: DoubleValue and IntegerValue instances may compareTo() the same,
+    // but that doesn't make them equal via isEqual().
+    if (other instanceof DoubleValue) {
+      return numericEquals(this.internalValue, other.internalValue);
+    } else {
+      return false;
+    }
+  }
+&nbsp;
+  // NOTE: compareTo() is implemented in NumberValue.
+}
+&nbsp;
+// TODO(b/37267885): Add truncation support
+export class StringValue extends FieldValue {
+  typeOrder = TypeOrder.StringValue;
+&nbsp;
+  constructor(readonly internalValue: string) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): string {
+    return this.internalValue;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof StringValue &amp;&amp; this.internalValue === other.internalValue
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof StringValue) {
+      return primitiveComparator(this.internalValue, other.internalValue);
+    }
+    return this.defaultCompareTo(other);
+  }
+}
+&nbsp;
+export class TimestampValue extends FieldValue {
+  typeOrder = TypeOrder.TimestampValue;
+&nbsp;
+  constructor(readonly internalValue: Timestamp) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): Date {
+    return this.internalValue.toDate();
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof TimestampValue &amp;&amp;
+      this.internalValue.isEqual(other.internalValue)
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof TimestampValue) {
+      return this.internalValue.compareTo(other.internalValue);
+    } else if (other instanceof ServerTimestampValue) {
+      // Concrete timestamps come before server timestamps.
+      return -1;
+    } else {
+      return this.defaultCompareTo(other);
+    }
+  }
+}
+&nbsp;
+/**
+ * Represents a locally-applied ServerTimestamp.
+ *
+ * Notes:
+ * - ServerTimestampValue instances are created as the result of applying a
+ *   TransformMutation (see TransformMutation.applyTo()). They can only exist in
+ *   the local view of a document. Therefore they do not need to be parsed or
+ *   serialized.
+ * - When evaluated locally (e.g. for snapshot.data()), they by default
+ *   evaluate to `null`. This behavior can be configured by passing custom
+ *   FieldValueOptions to value().
+ * - With respect to other ServerTimestampValues, they sort by their
+ *   localWriteTime.
+ */
+export class ServerTimestampValue extends FieldValue {
+  typeOrder = TypeOrder.TimestampValue;
+&nbsp;
+  constructor(
+    readonly localWriteTime: Timestamp,
+    readonly previousValue: FieldValue | null
+  ) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): FieldType {
+    if (
+      options &amp;&amp;
+      options.serverTimestampBehavior === ServerTimestampBehavior.Estimate
+    ) {
+      return this.localWriteTime.toDate();
+    } else if (
+      options &amp;&amp;
+      options.serverTimestampBehavior === ServerTimestampBehavior.Previous
+    ) {
+      return this.previousValue ? this.previousValue.value(options) : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
+    } else {
+      return null;
+    }
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof ServerTimestampValue &amp;&amp;
+      this.localWriteTime.isEqual(other.localWriteTime)
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof ServerTimestampValue) {
+      return this.localWriteTime.compareTo(other.localWriteTime);
+    } else if (other instanceof TimestampValue) {
+      // Server timestamps come after all concrete timestamps.
+      return 1;
+    } else {
+      return this.defaultCompareTo(other);
+    }
+  }
+&nbsp;
+  toString(): string {
+    return '&lt;ServerTimestamp localTime=' + this.localWriteTime.toString() + '&gt;';
+  }
+}
+&nbsp;
+export class BlobValue extends FieldValue {
+  typeOrder = TypeOrder.BlobValue;
+&nbsp;
+  constructor(readonly internalValue: Blob) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): Blob {
+    return this.internalValue;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof BlobValue &amp;&amp;
+      this.internalValue.isEqual(other.internalValue)
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof BlobValue) {
+      return this.internalValue._compareTo(other.internalValue);
+    }
+    return this.defaultCompareTo(other);
+  }
+}
+&nbsp;
+export class RefValue extends FieldValue {
+  typeOrder = TypeOrder.RefValue;
+&nbsp;
+  constructor(readonly databaseId: DatabaseId, readonly key: DocumentKey) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): DocumentKey {
+    return this.key;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    if (other instanceof RefValue) {
+      return (
+        this.key.isEqual(other.key) &amp;&amp; this.databaseId.isEqual(other.databaseId)
+      );
+    } else {
+      return false;
+    }
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof RefValue) {
+      const cmp = this.databaseId.compareTo(other.databaseId);
+      return cmp !== 0 ? cmp : DocumentKey.comparator(this.key, other.key);
+    }
+    return this.defaultCompareTo(other);
+  }
+}
+&nbsp;
+export class GeoPointValue extends FieldValue {
+  typeOrder = TypeOrder.GeoPointValue;
+&nbsp;
+  constructor(readonly internalValue: GeoPoint) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): GeoPoint {
+    return this.internalValue;
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    return (
+      other instanceof GeoPointValue &amp;&amp;
+      this.internalValue.isEqual(other.internalValue)
+    );
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof GeoPointValue) {
+      return this.internalValue._compareTo(other.internalValue);
+    }
+    return this.defaultCompareTo(other);
+  }
+}
+&nbsp;
+export class ObjectValue extends FieldValue {
+  typeOrder = TypeOrder.ObjectValue;
+&nbsp;
+  constructor(readonly internalValue: SortedMap&lt;string, FieldValue&gt;) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): JsonObject&lt;FieldType&gt; {
+    const result: JsonObject&lt;FieldType&gt; = {};
+    this.internalValue.inorderTraversal((key, val) =&gt; {
+      result[key] = val.value(options);
+    });
+    return result;
+  }
+&nbsp;
+  forEach(action: (key: string, value: FieldValue) =&gt; void): void {
+    this.internalValue.inorderTraversal(action);
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    if (other instanceof ObjectValue) {
+      const it1 = this.internalValue.getIterator();
+      const it2 = other.internalValue.getIterator();
+      while (it1.hasNext() &amp;&amp; it2.hasNext()) {
+        const next1: { key: string; value: FieldValue } = it1.getNext();
+        const next2: { key: string; value: FieldValue } = it2.getNext();
+        if (next1.key !== next2.key || !next1.value.isEqual(next2.value)) {
+          return false;
+        }
+      }
+&nbsp;
+      return !it1.hasNext() &amp;&amp; !it2.hasNext();
+    }
+&nbsp;
+    return false;
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof ObjectValue) {
+      const it1 = this.internalValue.getIterator();
+      const it2 = other.internalValue.getIterator();
+      while (it1.hasNext() &amp;&amp; it2.hasNext()) {
+        const next1: { key: string; value: FieldValue } = it1.getNext();
+        const next2: { key: string; value: FieldValue } = it2.getNext();
+        const cmp =
+          primitiveComparator(next1.key, next2.key) ||
+          next1.value.compareTo(next2.value);
+        if (cmp) {
+          return cmp;
+        }
+      }
+&nbsp;
+      // Only equal if both iterators are exhausted
+      return primitiveComparator(it1.hasNext(), it2.hasNext());
+    } else {
+      return this.defaultCompareTo(other);
+    }
+  }
+&nbsp;
+  set(path: FieldPath, to: FieldValue): ObjectValue {
+    assert(!path.isEmpty(), 'Cannot set field for empty path on ObjectValue');
+    if (path.length === 1) {
+      return this.setChild(path.firstSegment(), to);
+    } else {
+      let child = this.child(path.firstSegment());
+      if (!(child instanceof ObjectValue)) {
+        child = ObjectValue.EMPTY;
+      }
+      const newChild = (child as ObjectValue).set(path.popFirst(), to);
+      return this.setChild(path.firstSegment(), newChild);
+    }
+  }
+&nbsp;
+  delete(path: FieldPath): ObjectValue {
+    assert(
+      !path.isEmpty(),
+      'Cannot delete field for empty path on ObjectValue'
+    );
+    if (path.length === 1) {
+      return new ObjectValue(this.internalValue.remove(path.firstSegment()));
+    } else {
+      // nested field
+      const child = this.child(path.firstSegment());
+      if (child instanceof ObjectValue) {
+        const newChild = child.delete(path.popFirst());
+        return new ObjectValue(
+          this.internalValue.insert(path.firstSegment(), newChild)
+        );
+      } else {
+        // Don't actually change a primitive value to an object for a delete
+        return this;
+      }
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  contains(</span>path: FieldPath): boolean {
+<span class="cstat-no" title="statement not covered" >    return this.field(path) !== undefined;</span>
+  }
+&nbsp;
+  field(path: FieldPath): FieldValue | undefined {
+    assert(!path.isEmpty(), "Can't get field of empty path");
+    let field: FieldValue | undefined = this;
+    path.forEach((pathSegment: string) =&gt; {
+      if (field instanceof ObjectValue) {
+        field = field.internalValue.get(pathSegment) || undefined;
+      } else {
+        field = undefined;
+      }
+    });
+    return field;
+  }
+&nbsp;
+  toString(): string {
+    return JSON.stringify(this.value());
+  }
+&nbsp;
+  private child(childName: string): FieldValue | undefined {
+    return this.internalValue.get(childName) || undefined;
+  }
+&nbsp;
+  private setChild(childName: string, value: FieldValue): ObjectValue {
+    return new ObjectValue(this.internalValue.insert(childName, value));
+  }
+&nbsp;
+  static EMPTY = new ObjectValue(
+    new SortedMap&lt;string, FieldValue&gt;(primitiveComparator)
+  );
+}
+&nbsp;
+export class ArrayValue extends FieldValue {
+  typeOrder = TypeOrder.ArrayValue;
+&nbsp;
+  constructor(readonly internalValue: FieldValue[]) {
+    super();
+  }
+&nbsp;
+  value(options?: FieldValueOptions): FieldType[] {
+    return this.internalValue.map(v =&gt; v.value(options));
+  }
+&nbsp;
+  forEach(action: (value: FieldValue) =&gt; void): void {
+    this.internalValue.forEach(action);
+  }
+&nbsp;
+  isEqual(other: FieldValue): boolean {
+    if (other instanceof ArrayValue) {
+      if (this.internalValue.length !== other.internalValue.length) {
+        return false;
+      }
+&nbsp;
+      for (let i = 0; i &lt; this.internalValue.length; i++) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.internalValue[i].isEqual(other.internalValue[i])) {
+<span class="cstat-no" title="statement not covered" >          return false;</span>
+        }
+      }
+&nbsp;
+      return true;
+    }
+&nbsp;
+    return false;
+  }
+&nbsp;
+  compareTo(other: FieldValue): number {
+    if (other instanceof ArrayValue) {
+      const minLength = Math.min(
+        this.internalValue.length,
+        other.internalValue.length
+      );
+&nbsp;
+      for (let i = 0; i &lt; minLength; i++) {
+        const cmp = this.internalValue[i].compareTo(other.internalValue[i]);
+&nbsp;
+        if (cmp) {
+          return cmp;
+        }
+      }
+&nbsp;
+      return primitiveComparator(
+        this.internalValue.length,
+        other.internalValue.length
+      );
+    } else {
+      return this.defaultCompareTo(other);
+    }
+  }
+&nbsp;
+  toString(): string {
+    return JSON.stringify(this.value());
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

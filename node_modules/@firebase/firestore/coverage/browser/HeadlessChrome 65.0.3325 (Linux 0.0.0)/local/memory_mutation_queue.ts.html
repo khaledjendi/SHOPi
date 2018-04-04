@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for local/memory_mutation_queue.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">local</a> memory_mutation_queue.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>185/185</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.65% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>44/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>26/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>179/179</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">353x</span>
+<span class="cline-any cline-yes">343x</span>
+<span class="cline-any cline-yes">343x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">353x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">353x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">193x</span>
+<span class="cline-any cline-yes">193x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-yes">430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1183x</span>
+<span class="cline-any cline-yes">1183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1183x</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-yes">322x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">861x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-yes">452x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452x</span>
+<span class="cline-any cline-yes">452x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-yes">134x</span>
+<span class="cline-any cline-yes">134x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">333x</span>
+<span class="cline-any cline-yes">333x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">322x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-yes">323x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">336x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">426x</span>
+<span class="cline-any cline-yes">426x</span>
+<span class="cline-any cline-yes">426x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-yes">141x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-yes">98x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">596x</span>
+<span class="cline-any cline-yes">596x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">596x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2303x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1875x</span>
+<span class="cline-any cline-yes">1875x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">511x</span>
+<span class="cline-any cline-yes">511x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">509x</span>
+<span class="cline-any cline-yes">509x</span>
+<span class="cline-any cline-yes">509x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import { Query } from '../core/query';
+import { Timestamp } from '../core/timestamp';
+import { BatchId, ProtoByteString } from '../core/types';
+import { DocumentKey } from '../model/document_key';
+import { Mutation } from '../model/mutation';
+import { BATCHID_UNKNOWN, MutationBatch } from '../model/mutation_batch';
+import { emptyByteString } from '../platform/platform';
+import { assert } from '../util/assert';
+import { primitiveComparator } from '../util/misc';
+import { SortedSet } from '../util/sorted_set';
+&nbsp;
+import { GarbageCollector } from './garbage_collector';
+import { MutationQueue } from './mutation_queue';
+import { PersistenceTransaction } from './persistence';
+import { PersistencePromise } from './persistence_promise';
+import { DocReference } from './reference_set';
+&nbsp;
+export class MemoryMutationQueue implements MutationQueue {
+  /**
+   * The set of all mutations that have been sent but not yet been applied to
+   * the backend.
+   */
+  private mutationQueue: MutationBatch[] = [];
+&nbsp;
+  /** Next value to use when assigning sequential IDs to each mutation batch. */
+  private nextBatchId: BatchId = 1;
+&nbsp;
+  /** The highest acknowledged mutation in the queue. */
+  private highestAcknowledgedBatchId: BatchId = BATCHID_UNKNOWN;
+&nbsp;
+  /** The last received stream token from the server, used to acknowledge which
+   * responses the client has processed. Stream tokens are opaque checkpoint
+   * markers whose only real value is their inclusion in the next request.
+   */
+  private lastStreamToken: ProtoByteString = emptyByteString();
+&nbsp;
+  /** The garbage collector to notify about potential garbage keys. */
+  private garbageCollector: GarbageCollector | null = null;
+&nbsp;
+  /** An ordered mapping between documents and the mutations batch IDs. */
+  private batchesByDocumentKey = new SortedSet(DocReference.compareByKey);
+&nbsp;
+  start(transaction: PersistenceTransaction): PersistencePromise&lt;void&gt; {
+    // NOTE: The queue may be shutdown / started multiple times, since we
+    // maintain the queue for the duration of the app session in case a user
+    // logs out / back in. To behave like the LevelDB-backed MutationQueue (and
+    // accommodate tests that expect as much), we reset nextBatchId and
+    // highestAcknowledgedBatchId if the queue is empty.
+    if (this.mutationQueue.length === 0) {
+      this.nextBatchId = 1;
+      this.highestAcknowledgedBatchId = BATCHID_UNKNOWN;
+    }
+    assert(
+      this.highestAcknowledgedBatchId &lt; this.nextBatchId,
+      'highestAcknowledgedBatchId must be less than the nextBatchId'
+    );
+    return PersistencePromise.resolve();
+  }
+&nbsp;
+  checkEmpty(transaction: PersistenceTransaction): PersistencePromise&lt;boolean&gt; {
+    return PersistencePromise.resolve(this.mutationQueue.length === 0);
+  }
+&nbsp;
+  getNextBatchId(
+    transaction: PersistenceTransaction
+  ): PersistencePromise&lt;BatchId&gt; {
+    return PersistencePromise.resolve(this.nextBatchId);
+  }
+&nbsp;
+  getHighestAcknowledgedBatchId(
+    transaction: PersistenceTransaction
+  ): PersistencePromise&lt;BatchId&gt; {
+    return PersistencePromise.resolve(this.highestAcknowledgedBatchId);
+  }
+&nbsp;
+  acknowledgeBatch(
+    transaction: PersistenceTransaction,
+    batch: MutationBatch,
+    streamToken: ProtoByteString
+  ): PersistencePromise&lt;void&gt; {
+    const batchId = batch.batchId;
+    assert(
+      batchId &gt; this.highestAcknowledgedBatchId,
+      'Mutation batchIDs must be acknowledged in order'
+    );
+&nbsp;
+    const batchIndex = this.indexOfExistingBatchId(batchId, 'acknowledged');
+&nbsp;
+    // Verify that the batch in the queue is the one to be acknowledged.
+    const check = this.mutationQueue[batchIndex];
+    assert(
+      batchId === check.batchId,
+      'Queue ordering failure: expected batch ' +
+        batchId +
+        ', got batch ' +
+        check.batchId
+    );
+    assert(
+      !check.isTombstone(),
+      "Can't acknowledge a previously removed batch"
+    );
+&nbsp;
+    this.highestAcknowledgedBatchId = batchId;
+    this.lastStreamToken = streamToken;
+    return PersistencePromise.resolve();
+  }
+&nbsp;
+  getLastStreamToken(
+    transaction: PersistenceTransaction
+  ): PersistencePromise&lt;ProtoByteString&gt; {
+    return PersistencePromise.resolve(this.lastStreamToken);
+  }
+&nbsp;
+  setLastStreamToken(
+    transaction: PersistenceTransaction,
+    streamToken: ProtoByteString
+  ): PersistencePromise&lt;void&gt; {
+    this.lastStreamToken = streamToken;
+    return PersistencePromise.resolve();
+  }
+&nbsp;
+  addMutationBatch(
+    transaction: PersistenceTransaction,
+    localWriteTime: Timestamp,
+    mutations: Mutation[]
+  ): PersistencePromise&lt;MutationBatch&gt; {
+    assert(mutations.length !== 0, 'Mutation batches should not be empty');
+&nbsp;
+    const batchId = this.nextBatchId;
+    this.nextBatchId++;
+&nbsp;
+    if (this.mutationQueue.length &gt; 0) {
+      const prior = this.mutationQueue[this.mutationQueue.length - 1];
+      assert(
+        prior.batchId &lt; batchId,
+        'Mutation batchIDs must be monotonically increasing order'
+      );
+    }
+&nbsp;
+    const batch = new MutationBatch(batchId, localWriteTime, mutations);
+    this.mutationQueue.push(batch);
+&nbsp;
+    // Track references by document key.
+    for (const mutation of mutations) {
+      this.batchesByDocumentKey = this.batchesByDocumentKey.add(
+        new DocReference(mutation.key, batchId)
+      );
+    }
+&nbsp;
+    return PersistencePromise.resolve(batch);
+  }
+&nbsp;
+  lookupMutationBatch(
+    transaction: PersistenceTransaction,
+    batchId: BatchId
+  ): PersistencePromise&lt;MutationBatch | null&gt; {
+    return PersistencePromise.resolve(this.findMutationBatch(batchId));
+  }
+&nbsp;
+  getNextMutationBatchAfterBatchId(
+    transaction: PersistenceTransaction,
+    batchId: BatchId
+  ): PersistencePromise&lt;MutationBatch | null&gt; {
+    const size = this.mutationQueue.length;
+&nbsp;
+    // All batches with batchId &lt;= this.highestAcknowledgedBatchId have been
+    // acknowledged so the first unacknowledged batch after batchID will have a
+    // batchID larger than both of these values.
+    const nextBatchId = Math.max(batchId, this.highestAcknowledgedBatchId) + 1;
+&nbsp;
+    // The requested batchId may still be out of range so normalize it to the
+    // start of the queue.
+    const rawIndex = this.indexOfBatchId(nextBatchId);
+    let index = rawIndex &lt; 0 ? 0 : rawIndex;
+&nbsp;
+    // Finally return the first non-tombstone batch.
+    for (; index &lt; size; index++) {
+      const batch = this.mutationQueue[index];
+      if (!batch.isTombstone()) {
+        return PersistencePromise.resolve(batch);
+      }
+    }
+    return PersistencePromise.resolve(null);
+  }
+&nbsp;
+  getAllMutationBatches(
+    transaction: PersistenceTransaction
+  ): PersistencePromise&lt;MutationBatch[]&gt; {
+    return PersistencePromise.resolve(
+      this.getAllLiveMutationBatchesBeforeIndex(this.mutationQueue.length)
+    );
+  }
+&nbsp;
+  getAllMutationBatchesThroughBatchId(
+    transaction: PersistenceTransaction,
+    batchId: BatchId
+  ): PersistencePromise&lt;MutationBatch[]&gt; {
+    const count = this.mutationQueue.length;
+&nbsp;
+    let endIndex = this.indexOfBatchId(batchId);
+    if (endIndex &lt; 0) {
+      endIndex = 0;
+    } else if (endIndex &gt;= count) {
+      endIndex = count;
+    } else {
+      // The endIndex is in the queue so increment to pull everything in the
+      // queue including it.
+      endIndex++;
+    }
+&nbsp;
+    return PersistencePromise.resolve(
+      this.getAllLiveMutationBatchesBeforeIndex(endIndex)
+    );
+  }
+&nbsp;
+  getAllMutationBatchesAffectingDocumentKey(
+    transaction: PersistenceTransaction,
+    documentKey: DocumentKey
+  ): PersistencePromise&lt;MutationBatch[]&gt; {
+    const start = new DocReference(documentKey, 0);
+    const end = new DocReference(documentKey, Number.POSITIVE_INFINITY);
+    const result: MutationBatch[] = [];
+    this.batchesByDocumentKey.forEachInRange([start, end], ref =&gt; {
+      assert(
+        documentKey.isEqual(ref.key),
+        "Should only iterate over a single key's batches"
+      );
+      const batch = this.findMutationBatch(ref.targetOrBatchId);
+      assert(
+        batch !== null,
+        'Batches in the index must exist in the main table'
+      );
+      result.push(batch!);
+    });
+&nbsp;
+    return PersistencePromise.resolve(result);
+  }
+&nbsp;
+  getAllMutationBatchesAffectingQuery(
+    transaction: PersistenceTransaction,
+    query: Query
+  ): PersistencePromise&lt;MutationBatch[]&gt; {
+    // Use the query path as a prefix for testing if a document matches the
+    // query.
+    const prefix = query.path;
+    const immediateChildrenPathLength = prefix.length + 1;
+&nbsp;
+    // Construct a document reference for actually scanning the index. Unlike
+    // the prefix the document key in this reference must have an even number of
+    // segments. The empty segment can be used a suffix of the query path
+    // because it precedes all other segments in an ordered traversal.
+    let startPath = prefix;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!DocumentKey.isDocumentKey(startPath)) {
+      startPath = startPath.child('');
+    }
+&nbsp;
+    const start = new DocReference(new DocumentKey(startPath), 0);
+&nbsp;
+    // Find unique batchIDs referenced by all documents potentially matching the
+    // query.
+    let uniqueBatchIDs = new SortedSet&lt;number&gt;(primitiveComparator);
+&nbsp;
+    this.batchesByDocumentKey.forEachWhile(ref =&gt; {
+      const rowKeyPath = ref.key.path;
+      if (!prefix.isPrefixOf(rowKeyPath)) {
+        return false;
+      } else {
+        // Rows with document keys more than one segment longer than the query
+        // path can't be matches. For example, a query on 'rooms' can't match
+        // the document /rooms/abc/messages/xyx.
+        // TODO(mcg): we'll need a different scanner when we implement
+        // ancestor queries.
+        if (rowKeyPath.length === immediateChildrenPathLength) {
+          uniqueBatchIDs = uniqueBatchIDs.add(ref.targetOrBatchId);
+        }
+        return true;
+      }
+    }, start);
+&nbsp;
+    // Construct an array of matching batches, sorted by batchID to ensure that
+    // multiple mutations affecting the same document key are applied in order.
+    const result: MutationBatch[] = [];
+    uniqueBatchIDs.forEach(batchId =&gt; {
+      const batch = this.findMutationBatch(batchId);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (batch !== null) {
+        result.push(batch);
+      }
+    });
+    return PersistencePromise.resolve(result);
+  }
+&nbsp;
+  removeMutationBatches(
+    transaction: PersistenceTransaction,
+    batches: MutationBatch[]
+  ): PersistencePromise&lt;void&gt; {
+    const batchCount = batches.length;
+    assert(batchCount &gt; 0, 'Should not remove mutations when none exist.');
+&nbsp;
+    const firstBatchId = batches[0].batchId;
+    const queueCount = this.mutationQueue.length;
+&nbsp;
+    // Find the position of the first batch for removal. This need not be the
+    // first entry in the queue.
+    const startIndex = this.indexOfExistingBatchId(firstBatchId, 'removed');
+    assert(
+      this.mutationQueue[startIndex].batchId === firstBatchId,
+      'Removed batches must exist in the queue'
+    );
+&nbsp;
+    // Check that removed batches are contiguous (while excluding tombstones).
+    let batchIndex = 1;
+    let queueIndex = startIndex + 1;
+    while (batchIndex &lt; batchCount &amp;&amp; queueIndex &lt; queueCount) {
+      const batch = this.mutationQueue[queueIndex];
+      if (batch.isTombstone()) {
+        queueIndex++;
+        continue;
+      }
+&nbsp;
+      assert(
+        batch.batchId === batches[batchIndex].batchId,
+        'Removed batches must be contiguous in the queue'
+      );
+      batchIndex++;
+      queueIndex++;
+    }
+&nbsp;
+    // Only actually remove batches if removing at the front of the queue.
+    // Previously rejected batches may have left tombstones in the queue, so
+    // expand the removal range to include any tombstones.
+    if (startIndex === 0) {
+      for (; queueIndex &lt; queueCount; queueIndex++) {
+        const batch = this.mutationQueue[queueIndex];
+        if (!batch.isTombstone()) {
+          break;
+        }
+      }
+      const length = queueIndex - startIndex;
+      this.mutationQueue.splice(startIndex, length);
+    } else {
+      // Mark the tombstones
+      for (let i = startIndex; i &lt; queueIndex; i++) {
+        this.mutationQueue[i] = this.mutationQueue[i].toTombstone();
+      }
+    }
+&nbsp;
+    let references = this.batchesByDocumentKey;
+    for (const batch of batches) {
+      const batchId = batch.batchId;
+      for (const mutation of batch.mutations) {
+        const key = mutation.key;
+        if (this.garbageCollector !== null) {
+          this.garbageCollector.addPotentialGarbageKey(key);
+        }
+&nbsp;
+        const ref = new DocReference(key, batchId);
+        references = references.delete(ref);
+      }
+    }
+    this.batchesByDocumentKey = references;
+    return PersistencePromise.resolve();
+  }
+&nbsp;
+  setGarbageCollector(garbageCollector: GarbageCollector | null): void {
+    this.garbageCollector = garbageCollector;
+  }
+&nbsp;
+  containsKey(
+    txn: PersistenceTransaction,
+    key: DocumentKey
+  ): PersistencePromise&lt;boolean&gt; {
+    const ref = new DocReference(key, 0);
+    const firstRef = this.batchesByDocumentKey.firstAfterOrEqual(ref);
+    return PersistencePromise.resolve(key.isEqual(firstRef &amp;&amp; firstRef.key));
+  }
+&nbsp;
+  performConsistencyCheck(
+    txn: PersistenceTransaction
+  ): PersistencePromise&lt;void&gt; {
+    if (this.mutationQueue.length === 0) {
+      assert(
+        this.batchesByDocumentKey.isEmpty(),
+        'Document leak -- detected dangling mutation references when queue is empty.'
+      );
+    }
+    return PersistencePromise.resolve();
+  }
+&nbsp;
+  /**
+   * A private helper that collects all the mutations batches in the queue up to
+   * but not including the given endIndex. All tombstones in the queue are
+   * excluded.
+   */
+  private getAllLiveMutationBatchesBeforeIndex(
+    endIndex: number
+  ): MutationBatch[] {
+    const result: MutationBatch[] = [];
+&nbsp;
+    for (let i = 0; i &lt; endIndex; i++) {
+      const batch = this.mutationQueue[i];
+      if (!batch.isTombstone()) {
+        result.push(batch);
+      }
+    }
+&nbsp;
+    return result;
+  }
+&nbsp;
+  /**
+   * Finds the index of the given batchId in the mutation queue and asserts that
+   * the resulting index is within the bounds of the queue.
+   *
+   * @param batchId The batchId to search for
+   * @param action A description of what the caller is doing, phrased in passive
+   * form (e.g. "acknowledged" in a routine that acknowledges batches).
+   */
+  private indexOfExistingBatchId(batchId: BatchId, action: string): number {
+    const index = this.indexOfBatchId(batchId);
+    assert(
+      index &gt;= 0 &amp;&amp; index &lt; this.mutationQueue.length,
+      'Batches must exist to be ' + action
+    );
+    return index;
+  }
+&nbsp;
+  /**
+   * Finds the index of the given batchId in the mutation queue. This operation
+   * is O(1).
+   *
+   * @return The computed index of the batch with the given batchId, based on
+   * the state of the queue. Note this index can be negative if the requested
+   * batchId has already been remvoed from the queue or past the end of the
+   * queue if the batchId is larger than the last added batch.
+   */
+  private indexOfBatchId(batchId: BatchId): number {
+    if (this.mutationQueue.length === 0) {
+      // As an index this is past the end of the queue
+      return 0;
+    }
+&nbsp;
+    // Examine the front of the queue to figure out the difference between the
+    // batchId and indexes in the array. Note that since the queue is ordered
+    // by batchId, if the first batch has a larger batchId then the requested
+    // batchId doesn't exist in the queue.
+    const firstBatchId = this.mutationQueue[0].batchId;
+    return batchId - firstBatchId;
+  }
+&nbsp;
+  /**
+   * A version of lookupMutationBatch that doesn't return a promise, this makes
+   * other functions that uses this code easier to read and more efficent.
+   */
+  private findMutationBatch(batchId: BatchId): MutationBatch | null {
+    const index = this.indexOfBatchId(batchId);
+    if (index &lt; 0 || index &gt;= this.mutationQueue.length) {
+      return null;
+    }
+&nbsp;
+    const batch = this.mutationQueue[index];
+    assert(batch.batchId === batchId, 'If found batch must match');
+    return batch.isTombstone() ? null : batch;
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

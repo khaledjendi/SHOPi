@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for core/view.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">core</a> view.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.83% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>135/138</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.6% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>87/91</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.73% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>129/132</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5308x</span>
+<span class="cline-any cline-yes">5308x</span>
+<span class="cline-any cline-yes">5308x</span>
+<span class="cline-any cline-yes">4550x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4550x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5308x</span>
+<span class="cline-any cline-yes">4454x</span>
+<span class="cline-any cline-yes">4454x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5308x</span>
+<span class="cline-any cline-yes">577x</span>
+<span class="cline-any cline-yes">577x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">434x</span>
+<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">339x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">434x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4731x</span>
+<span class="cline-any cline-yes">3877x</span>
+<span class="cline-any cline-yes">854x</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1857x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">12445x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">361x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1492x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1492x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">502x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">490x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1822x</span>
+<span class="cline-any cline-yes">1226x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">596x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">596x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">532x</span>
+<span class="cline-any cline-yes">532x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">395x</span>
+<span class="cline-any cline-yes">395x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1025x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">1822x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">828x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12445x</span>
+<span class="cline-any cline-yes">24890x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22751x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1470x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">658x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12445x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+&nbsp;
+import {
+  documentKeySet,
+  DocumentKeySet,
+  MaybeDocumentMap
+} from '../model/collections';
+import { Document, MaybeDocument } from '../model/document';
+import { DocumentKey } from '../model/document_key';
+import { DocumentSet } from '../model/document_set';
+import {
+  CurrentStatusUpdate,
+  ResetMapping,
+  TargetChange,
+  UpdateMapping
+} from '../remote/remote_event';
+import { assert, fail } from '../util/assert';
+&nbsp;
+import { Query } from './query';
+import { OnlineState } from './types';
+import {
+  ChangeType,
+  DocumentChangeSet,
+  SyncState,
+  ViewSnapshot
+} from './view_snapshot';
+&nbsp;
+export type LimboDocumentChange = AddedLimboDocument | RemovedLimboDocument;
+export class AddedLimboDocument {
+  constructor(public key: DocumentKey) {}
+}
+export class RemovedLimboDocument {
+  constructor(public key: DocumentKey) {}
+}
+&nbsp;
+/** The result of applying a set of doc changes to a view. */
+export interface ViewDocumentChanges {
+  /** The new set of docs that should be in the view. */
+  documentSet: DocumentSet;
+  /** The diff of these docs with the previous set of docs. */
+  changeSet: DocumentChangeSet;
+  /**
+   * Whether the set of documents passed in was not sufficient to calculate the
+   * new state of the view and there needs to be another pass based on the
+   * local cache.
+   */
+  needsRefill: boolean;
+&nbsp;
+  mutatedKeys: DocumentKeySet;
+}
+&nbsp;
+export interface ViewChange {
+  snapshot?: ViewSnapshot;
+  limboChanges: LimboDocumentChange[];
+}
+&nbsp;
+/**
+ * View is responsible for computing the final merged truth of what docs are in
+ * a query. It gets notified of local and remote changes to docs, and applies
+ * the query filters and limits to determine the most correct possible results.
+ */
+export class View {
+  private syncState: SyncState | null = null;
+  /**
+   * A flag whether the view is current with the backend. A view is considered
+   * current after it has seen the current flag from the backend and did not
+   * lose consistency within the watch stream (e.g. because of an existence
+   * filter mismatch).
+   */
+  private current = false;
+  private documentSet: DocumentSet;
+  /** Documents in the view but not in the remote target */
+  private limboDocuments = documentKeySet();
+  /** Document Keys that have local changes */
+  private mutatedKeys = documentKeySet();
+&nbsp;
+  constructor(
+    private query: Query,
+    /** Documents included in the remote target */
+    private syncedDocuments: DocumentKeySet
+  ) {
+    this.documentSet = new DocumentSet(query.docComparator.bind(query));
+  }
+&nbsp;
+  /**
+   * Iterates over a set of doc changes, applies the query limit, and computes
+   * what the new results should be, what the changes were, and whether we may
+   * need to go back to the local cache for more results. Does not make any
+   * changes to the view.
+   * @param docChanges The doc changes to apply to this view.
+   * @param previousChanges If this is being called with a refill, then start
+   *        with this set of docs and changes instead of the current view.
+   * @return a new set of docs, changes, and refill flag.
+   */
+  computeDocChanges(
+    docChanges: MaybeDocumentMap,
+    previousChanges?: ViewDocumentChanges
+  ): ViewDocumentChanges {
+    const changeSet = previousChanges
+      ? previousChanges.changeSet
+      : new DocumentChangeSet();
+    const oldDocumentSet = previousChanges
+      ? previousChanges.documentSet
+      : this.documentSet;
+    let newMutatedKeys = previousChanges
+      ? previousChanges.mutatedKeys
+      : this.mutatedKeys;
+    let newDocumentSet = oldDocumentSet;
+    let needsRefill = false;
+&nbsp;
+    // Track the last doc in a (full) limit. This is necessary, because some
+    // update (a delete, or an update moving a doc past the old limit) might
+    // mean there is some other document in the local cache that either should
+    // come (1) between the old last limit doc and the new last document, in the
+    // case of updates, or (2) after the new last document, in the case of
+    // deletes. So we keep this doc at the old limit to compare the updates to.
+    //
+    // Note that this should never get used in a refill (when previousChanges is
+    // set), because there will only be adds -- no deletes or updates.
+    const lastDocInLimit =
+      this.query.hasLimit() &amp;&amp; oldDocumentSet.size === this.query.limit
+        ? oldDocumentSet.last()
+        : null;
+&nbsp;
+    docChanges.inorderTraversal(
+      (key: DocumentKey, newMaybeDoc: MaybeDocument) =&gt; {
+        const oldDoc = oldDocumentSet.get(key);
+        let newDoc = newMaybeDoc instanceof Document ? newMaybeDoc : null;
+        if (newDoc) {
+          assert(
+            key.isEqual(newDoc.key),
+            'Mismatching keys found in document changes: ' +
+              key +
+              ' != ' +
+              newDoc.key
+          );
+          newDoc = this.query.matches(newDoc) ? newDoc : null;
+        }
+        if (newDoc) {
+          newDocumentSet = newDocumentSet.add(newDoc);
+          if (newDoc.hasLocalMutations) {
+            newMutatedKeys = newMutatedKeys.add(key);
+          } else {
+            newMutatedKeys = newMutatedKeys.delete(key);
+          }
+        } else {
+          newDocumentSet = newDocumentSet.delete(key);
+          newMutatedKeys = newMutatedKeys.delete(key);
+        }
+&nbsp;
+        // Calculate change
+        if (oldDoc &amp;&amp; newDoc) {
+          const docsEqual = oldDoc.data.isEqual(newDoc.data);
+          if (
+            !docsEqual ||
+            oldDoc.hasLocalMutations !== newDoc.hasLocalMutations
+          ) {
+            // only report a change if document actually changed
+            if (docsEqual) {
+              changeSet.track({ type: ChangeType.Metadata, doc: newDoc });
+            } else {
+              changeSet.track({ type: ChangeType.Modified, doc: newDoc });
+            }
+&nbsp;
+            if (
+              lastDocInLimit &amp;&amp;
+              this.query.docComparator(newDoc, lastDocInLimit) &gt; 0
+            ) {
+              // This doc moved from inside the limit to after the limit.
+              // That means there may be some doc in the local cache that's
+              // actually less than this one.
+              needsRefill = true;
+            }
+          }
+        } else if (!oldDoc &amp;&amp; newDoc) {
+          changeSet.track({ type: ChangeType.Added, doc: newDoc });
+        } else if (oldDoc &amp;&amp; !newDoc) {
+          changeSet.track({ type: ChangeType.Removed, doc: oldDoc });
+          if (lastDocInLimit) {
+            // A doc was removed from a full limit query. We'll need to
+            // requery from the local cache to see if we know about some other
+            // doc that should be in the results.
+            needsRefill = true;
+          }
+        }
+      }
+    );
+    if (this.query.hasLimit()) {
+      // TODO(klimt): Make DocumentSet size be constant time.
+      while (newDocumentSet.size &gt; this.query.limit!) {
+        const oldDoc = newDocumentSet.last();
+        newDocumentSet = newDocumentSet.delete(oldDoc!.key);
+        changeSet.track({ type: ChangeType.Removed, doc: oldDoc! });
+      }
+    }
+    assert(
+      !needsRefill || !previousChanges,
+      'View was refilled using docs that themselves needed refilling.'
+    );
+    return {
+      documentSet: newDocumentSet,
+      changeSet,
+      needsRefill,
+      mutatedKeys: newMutatedKeys
+    };
+  }
+&nbsp;
+  /**
+   * Updates the view with the given ViewDocumentChanges and updates limbo docs
+   * and sync state from the given (optional) target change.
+   * @param docChanges The set of changes to make to the view's docs.
+   * @param targetChange A target change to apply for computing limbo docs and
+   *        sync state.
+   * @return A new ViewChange with the given docs, changes, and sync state.
+   */
+  applyChanges(
+    docChanges: ViewDocumentChanges,
+    targetChange?: TargetChange
+  ): ViewChange {
+    assert(!docChanges.needsRefill, 'Cannot apply changes that need a refill');
+    const oldDocs = this.documentSet;
+    this.documentSet = docChanges.documentSet;
+    this.mutatedKeys = docChanges.mutatedKeys;
+    // Sort changes based on type and query comparator
+    const changes = docChanges.changeSet.getChanges();
+    changes.sort((c1, c2) =&gt; {
+      return (
+        compareChangeType(c1.type, c2.type) ||
+        this.query.docComparator(c1.doc, c2.doc)
+      );
+    });
+&nbsp;
+    this.applyTargetChange(targetChange);
+    const limboChanges = this.updateLimboDocuments();
+    const synced = this.limboDocuments.size === 0 &amp;&amp; this.current;
+    const newSyncState = synced ? SyncState.Synced : SyncState.Local;
+    const syncStateChanged = newSyncState !== this.syncState;
+    this.syncState = newSyncState;
+&nbsp;
+    if (changes.length === 0 &amp;&amp; !syncStateChanged) {
+      // no changes
+      return { limboChanges };
+    } else {
+      const snap: ViewSnapshot = new ViewSnapshot(
+        this.query,
+        docChanges.documentSet,
+        oldDocs,
+        changes,
+        newSyncState === SyncState.Local,
+        !docChanges.mutatedKeys.isEmpty(),
+        syncStateChanged
+      );
+      return {
+        snapshot: snap,
+        limboChanges
+      };
+    }
+  }
+&nbsp;
+  /**
+   * Applies an OnlineState change to the view, potentially generating a
+   * ViewChange if the view's syncState changes as a result.
+   */
+  applyOnlineStateChange(onlineState: OnlineState): ViewChange {
+    if (this.current &amp;&amp; onlineState === OnlineState.Offline) {
+      // If we're offline, set `current` to false and then call applyChanges()
+      // to refresh our syncState and generate a ViewChange as appropriate. We
+      // are guaranteed to get a new TargetChange that sets `current` back to
+      // true once the client is back online.
+      this.current = false;
+      return this.applyChanges({
+        documentSet: this.documentSet,
+        changeSet: new DocumentChangeSet(),
+        mutatedKeys: this.mutatedKeys,
+        needsRefill: false
+      });
+    } else {
+      // No effect, just return a no-op ViewChange.
+      return { limboChanges: [] };
+    }
+  }
+&nbsp;
+  /**
+   * Returns whether the doc for the given key should be in limbo.
+   */
+  private shouldBeInLimbo(key: DocumentKey): boolean {
+    // If the remote end says it's part of this query, it's not in limbo.
+    if (this.syncedDocuments.has(key)) {
+      return false;
+    }
+    // The local store doesn't think it's a result, so it shouldn't be in limbo.
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.documentSet.has(key)) {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+    // If there are local changes to the doc, they might explain why the server
+    // doesn't know that it's part of the query. So don't put it in limbo.
+    // TODO(klimt): Ideally, we would only consider changes that might actually
+    // affect this specific query.
+    if (this.documentSet.get(key)!.hasLocalMutations) {
+      return false;
+    }
+    // Everything else is in limbo.
+    return true;
+  }
+&nbsp;
+  /**
+   * Updates syncedDocuments, current, and limbo docs based on the given change.
+   * Returns the list of changes to which docs are in limbo.
+   */
+  private applyTargetChange(targetChange?: TargetChange): void {
+    if (targetChange) {
+      const targetMapping = targetChange.mapping;
+      if (targetMapping instanceof ResetMapping) {
+        this.syncedDocuments = targetMapping.documents;
+      } else <span class="missing-if-branch" title="else path not taken" >E</span>if (targetMapping instanceof UpdateMapping) {
+        this.syncedDocuments = targetMapping.applyToKeySet(
+          this.syncedDocuments
+        );
+      }
+&nbsp;
+      switch (targetChange.currentStatusUpdate) {
+        case CurrentStatusUpdate.MarkCurrent:
+          this.current = true;
+          break;
+        case CurrentStatusUpdate.MarkNotCurrent:
+          this.current = false;
+          break;
+        case CurrentStatusUpdate.None:
+          break;
+<span class="branch-3 cbranch-no" title="branch not covered" >        default:</span>
+<span class="cstat-no" title="statement not covered" >          fail(</span>
+            'Unknown current status update: ' + targetChange.currentStatusUpdate
+          );
+      }
+    }
+  }
+&nbsp;
+  private updateLimboDocuments(): LimboDocumentChange[] {
+    // We can only determine limbo documents when we're in-sync with the server.
+    if (!this.current) {
+      return [];
+    }
+&nbsp;
+    // TODO(klimt): Do this incrementally so that it's not quadratic when
+    // updating many documents.
+    const oldLimboDocuments = this.limboDocuments;
+    this.limboDocuments = documentKeySet();
+    this.documentSet.forEach(doc =&gt; {
+      if (this.shouldBeInLimbo(doc.key)) {
+        this.limboDocuments = this.limboDocuments.add(doc.key);
+      }
+    });
+&nbsp;
+    // Diff the new limbo docs with the old limbo docs.
+    const changes: LimboDocumentChange[] = [];
+    oldLimboDocuments.forEach(key =&gt; {
+      if (!this.limboDocuments.has(key)) {
+        changes.push(new RemovedLimboDocument(key));
+      }
+    });
+    this.limboDocuments.forEach(key =&gt; {
+      if (!oldLimboDocuments.has(key)) {
+        changes.push(new AddedLimboDocument(key));
+      }
+    });
+    return changes;
+  }
+}
+&nbsp;
+function compareChangeType(c1: ChangeType, c2: ChangeType): number {
+  const order = (change: ChangeType) =&gt; {
+    switch (change) {
+      case ChangeType.Added:
+        return 1;
+      case ChangeType.Modified:
+        return 2;
+      case ChangeType.Metadata:
+        // A metadata change is converted to a modified change at the public
+        // api layer.  Since we sort by document key and then change type,
+        // metadata and modified changes must be sorted equivalently.
+        return 2;
+      case ChangeType.Removed:
+        return 0;
+<span class="branch-4 cbranch-no" title="branch not covered" >      default:</span>
+<span class="cstat-no" title="statement not covered" >        return fail('Unknown ChangeType: ' + change);</span>
+    }
+  };
+&nbsp;
+  return order(c1) - order(c2);
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 29 2018 15:02:50 GMT-0700 (PDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

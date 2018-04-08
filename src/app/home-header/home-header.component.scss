@@ -1,0 +1,32 @@
+:host /deep/ .mat-icon-button, .mat-button {
+    outline: none;
+    border: 0;
+ }
+
+ :host /deep/ .mat-toolbar-transparent {
+    background-color: transparent !important;
+ }
+
+ :host /deep/ .mat-button-bold {
+    font-family: "century_gothic_bold", Verdana, Tahoma; 
+ }
+
+ :host /deep/ .mat-button-active {
+     background-color: #E8EAF6;
+ }
+
+ :host /deep/ .mat-button-hot-active
+ {
+    background-color: #FFF3E0
+ }
+
+ :host /deep/ .mat-card-main, .mat-elevation-z, .mat-card:not([class*=mat-elevation-z]) {
+    padding: 0px 24px 0px 24px;
+    -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+ }
+
+ ::ng-deep .mat-tab-labels {
+    justify-content: center; /* align items in Main Axis */
+}

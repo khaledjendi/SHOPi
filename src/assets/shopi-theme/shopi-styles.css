@@ -1246,6 +1246,10 @@ hr {
   border-top-style: solid;
 }
 
+.divider-solid-bottom {
+  border-bottom: 1px solid rgba(119,119,119, 0.3);
+}
+
 /* Dotted Divider */
 .u-divider-dotted {
   border-top-style: dotted;
@@ -48030,4 +48034,16 @@ p {
   width: 119px;
   height: 45px;
   object-fit: cover;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/*------------------------------------
+  Material mat-toolbar
+------------------------------------*/
+
+.font-cg-bold {
+  font-family: "century_gothic_bold", Verdana, Tahoma;
 }

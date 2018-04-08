@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@include mat-core();
+@import "./assets/vendor/fonts/fonts.scss";
+
+$shopi-primary: mat-palette($mat-indigo);
+$shopi-accent:  mat-palette($mat-orange);
+
+$shopi-theme: mat-light-theme($shopi-primary, $shopi-accent);
+@include angular-material-theme($shopi-theme);
+
+
+$shopi-typography: mat-typography-config(
+  $font-family: 'century_gothic, Roboto, monospace',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+// @include mat-base-typography($shopi-typography);
+// @include mat-checkbox-typography($shopi-typography);
+// @include angular-material-typography($shopi-typography);
+@include mat-core($shopi-typography);
+

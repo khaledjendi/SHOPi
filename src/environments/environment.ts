@@ -12,5 +12,5 @@ export const environment = {
     projectId: "shopi-85",
     storageBucket: "shopi-85.appspot.com",
     messagingSenderId: "379532183235"
-  }
+  } 
 };

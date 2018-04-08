@@ -48047,3 +48047,15 @@ p {
 .font-cg-bold {
   font-family: "century_gothic_bold", Verdana, Tahoma;
 }
+
+.g-relative {
+  position: relative;
+}
+
+.g-absolute {
+  position: absolute;
+}
+
+.pointer {
+  cursor: pointer;
+}

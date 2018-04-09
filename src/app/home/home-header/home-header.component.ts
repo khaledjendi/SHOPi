@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+export enum PageType {
+  Home = 0,
+  Man = 1,
+  Woman = 2,
+  Kids = 3,
+  Deals = 4
+}
 
 @Component({
   selector: 'app-home-header',
@@ -6,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-header.component.scss']
 })
 export class HomeHeaderComponent implements OnInit {
+  @Output() change = new EventEmitter();
   activeLinks = {
     isHomeActive: true,
     isManActive: false,
@@ -30,6 +39,7 @@ export class HomeHeaderComponent implements OnInit {
           isKidsActive: false,
           isHotDealsActive: false
         }
+        this.change.emit(PageType.Home);
         break;
         case 'man':
         if (this.activeLinks.isManActive) break;
@@ -40,6 +50,7 @@ export class HomeHeaderComponent implements OnInit {
           isKidsActive: false,
           isHotDealsActive: false
         }
+        this.change.emit(PageType.Man);
         break;
         case 'woman':
         if (this.activeLinks.isWomanActive) break;
@@ -50,6 +61,7 @@ export class HomeHeaderComponent implements OnInit {
           isKidsActive: false,
           isHotDealsActive: false
         }
+        this.change.emit(PageType.Woman);
         break;
         case 'kids':
         if (this.activeLinks.isKidsActive) break;
@@ -60,6 +72,7 @@ export class HomeHeaderComponent implements OnInit {
           isKidsActive: true,
           isHotDealsActive: false
         }
+        this.change.emit(PageType.Kids);
         break;
         case 'deals':
         if (this.activeLinks.isHotDealsActive) break;
@@ -70,6 +83,7 @@ export class HomeHeaderComponent implements OnInit {
           isKidsActive: false,
           isHotDealsActive: true
         }
+        this.change.emit(PageType.Deals);
         break;
     }
   }

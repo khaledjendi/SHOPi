@@ -1,14 +1,14 @@
-import { expandCollapse } from './home-category-nav.component.animations';
+import { expandCollapse } from './man-home-category.component.animations';
 import { Component, OnInit, Injectable } from '@angular/core';
 
 @Component({
-  selector: 'app-home-category-nav',
-  templateUrl: './home-category-nav.component.html',
-  styleUrls: ['./home-category-nav.component.scss'],
+  selector: 'app-man-home-category',
+  templateUrl: './man-home-category.component.html',
+  styleUrls: ['./man-home-category.component.scss'],
   animations: [expandCollapse]
 })
 
-export class HomeCategoryNavComponent implements OnInit {
+export class ManHomeCategoryComponent implements OnInit {
   private menuParts = {
     newArrival: {
       isInHeader: false,

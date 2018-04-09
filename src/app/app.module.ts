@@ -11,10 +11,13 @@ import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
-import { HomeHeaderComponent } from './home-header/home-header.component';
+import { HomeHeaderComponent } from './home/home-header/home-header.component';
 import { HomeComponent } from './home/home.component';
-import { HomeCategoryNavComponent } from './home-category-nav/home-category-nav.component';
-import { HomeContentComponent } from './home-content/home-content.component';
+import { ManHomeCategoryComponent } from './home/man-home-category/man-home-category.component';
+import { HomeDefaultComponent } from './home/home-default/home-default.component';
+import { WomanHomeCategoryComponent } from './home/woman-home-category/woman-home-category.component';
+import { KidsHomeCategoryComponent } from './kids-home-category/kids-home-category.component';
+import { HotDealsHomeCategoryComponent } from './hot-deals-home-category/hot-deals-home-category.component';
 
 
 @NgModule({
@@ -22,8 +25,11 @@ import { HomeContentComponent } from './home-content/home-content.component';
     AppComponent,
     HomeHeaderComponent,
     HomeComponent,
-    HomeCategoryNavComponent,
-    HomeContentComponent
+    ManHomeCategoryComponent,
+    HomeDefaultComponent,
+    WomanHomeCategoryComponent,
+    KidsHomeCategoryComponent,
+    HotDealsHomeCategoryComponent
   ],
   imports: [
     BrowserModule,

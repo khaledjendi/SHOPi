@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeCategoryNavComponent } from './home-category-nav.component';
+import { WomanHomeCategoryComponent } from './woman-home-category.component';
 
-describe('HomeCategoryNavComponent', () => {
-  let component: HomeCategoryNavComponent;
-  let fixture: ComponentFixture<HomeCategoryNavComponent>;
+describe('WomanHomeCategoryComponent', () => {
+  let component: WomanHomeCategoryComponent;
+  let fixture: ComponentFixture<WomanHomeCategoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeCategoryNavComponent ]
+      declarations: [ WomanHomeCategoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeCategoryNavComponent);
+    fixture = TestBed.createComponent(WomanHomeCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,11 @@
-<div class="u-header__section u-header__section--light g-bg-white g-transition-0_3">
+<div class="overlay" [class.hide-overlay]="hideOverlay" [class.show-overlay]="!hideOverlay"></div>
+
+<div class="u-header__section u-header__section--light g-bg-white g-transition-0_3" style="z-index: 99">
   <nav class="navbar navbar-expand-lg g-pb-0">
     <div class="container">
       <!-- Navigation -->
       <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-0--lg d-flex divider-solid-bottom">
-        <ul class="navbar-nav full-width justify-content-center font-cg-bold">
+        <ul class="navbar-nav full-width justify-content-center font-cg-bold" style="z-index: 999;">
           <!-- Categories - Mega Menu -->
           <li class="nav-item g-mx-10--lg g-mx-15--xl g-pa-10 pointer">
             <a class="nav-link g-color-secondary g-py-0">
@@ -44,7 +46,7 @@
 
 <div class="container g-relative">
   <!-- new arrival -->
-  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute" [@expandCollapse]="validateAnimationState('newArrival')"
+  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999 top-up-1" [@expandCollapse]="validateAnimationState('newArrival')"
     (mouseenter)="enterContent('newArrival')" (mouseleave)="leaveContent('newArrival')">
     <div class="row">
       <div class="col-md-4 g-mb-30 g-mb-0--md">
@@ -92,7 +94,7 @@
   </div>
 
   <!-- clothing -->
-  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute" [@expandCollapse]="validateAnimationState('clothing')"
+  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999 top-up-1" [@expandCollapse]="validateAnimationState('clothing')"
     (mouseenter)="enterContent('clothing')" (mouseleave)="leaveContent('clothing')">
     <div class="row">
       <div class="col-sm-6 col-lg-2 g-mb-30 g-mb-0--md">
@@ -226,7 +228,7 @@
   </div>
 
   <!-- shoes -->
-  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute" [@expandCollapse]="validateAnimationState('shoes')"
+  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute g-z-index-9999 top-up-1" [@expandCollapse]="validateAnimationState('shoes')"
     (mouseenter)="enterContent('shoes')" (mouseleave)="leaveContent('shoes')">
     <div class="row no-gutters">
       <div class="col-md-4 g-mb-30 g-mb-0--md">
@@ -282,7 +284,7 @@
   </div>
 
   <!-- sports -->
-  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute" [@expandCollapse]="validateAnimationState('sport')"
+  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999 top-up-1" [@expandCollapse]="validateAnimationState('sport')"
     (mouseenter)="enterContent('sport')" (mouseleave)="leaveContent('sport')">
     <div class="row">
       <div class="col-sm-6 col-lg-2 g-mb-30 g-mb-0--md">
@@ -416,7 +418,7 @@
   </div>
 
   <!-- bags -->
-  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute" [@expandCollapse]="validateAnimationState('accessoriesAndBags')"
+  <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute g-z-index-9999 top-up-1" [@expandCollapse]="validateAnimationState('accessoriesAndBags')"
     (mouseenter)="enterContent('accessoriesAndBags')" (mouseleave)="leaveContent('accessoriesAndBags')">
     <div class="row no-gutters">
       <div class="col-md-4 g-mb-30 g-mb-0--md">
@@ -471,3 +473,5 @@
     </div>
   </div>
 </div>
+
+svdncm

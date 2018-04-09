@@ -48059,3 +48059,7 @@ p {
 .pointer {
   cursor: pointer;
 }
+
+.top-up-1 {
+  top: -1px
+}

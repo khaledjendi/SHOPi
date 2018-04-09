@@ -8,6 +8,7 @@ import { PageType } from './home-header/home-header.component';
 })
 export class HomeComponent implements OnInit {
   page: PageType = PageType.Home;
+
   constructor() { }
 
   ngOnInit() {

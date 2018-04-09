@@ -16,8 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { ManHomeCategoryComponent } from './home/man-home-category/man-home-category.component';
 import { HomeDefaultComponent } from './home/home-default/home-default.component';
 import { WomanHomeCategoryComponent } from './home/woman-home-category/woman-home-category.component';
-import { KidsHomeCategoryComponent } from './kids-home-category/kids-home-category.component';
-import { HotDealsHomeCategoryComponent } from './hot-deals-home-category/hot-deals-home-category.component';
+import { HotDealsHomeCategoryComponent } from './home/hot-deals-home-category/hot-deals-home-category.component';
+import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-category.component';
 
 
 @NgModule({

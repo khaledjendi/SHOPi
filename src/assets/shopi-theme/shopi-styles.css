@@ -28456,6 +28456,10 @@ pre[class*="language-"] .toolbar-item a {
   background-color: rgba(229, 125, 32, 0.2) !important;
 }
 
+.g-bg-orange-opacity-0_5 {
+  background-color: rgba(229, 125, 32, 0.5) !important;
+}
+
 .g-bg-orange--hover:hover {
   background-color: #e57d20 !important;
 }
@@ -48062,4 +48066,12 @@ p {
 
 .top-up-1 {
   top: -1px
+}
+
+.font-white {
+  color: #fff;
+}
+
+.w-70 {
+  width: 60%
 }

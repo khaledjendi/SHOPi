@@ -160,13 +160,11 @@ export class ManHomeCategoryComponent implements OnInit {
     if (!bool) {
       if (this.type !== type) {
         this.type = type;
-        console.log("in: " + type + ' bool: ' + bool)
         this.onMenuItemChanged(bool)
       }
     }
     else {
       if (this.type === type) {
-        console.log("out: " + type + ' bool: ' + bool)
         this.onMenuItemChanged(bool)
       }
     }
@@ -174,7 +172,6 @@ export class ManHomeCategoryComponent implements OnInit {
   }
 
   onMenuItemChanged(hideOverlay) {
-
     setTimeout(() => {
       this.hideOverlay = hideOverlay;
       this.type = "";

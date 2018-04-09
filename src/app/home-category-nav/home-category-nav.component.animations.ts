@@ -3,7 +3,6 @@ import { trigger, transition, state, animate, style, keyframes, useAnimation, qu
 export const expandCollapse = trigger('expandCollapse', [
   state('collapsed', style({
     height: 0,
-    width: 0,
     paddingTop: 0,
     paddingBottom: 0,
     opacity: 0,
@@ -15,14 +14,13 @@ export const expandCollapse = trigger('expandCollapse', [
       height: '*',
       paddingTop: '*',
       paddingBottom: '*',
-      width: '*',
       opacity: 1,
 
     })),
-    animate('750ms', style({ display: 'block' }))
+    animate('1s', style({ display: 'block' }))
   ]),
 
   transition('expanded => collapsed', [
-    animate('300ms ease-in')
+    animate('100ms ease-in')
   ])
 ]);

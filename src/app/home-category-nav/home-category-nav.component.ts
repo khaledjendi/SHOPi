@@ -10,6 +10,10 @@ import { Component, OnInit, Injectable } from '@angular/core';
 
 export class HomeCategoryNavComponent implements OnInit {
   private menuParts = {
+    newArrival: {
+      isInHeader: false,
+      isInContent: false
+    },
     clothing: {
       isInHeader: false,
       isInContent: false
@@ -37,6 +41,9 @@ export class HomeCategoryNavComponent implements OnInit {
 
   enterHeader(type) {
     switch (type) {
+      case "newArrival":
+        this.menuParts.newArrival.isInHeader = true;
+        break;
       case "clothing":
         this.menuParts.clothing.isInHeader = true;
         break;
@@ -54,6 +61,9 @@ export class HomeCategoryNavComponent implements OnInit {
 
   enterContent(type) {
     switch (type) {
+      case "newArrival":
+        this.menuParts.newArrival.isInContent = true;
+        break;
       case "clothing":
         this.menuParts.clothing.isInContent = true;
         break;
@@ -71,6 +81,9 @@ export class HomeCategoryNavComponent implements OnInit {
 
   leaveHeader(type) {
     switch (type) {
+      case "newArrival":
+        this.menuParts.newArrival.isInHeader = false;
+        break;
       case "clothing":
         this.menuParts.clothing.isInHeader = false;
         break;
@@ -88,6 +101,9 @@ export class HomeCategoryNavComponent implements OnInit {
 
   leaveContent(type) {
     switch (type) {
+      case "newArrival":
+        this.menuParts.newArrival.isInContent = false;
+        break;
       case "clothing":
         this.menuParts.clothing.isInContent = false;
         break;
@@ -104,7 +120,12 @@ export class HomeCategoryNavComponent implements OnInit {
   }
 
   validateAnimationState(type) {
+
     switch (type) {
+      case "newArrival":
+        if (this.menuParts.newArrival.isInHeader || this.menuParts.newArrival.isInContent) return 'expanded'
+        if (!this.menuParts.newArrival.isInHeader && !this.menuParts.newArrival.isInContent) return 'collapsed'
+        break;
       case "clothing":
         if (this.menuParts.clothing.isInHeader || this.menuParts.clothing.isInContent) return 'expanded'
         if (!this.menuParts.clothing.isInHeader && !this.menuParts.clothing.isInContent) return 'collapsed'

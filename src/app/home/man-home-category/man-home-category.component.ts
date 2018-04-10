@@ -58,6 +58,60 @@ export class ManHomeCategoryComponent implements OnInit {
     description: `Men's bomber jacket in shearling. Features zip fastening and two front pockets with flaps and press button fastening. Elastic trim at cuffs and bottom hem. Regular fit. Hip length.`,
     price: '7 950 kr'
   }]
+
+  menCarousel = {
+    slidesShow: 4,
+    slides: [{
+      src: '../assets/img/carousel/jacket_1.jpg',
+      discount: '25%',
+      news: null,
+      title: 'Gant New Collection',
+      gender: 'Men',
+      price: '530 kr'
+    }, {
+      src: '../assets/img/carousel/blazer_1.jpg',
+      discount: null,
+      news: {
+        backgroundColor: 'g-bg-primary',
+        description: 'New Arrival'
+      },
+      title: 'Gianni Feraud Suit',
+      gender: 'Men',
+      price: '1 550 kr'
+    }, {
+      src: '../assets/img/carousel/nike_1.jpg',
+      discount: null,
+      news: null,
+      title: 'Nike Air',
+      gender: 'Men',
+      price: '1 250 kr'
+    }, {
+      src: '../assets/img/carousel/jeans_1.jpg',
+      discount: '50%',
+      news: {
+        backgroundColor: 'g-bg-lightred',
+        description: 'Sold Out'
+      },
+      title: 'Tiger of Sweden Jeans',
+      gender: 'Men',
+      price: '950 kr'
+    }, {
+      src: '../assets/img/carousel/fila_1.jpg',
+      discount: null,
+      news: null,
+      title: 'Filla Sweaters',
+      gender: 'Men',
+      price: '720 kr'
+    }, {
+      src: '../assets/img/carousel/sweater_1.jpg',
+      discount: null,
+      news: null,
+      title: 'Avslappnad Sweaters',
+      gender: 'Men',
+      price: '520 kr'
+    }]
+  };
+
   constructor() {
 
   }

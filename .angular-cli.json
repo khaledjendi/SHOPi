@@ -22,14 +22,17 @@
         "./shopi-theme.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "./styles.scss",
         "../src/assets/vendor/revolution-slider/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css",
         "../src/assets/vendor/revolution-slider/revolution/css/settings.css",
         "../src/assets/vendor/revolution-slider/revolution/css/layers.css",
-        "../src/assets/vendor/revolution-slider/revolution/css/navigation.css"
+        "../src/assets/vendor/revolution-slider/revolution/css/navigation.css",
+        "../src/assets/vendor/slick-carousel/slick/slick.css",
+        "./styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../src/assets/vendor/popper.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.tools.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.revolution.min.js",
         
@@ -41,7 +44,10 @@
         "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.navigation.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.parallax.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.slideanims.min.js",
-        "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.video.min.js"
+        "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.video.min.js",
+        "../src/assets/vendor/slick-carousel/slick/slick.js",
+        "../src/assets/js/hs.core.js",
+        "../src/assets/js/components/hs.carousel.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

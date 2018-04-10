@@ -27082,7 +27082,7 @@ pre[class*="language-"] .toolbar-item a {
 }
 
 .js-carousel {
-  background: url('img/preloaders/preloader-black.svg') no-repeat 50% 50%;
+  background: url('img/preloaders/preloader-colors.svg') no-repeat 50% 50%;
 }
 
 .js-carousel .js-next,
@@ -27108,7 +27108,7 @@ pre[class*="language-"] .toolbar-item a {
 
 .js-slide, .js-thumb {
   height: 0;
-  visibility: hidden;
+  /* visibility: hidden; */
   overflow: hidden;
 }
 

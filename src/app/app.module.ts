@@ -19,7 +19,7 @@ import { WomanHomeCategoryComponent } from './home/woman-home-category/woman-hom
 import { HotDealsHomeCategoryComponent } from './home/hot-deals-home-category/hot-deals-home-category.component';
 import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-category.component';
 import { RevSliderComponent } from './home/rev-slider/rev-slider.component';
-
+import { ProductCarouselComponent } from './product-carousel/product-carousel.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { RevSliderComponent } from './home/rev-slider/rev-slider.component';
     WomanHomeCategoryComponent,
     KidsHomeCategoryComponent,
     HotDealsHomeCategoryComponent,
-    RevSliderComponent
+    RevSliderComponent,
+    ProductCarouselComponent
   ],
   imports: [
     BrowserModule,

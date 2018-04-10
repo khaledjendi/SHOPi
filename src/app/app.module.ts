@@ -18,6 +18,7 @@ import { HomeDefaultComponent } from './home/home-default/home-default.component
 import { WomanHomeCategoryComponent } from './home/woman-home-category/woman-home-category.component';
 import { HotDealsHomeCategoryComponent } from './home/hot-deals-home-category/hot-deals-home-category.component';
 import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-category.component';
+import { RevSliderComponent } from './home/rev-slider/rev-slider.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-c
     HomeDefaultComponent,
     WomanHomeCategoryComponent,
     KidsHomeCategoryComponent,
-    HotDealsHomeCategoryComponent
+    HotDealsHomeCategoryComponent,
+    RevSliderComponent
   ],
   imports: [
     BrowserModule,

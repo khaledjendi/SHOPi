@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router'
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonHeaderComponent } from './common/common-header/common-header.component';
 import { HomeComponent } from './home/home.component';
 import { ManHomeCategoryComponent } from './home/man-home-category/man-home-category.component';
@@ -21,9 +21,10 @@ import { WomanHomeCategoryComponent } from './home/woman-home-category/woman-hom
 import { HotDealsHomeCategoryComponent } from './home/hot-deals-home-category/hot-deals-home-category.component';
 import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-category.component';
 import { RevSliderComponent } from './home/rev-slider/rev-slider.component';
-import { ProductCarouselComponent } from './product-carousel/product-carousel.component';
+import { ProductCarouselComponent } from './common/product-carousel/product-carousel.component';
 import { ClothesCollectionComponent } from './common/clothes-collection/clothes-collection.component';
 import { NotFoundComponent } from './common/not-found/not-found.component';
+import { CommonFooterComponent } from './common/common-footer/common-footer.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +39,13 @@ import { NotFoundComponent } from './common/not-found/not-found.component';
     RevSliderComponent,
     ProductCarouselComponent,
     ClothesCollectionComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CommonFooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatCheckboxModule,
@@ -54,6 +57,8 @@ import { NotFoundComponent } from './common/not-found/not-found.component';
     MatButtonToggleModule,
     MatTabsModule,
     MatCardModule,
+    MatTooltipModule,
+    MatSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     RouterModule.forRoot([

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 export enum PageType {
   Home = 0,
-  Man = 1,
+  Men = 1,
   Woman = 2,
   Kids = 3,
   Deals = 4
@@ -50,7 +50,7 @@ export class CommonHeaderComponent implements OnInit {
           isKidsActive: false,
           isHotDealsActive: false
         }
-        this.change.emit(PageType.Man);
+        this.change.emit(PageType.Men);
         break;
         case 'woman':
         if (this.activeLinks.isWomanActive) break;

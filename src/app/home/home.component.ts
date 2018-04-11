@@ -8,7 +8,7 @@ import { PageType } from '../common/common-header/common-header.component';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  page: PageType = PageType.Man;
+  page: PageType = PageType.Men;
 
   constructor() { }
 

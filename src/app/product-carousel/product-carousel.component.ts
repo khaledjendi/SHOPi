@@ -14,7 +14,7 @@ export class ProductCarouselComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.carousel);
+    //console.log(this.carousel);
   }
 
   @ViewChild('carouselSlider') carouselElm: ElementRef;

@@ -1,5 +1,5 @@
-<app-home-header (change)="onHeaderChanged($event)"></app-home-header>
-<app-home-default *ngIf="(page === 0)"></app-home-default>
+<app-common-header (change)="onHeaderChanged($event)"></app-common-header>
+<!-- <app-home-default *ngIf="(page === 0)"></app-home-default> -->
 <app-man-home-category *ngIf="(page === 1)"></app-man-home-category>
 <app-woman-home-category *ngIf="(page === 2)"></app-woman-home-category>
 <app-kids-home-category *ngIf="(page === 3)"></app-kids-home-category>

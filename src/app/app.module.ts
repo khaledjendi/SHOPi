@@ -8,10 +8,12 @@ import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxMod
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 
+import { RouterModule } from '@angular/router'
+
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
-import { HomeHeaderComponent } from './home/home-header/home-header.component';
+import { CommonHeaderComponent } from './common/common-header/common-header.component';
 import { HomeComponent } from './home/home.component';
 import { ManHomeCategoryComponent } from './home/man-home-category/man-home-category.component';
 import { HomeDefaultComponent } from './home/home-default/home-default.component';
@@ -20,11 +22,13 @@ import { HotDealsHomeCategoryComponent } from './home/hot-deals-home-category/ho
 import { KidsHomeCategoryComponent } from './home/kids-home-category/kids-home-category.component';
 import { RevSliderComponent } from './home/rev-slider/rev-slider.component';
 import { ProductCarouselComponent } from './product-carousel/product-carousel.component';
+import { ClothesCollectionComponent } from './common/clothes-collection/clothes-collection.component';
+import { NotFoundComponent } from './common/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeHeaderComponent,
+    CommonHeaderComponent,
     HomeComponent,
     ManHomeCategoryComponent,
     HomeDefaultComponent,
@@ -32,7 +36,9 @@ import { ProductCarouselComponent } from './product-carousel/product-carousel.co
     KidsHomeCategoryComponent,
     HotDealsHomeCategoryComponent,
     RevSliderComponent,
-    ProductCarouselComponent
+    ProductCarouselComponent,
+    ClothesCollectionComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,12 @@ import { ProductCarouselComponent } from './product-carousel/product-carousel.co
     MatTabsModule,
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent },
+      { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
+      { path: '**', component: NotFoundComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

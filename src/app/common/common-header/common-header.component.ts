@@ -9,15 +9,15 @@ export enum PageType {
 }
 
 @Component({
-  selector: 'app-home-header',
-  templateUrl: './home-header.component.html',
-  styleUrls: ['./home-header.component.scss']
+  selector: 'app-common-header',
+  templateUrl: './common-header.component.html',
+  styleUrls: ['./common-header.component.scss']
 })
-export class HomeHeaderComponent implements OnInit {
+export class CommonHeaderComponent implements OnInit {
   @Output() change = new EventEmitter();
   activeLinks = {
-    isHomeActive: true,
-    isManActive: false,
+    isHomeActive: false,
+    isManActive: true,
     isWomanActive: false,
     isKidsActive: false,
     isHotDealsActive: false

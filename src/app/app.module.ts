@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -25,6 +25,7 @@ import { ProductCarouselComponent } from './common/product-carousel/product-caro
 import { ClothesCollectionComponent } from './common/clothes-collection/clothes-collection.component';
 import { NotFoundComponent } from './common/not-found/not-found.component';
 import { CommonFooterComponent } from './common/common-footer/common-footer.component';
+import { PriceSliderComponent } from './common/price-slider/price-slider.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CommonFooterComponent } from './common/common-footer/common-footer.comp
     ProductCarouselComponent,
     ClothesCollectionComponent,
     NotFoundComponent,
-    CommonFooterComponent
+    CommonFooterComponent,
+    PriceSliderComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { CommonFooterComponent } from './common/common-footer/common-footer.comp
     MatCardModule,
     MatTooltipModule,
     MatSelectModule,
+    MatRadioModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     RouterModule.forRoot([

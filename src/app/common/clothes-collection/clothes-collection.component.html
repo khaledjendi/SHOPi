@@ -36,7 +36,7 @@
                     <!-- Show -->
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field>
+                            <mat-form-field style="width: 150px">
                                 <mat-select placeholder="Brands" [formControl]="brandControl" multiple>
                                     <mat-select-trigger>
                                         {{brandControl.value ? brandControl.value[0] : ''}}
@@ -52,7 +52,7 @@
 
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field>
+                            <mat-form-field style="width: 100px">
                                 <mat-select placeholder="Size" [formControl]="sizeControl" multiple>
                                     <mat-optgroup *ngFor="let group of sizeGroups" [label]="group.name" [disabled]="group.disabled">
                                         <mat-option *ngFor="let size of group.size" [value]="size">
@@ -65,51 +65,56 @@
                     </div>
 
                     <div class="g-mr-10">
-                            <div class="d-inline-block btn-group g-line-height-1_2">
-                                <mat-form-field>
-                                    <mat-select placeholder="Colors" [formControl]="colorControl" multiple>
-                                        <mat-select-trigger>
-                                            {{colorControl.value ? colorControl.value[0] : ''}}
-                                            <span *ngIf="colorControl.value?.length > 1" class="additional-selection">
-                                                (+{{colorControl.value.length - 1}} others)
-                                            </span>
-                                        </mat-select-trigger>
-                                        <mat-option *ngFor="let color of colorsList" [value]="color.name">
-                                                <span class="bg-products-colors" [style.background-color]="color.code"></span>{{color.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-form-field style="width: 130px">
+                                <mat-select placeholder="Colors" [formControl]="colorControl" multiple>
+                                    <mat-select-trigger>
+                                        {{colorControl.value ? colorControl.value[0] : ''}}
+                                        <span *ngIf="colorControl.value?.length > 1" class="additional-selection">
+                                            (+{{colorControl.value.length - 1}} others)
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let color of colorsList" [value]="color.name">
+                                        <span class="bg-products-colors" [style.background-color]="color.code"></span>{{color.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
 
-                    <div class="g-mb-30">
-                            <h3 class="h5 mb-3">Pricing</h3>
-            
-                            <div class="text-center">
-                              <span class="d-block g-color-primary mb-4">$(<span id="rangeSliderAmount3">0</span>)</span>
-                              <div id="rangeSlider1" class="u-slider-v1-3"
-                                   data-result-container="rangeSliderAmount3"
-                                   data-range="true"
-                                   data-default="180, 320"
-                                   data-min="0"
-                                   data-max="500"></div>
-                            </div>
-                          </div>
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-form-field style="width: 100px">
+                                <mat-select [(value)]="perPage" placeholder="Per Page">
+                                    <mat-option [value]="35">35</mat-option>
+                                    <mat-option [value]="70">70</mat-option>
+                                    <mat-option [value]="100">100</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
 
-                    <!-- Sort By -->
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item">
-                            <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="page-list-filter-left-sidebar-1.html">
-                                <i class="icon-list"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="u-icon-v2 u-icon-size--xs g-brd-primary g-color-primary" href="page-grid-filter-left-sidebar-1.html">
-                                <i class="icon-grid"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- End Sort By -->
+                    <div class="g-mb-20 g-width-150">
+                        <div class="text-center">
+                            <app-price-slider [currency]="priceCurrency" [min]="minPrice" [max]="maxPrice" [priceRange]="priceRange"></app-price-slider>
+                        </div>
+                    </div>
+                    <div class="g-mr-10">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2" style="top: 20px; left: 0px; width: 100%; position: absolute;">
+                            <ul class="list-inline mb-0">
+                                <li class="g-mb-5">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="page-list-filter-left-sidebar-1.html">
+                                        <i class="icon-list"></i>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-primary g-color-primary" href="page-grid-filter-left-sidebar-1.html">
+                                        <i class="icon-grid"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <!-- End Filters -->
 
@@ -528,6 +533,7 @@
                 </nav>
                 <!-- End Pagination -->
             </div>
+
         </div>
         <!-- End Content -->
 

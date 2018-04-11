@@ -58,6 +58,11 @@ export class ClothesCollectionComponent implements OnInit {
       code: '##FF8000'
     }];
 
+    priceCurrency = "kr";
+    minPrice = "0";
+    maxPrice = "5000";
+    priceRange = "1350, 3500";
+    perPage = 35;
 
   constructor(private route: ActivatedRoute) {
   }

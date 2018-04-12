@@ -27,42 +27,48 @@ export class ClothesCollectionComponent implements OnInit {
       name: 'Large',
       size: ['L', 'XL', 'XXL', 'XXL']
     }
-    
+
   ];
 
   colorControl = new FormControl();
   colorsList = [
-    { 
+    {
       name: 'Black',
       code: '#000000'
-    }, { 
+    }, {
       name: 'Blue',
       code: '#0000FF'
-    }, { 
+    }, {
       name: 'Gray',
       code: '#A4A4A4'
-    }, { 
+    }, {
       name: 'White',
       code: '#FFFFFF'
-    }, { 
+    }, {
       name: 'Brown',
       code: '#8A2908'
-    }, { 
+    }, {
       name: 'Red',
       code: '#FF0000'
-    }, { 
+    }, {
       name: 'Green',
       code: '#2EFE2E'
-    }, { 
+    }, {
       name: 'Orange',
       code: '##FF8000'
     }];
 
-    priceCurrency = "kr";
-    minPrice = "0";
-    maxPrice = "5000";
-    priceRange = "1350, 3500";
-    perPage = 35;
+  priceCurrency = "kr";
+  minPrice = "0";
+  maxPrice = "5000";
+  priceRange = "1350, 3500";
+  perPage = 35;
+
+  topsCollection = ['Shirts', 'T-Shirts', 'Knitwear', 'Weatshirts & Hoodies', 'Polo Shirts']
+  outerwareCollection = ['Jackets', 'Coats', 'Blazers', 'Rainwear', 'Vests']
+  suitsCollection = ['Suits', 'Tuxedos', 'Blazers', 'Trousers', 'Waistcoats', 'Accessories']
+  trousersCollection = ['Chinos', 'Casual', 'Formal', 'Sweat Pants']
+  jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
   constructor(private route: ActivatedRoute) {
   }

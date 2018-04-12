@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="g-mr-10">
-                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2" style="top: 20px; left: 0px; width: 100%; position: absolute;">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2" style="top: 20px; left: 0px; width: 100%; position: absolute; z-index: -1;">
                             <ul class="list-inline mb-0">
                                 <li class="g-mb-5">
                                     <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="page-list-filter-left-sidebar-1.html">
@@ -538,120 +538,68 @@
         <!-- End Content -->
 
         <!-- Filters -->
-        <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
-            <div class="g-pr-15--lg g-pt-60">
-                <hr>
+        <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-20">
+            <div class="g-pr-15--lg">
+                <a id="mega-menu-label-3" class="d-flex justify-content-center nav-link text-uppercase g-color-primary--hover g-px-5 g-font-size-16 font-cg-bold"
+                    style="margin-top: 4px">
+                    Clothing
+                </a>
+                <hr style="margin-top: 1.4rem;">
+                <mat-accordion>
 
-                <!-- Pricing -->
-                <div class="g-mb-30">
-                    <h3 class="h5 mb-3">Pricing</h3>
+                    <mat-expansion-panel expanded="true" hideToggle="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-cg-bold">
+                                View All
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                    </mat-expansion-panel>
 
-                    <div class="text-center">
-                        <span class="d-block g-color-primary mb-4">$(
-                            <span id="rangeSliderAmount3">0</span>)</span>
-                        <div id="rangeSlider1" class="u-slider-v1-3" data-result-container="rangeSliderAmount3" data-range="true" data-default="180, 320"
-                            data-min="0" data-max="500"></div>
-                    </div>
-                </div>
-                <!-- End Pricing -->
+                    <mat-expansion-panel hideToggle="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-cg-bold">
+                                Tops
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="topsCollection"></app-categories-labels>
+                    </mat-expansion-panel>
 
-                <hr>
+                    <mat-expansion-panel hideToggle="true">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Outerwear
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="outerwareCollection"></app-categories-labels>
+                    </mat-expansion-panel>
 
+                    <mat-expansion-panel hideToggle="true">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Suits & Blazers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="suitsCollection"></app-categories-labels>
+                    </mat-expansion-panel>
 
+                    <mat-expansion-panel hideToggle="true">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Trousers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="trousersCollection"></app-categories-labels>
+                    </mat-expansion-panel>
 
-                <hr>
-
-
-                <hr>
-
-                <!-- Color -->
-                <div class="g-mb-30">
-                    <h3 class="h5 mb-3">Color</h3>
-
-                    <!-- Checkbox -->
-                    <div>
-                        <label class="form-check-inline u-check m-0">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-primary rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-beige rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-black rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-yellow rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-blue rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-purple rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-brown rounded-circle"></i>
-                            </span>
-                        </label>
-                        <label class="form-check-inline u-check mb-0 mr-0 g-ml-5">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
-                            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
-                                <i class="d-block g-absolute-centered g-width-16 g-height-16 g-bg-gray-dark-v4 rounded-circle"></i>
-                            </span>
-                        </label>
-                    </div>
-                    <!-- End Checkbox -->
-                </div>
-                <!-- End Color -->
-
-                <hr>
-
-                <!-- Rating -->
-                <div class="g-mb-30">
-                    <h3 class="h5 mb-3">Rating</h3>
-
-                    <ul class="js-rating u-rating-v1 g-line-height-1 g-font-size-20 g-color-gray-light-v3 mb-0" data-hover-classes="g-color-primary">
-                        <li class="g-color-primary click">
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li class="g-color-primary click">
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li class="g-color-primary click">
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li class="g-color-primary click">
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                    </ul>
-                </div>
-                <!-- End Rating -->
-
-                <hr>
-
-                <button class="btn btn-block u-btn-black g-font-size-12 text-uppercase g-py-12 g-px-25" type="button">Reset</button>
+                    <mat-expansion-panel hideToggle="true">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Jeans
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="jeansCollection"></app-categories-labels>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
         </div>
         <!-- End Filters -->

@@ -1,3 +1,5 @@
+import { ProductsService } from './products.service';
+import { ApiAuthService } from './api-auth.service';
 import { NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,6 +29,7 @@ import { NotFoundComponent } from './common/not-found/not-found.component';
 import { CommonFooterComponent } from './common/common-footer/common-footer.component';
 import { PriceSliderComponent } from './common/price-slider/price-slider.component';
 import { CategoriesLabelsComponent } from './common/categories-labels/categories-labels.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -72,9 +75,10 @@ import { CategoriesLabelsComponent } from './common/categories-labels/categories
       { path: '', component: HomeComponent },
       { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
       { path: '**', component: NotFoundComponent }
-    ])
+    ]),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiAuthService, ProductsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -29849,6 +29849,10 @@ pre[class*="language-"] .toolbar-item a {
   border-color: #fd7e14 !important;
 }
 
+.g-brd-gray--hover-edited:hover {
+  border: 1px solid rgba(119, 119, 119, 0.5) !important;
+}
+
 .g-brd-primary--active.active,
 .active .g-brd-primary--active {
   border-color: #fd7e14 !important;
@@ -33076,6 +33080,10 @@ pre[class*="language-"] .toolbar-item a {
   Cursors
 ------------------------------------*/
 .g-cursor-pointer {
+  cursor: pointer;
+}
+
+.g-cursor-pointer--hover :hover {
   cursor: pointer;
 }
 

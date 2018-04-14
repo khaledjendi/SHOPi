@@ -30,6 +30,7 @@ import { CommonFooterComponent } from './common/common-footer/common-footer.comp
 import { PriceSliderComponent } from './common/price-slider/price-slider.component';
 import { CategoriesLabelsComponent } from './common/categories-labels/categories-labels.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonProductComponent } from './common/common-product/common-product.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponent,
     CommonFooterComponent,
     PriceSliderComponent,
-    CategoriesLabelsComponent
+    CategoriesLabelsComponent,
+    CommonProductComponent
   ],
   imports: [
     BrowserModule,

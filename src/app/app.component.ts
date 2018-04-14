@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { ProductsService } from './products.service';
 import { ApiAuthService } from './api-auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,20 +15,44 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    this.auth.authenticate();
+    // let productsService = this.prod.getAllProducts();
+    // if (productsService instanceof Promise) {
+    //   productsService.then((promise) => promise.subscribe((products) => {
+    //     console.log("promise productsService", products);
+    //   }))
+    // }
+    // else {
+    //   productsService.subscribe((products) => {
+    //     console.log("observable productsService", products);
+    //     console.log(products);
+    //   })
+    // }
 
-    setTimeout(() => {
-      this.prod.getAllProducts();
-    }, 1000);
-    
-    
+    // setTimeout(() => {
+    //   let productsService1 = this.prod.getAllProducts();
+    //   if (productsService1 instanceof Promise) {
+    //     productsService1.then((promise) => promise.subscribe((products) => {
+    //       console.log("promise productsService1", products);
+    //       console.log(products);
+    //     }))
+    //   }
+    //   else {
+    //     productsService1.subscribe((products) => {
+    //       console.log("observable productsService1", products);
+    //       console.log(products);
+    //     })
+    //   }
+    // }, 1500);
+
+
+
     // console.log("ok1");
     // this.auth.getAuthToken().subscribe(result => {
     //   console.log("resylt: " + result)
     // });
 
     //console.log(JSON.parse(Moltin.storage.localStorage.moltinCredentials));
-    
+
     // const products = Moltin.Products.All().then((products) => {
     //   console.log(products);
 

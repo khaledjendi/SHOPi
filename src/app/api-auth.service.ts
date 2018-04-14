@@ -3,19 +3,30 @@ import { Injectable, OnInit } from '@angular/core';
 
 @Injectable()
 export class ApiAuthService {
-  token;
+  private _token;
+
+  get token() {
+    return this._token;
+  }
+
   constructor() { }
 
   authenticate() {
-    Config.Moltin.Authenticate().then(token => {
-      this.token = token;
-    })
+    return new Promise((resolve, reject) => {
+      Config.Moltin.Authenticate().then(token => {
+        this._token = token;
+        resolve();
+      }, () => {
+        reject();
+      })
+    });
+
   }
 
   isValidToken() {
-    if(! this.token) return false;
+    if(! this._token) return false;
 
     let epochCurrentTime = Math.round((new Date()).getTime() / 1000);
-    return (epochCurrentTime < this.token.expires)
+    return (epochCurrentTime < this._token.expires)
   }
 }

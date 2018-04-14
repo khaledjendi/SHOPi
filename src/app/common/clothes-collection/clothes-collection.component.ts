@@ -70,6 +70,74 @@ export class ClothesCollectionComponent implements OnInit {
   trousersCollection = ['Chinos', 'Casual', 'Formal', 'Sweat Pants']
   jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
+
+  products = [
+    {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }, {
+      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+      discount: null,
+      news: null,
+      title: "Maasai o-n 9670",
+      collection: "Men",
+      price: "550 kr"
+    }
+  ]
+
   constructor(private route: ActivatedRoute) {
   }
 

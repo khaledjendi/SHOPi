@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private auth: ApiAuthService, private prod: ProductsService) {
+  constructor() {
   }
 
   ngOnInit() {

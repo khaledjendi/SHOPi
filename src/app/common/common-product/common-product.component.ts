@@ -1,3 +1,4 @@
+import { Product } from './../Product';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./common-product.component.scss']
 })
 export class CommonProductComponent implements OnInit {
-  @Input("products") products;
+  @Input("products") products: Product[];
    
   constructor() { }
 

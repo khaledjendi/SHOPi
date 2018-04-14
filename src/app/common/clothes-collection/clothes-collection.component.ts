@@ -1,7 +1,9 @@
-import { PageType } from './../common-header/common-header.component';
+import { Product } from './../Product';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { ProductsService, CallOperator } from './../../products.service';
+import { PageType } from './../common-header/common-header.component';
 
 @Component({
   selector: 'app-clothes-collection',
@@ -70,75 +72,10 @@ export class ClothesCollectionComponent implements OnInit {
   trousersCollection = ['Chinos', 'Casual', 'Formal', 'Sweat Pants']
   jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
+  products: Product[] = []; 
 
-  products = [
-    {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }, {
-      src: "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-      discount: null,
-      news: null,
-      title: "Maasai o-n 9670",
-      collection: "Men",
-      price: "550 kr"
-    }
-  ]
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private productService: ProductsService) {
   }
 
   ngOnInit() {
@@ -148,6 +85,7 @@ export class ClothesCollectionComponent implements OnInit {
       switch (this.type) {
         case PageType.Men:
           this.collectionHeader = "url('../../assets/img/collection/men/banner_1.jpg')";
+          this.getAllProducts();
           break;
       }
     })
@@ -157,4 +95,44 @@ export class ClothesCollectionComponent implements OnInit {
     return PageType[this.type].toString();
   }
 
+  getAllProducts() {
+    let productsService = this.productService.callGet(CallOperator.AllProducts);
+    if (productsService instanceof Promise) {
+      productsService.then((promise) => promise.subscribe((products) => {
+        //console.log("promise productsService", products);
+        this.createProducts(products.data);
+      }))
+    }
+    else {
+      productsService.subscribe((products) => {
+        //console.log("observable productsService", products);
+      })
+    }
+  }
+
+  createProducts(products) {
+    
+    for (let product of products) {
+      let tProduct:Product = new Product();
+      tProduct.id = product.id;
+      tProduct.sku = product.sku;
+      tProduct.slug = product.slug;
+      tProduct.name = product.name;
+      tProduct.collections = product.relationships.collections.data;
+      tProduct.categories = product.relationships.categories.data;
+      tProduct.brands = product.relationships.brands.data;
+      tProduct.price = product.price[0].amount;
+      tProduct.formattedPrice = product.meta.display_price.with_tax.formatted;
+      tProduct.mainImage = product.mainImage;
+      tProduct.discount = product.discount;
+      tProduct.rating = product.rating;
+      tProduct.color = product.color;
+      tProduct.colorCode = product.colorCode;
+      tProduct.fit = product.fit;
+      tProduct.newArrival = product.newArrival;
+      tProduct.reviews = product.reviews;
+      tProduct.description = product.description;
+      this.products.push(tProduct);
+    }
+  }
 }

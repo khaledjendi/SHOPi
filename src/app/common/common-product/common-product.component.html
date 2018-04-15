@@ -4,7 +4,7 @@
     <div dnd-droppable class="panel panel-info" (onDropSuccess)="addToCart($event)">
       <div class="g-width-100 customized-drop"></div>
       <div class="dropped-products">
-        <div [hidden]="!cartService.cartProducts.length > 0" class="font-white">
+        <div [hidden]="cartService.cartProducts.length === 0" class="font-white">
           <table class="cart-float-table">
             <tr *ngFor="let cartProduct of cartService.cartProducts">
               <td style="width: 40px"><img class="icon-product-image" src="{{cartProduct.product.mainImage}}"></td>

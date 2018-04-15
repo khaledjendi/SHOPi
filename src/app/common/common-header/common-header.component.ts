@@ -24,7 +24,7 @@ export class CommonHeaderComponent implements OnInit {
     isHotDealsActive: false
   }
   
-  constructor(private cartService: CartService) { }
+  constructor(public cartService: CartService) { }
 
   ngOnInit() {
   }

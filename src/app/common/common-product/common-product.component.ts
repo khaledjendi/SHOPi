@@ -27,7 +27,7 @@ export class CommonProductComponent implements OnInit {
     this.cartService.cartProducts.push(cartProduct);
   }
    
-  constructor(private cartService: CartService) { }
+  constructor(public cartService: CartService) { }
 
   ngOnInit() {
   }

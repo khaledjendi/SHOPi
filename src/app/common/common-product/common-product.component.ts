@@ -1,16 +1,23 @@
+import { cartAnimation } from './common-product.component.animation';
+import { trigger, transition, useAnimation, animate, style } from '@angular/animations';
 import { CartProduct } from './../Cart';
 import { CartService } from './../../services/cart.service';
 import { Product } from './../Product';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+
 @Component({
   selector: 'app-common-product',
   templateUrl: './common-product.component.html',
-  styleUrls: ['./common-product.component.scss']
+  styleUrls: ['./common-product.component.scss'],
+  animations: [
+    cartAnimation
+  ]
 })
 export class CommonProductComponent implements OnInit {
   @Input("products") products: Product[];
   @Output("selectedProduct") selectedProduct = new EventEmitter(); 
+  isProductDragged = false;
 
   addToCart($event: any) {
     let product: Product = JSON.parse($event.dragData);
@@ -34,10 +41,12 @@ export class CommonProductComponent implements OnInit {
   }
 
   dragStart() {
-    console.log("drag started");
+    this.isProductDragged = true
   }
 
   dragEnd() {
-    console.log("drag ended");
+    setTimeout(() => {
+      this.isProductDragged = false;
+    }, 250);
   }
 }

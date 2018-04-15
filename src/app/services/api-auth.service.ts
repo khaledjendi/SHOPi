@@ -20,7 +20,6 @@ export class ApiAuthService {
         reject();
       })
     });
-
   }
 
   isValidToken() {

@@ -1,3 +1,4 @@
+//This files are excluded - git
 export const environment = {
   production: true,
   firebase: {

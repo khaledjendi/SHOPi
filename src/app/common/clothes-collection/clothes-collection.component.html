@@ -120,7 +120,7 @@
 
                 <!-- Products -->
                 <div class="row g-pt-30 g-mb-50">
-                    <app-common-product class="row g-ml-5" [products]="products"></app-common-product>
+                    <app-common-product class="row g-ml-5" [products]="products" (selectedProduct)="onProductSelected($event)"></app-common-product>
                 </div>
                 <!-- End Products -->
 

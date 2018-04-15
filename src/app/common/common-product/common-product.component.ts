@@ -1,5 +1,7 @@
+import { CartProduct } from './../Cart';
+import { CartService } from './../../services/cart.service';
 import { Product } from './../Product';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-common-product',
@@ -8,10 +10,34 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommonProductComponent implements OnInit {
   @Input("products") products: Product[];
+  @Output("selectedProduct") selectedProduct = new EventEmitter(); 
+
+  addToCart($event: any) {
+    let product: Product = JSON.parse($event.dragData);
+    let cartProduct = new CartProduct();
+    cartProduct.amount = 1;
+    cartProduct.product = product;
+    this.cartService.cartProducts.push(cartProduct);
+  }
    
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
   }
 
+  selectProduct(product) {
+    this.selectedProduct.emit(product);
+  }
+
+  stringifyProduct(product) {
+    return JSON.stringify(product);
+  }
+
+  dragStart() {
+    console.log("drag started");
+  }
+
+  dragEnd() {
+    console.log("drag ended");
+  }
 }

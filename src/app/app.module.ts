@@ -1,5 +1,6 @@
-import { ProductsService } from './products.service';
-import { ApiAuthService } from './api-auth.service';
+import { CartService } from './services/cart.service';
+import { ProductsService } from './services/products.service';
+import { ApiAuthService } from './services/api-auth.service';
 import { NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,8 @@ import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 
 import { RouterModule } from '@angular/router'
+
+import {DndModule} from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -78,9 +81,10 @@ import { CommonProductComponent } from './common/common-product/common-product.c
       { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
       { path: '**', component: NotFoundComponent }
     ]),
-    HttpClientModule
+    HttpClientModule,
+    DndModule.forRoot()
   ],
-  providers: [ApiAuthService, ProductsService],
+  providers: [ApiAuthService, ProductsService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

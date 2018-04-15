@@ -1,6 +1,4 @@
 import { Observable } from 'rxjs/Rx';
-import { ProductsService } from './products.service';
-import { ApiAuthService } from './api-auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

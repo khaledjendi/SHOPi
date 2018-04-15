@@ -18,7 +18,7 @@ export class Product {
     public fit: string;
     public newArrival: boolean;
     public reviews: number;
-    public description: string;
+    public description: string; 
 
     constructor() { }
 }

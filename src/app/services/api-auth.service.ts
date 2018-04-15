@@ -1,4 +1,4 @@
-import { Config } from './config';
+import { Config } from './../config';
 import { Injectable, OnInit } from '@angular/core';
 
 @Injectable()

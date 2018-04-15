@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 export enum PageType {
@@ -22,8 +23,8 @@ export class CommonHeaderComponent implements OnInit {
     isKidsActive: false,
     isHotDealsActive: false
   }
-
-  constructor() { }
+  
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
   }

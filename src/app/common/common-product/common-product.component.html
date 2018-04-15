@@ -1,12 +1,32 @@
-<div *ngFor="let product of products" class="col-6 col-lg-4 g-mb-30 g-brd-gray--hover-edited g-cursor-pointer--hover">
+<div class="row cart-float-view">
+  <img src="../../../assets/img/cart/add_to_cart_128.png">
+  <div class="col-sm-12">
+    <div dnd-droppable class="panel panel-info" (onDropSuccess)="addToCart($event)">
+      <div class="g-width-100 customized-drop"></div>
+      <div class="dropped-products">
+        <div [hidden]="!cartService.cartProducts.length > 0">
+          <table class="cart-float-table">
+            <tr *ngFor="let cartProduct of cartService.cartProducts">
+              <td style="width: 25%"><img class="icon-product-image" src="{{cartProduct.product.mainImage}}"></td>
+              <td>{{cartProduct.product.name}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #productEl dnd-draggable *ngFor="let product of products" class="col-6 col-lg-4 g-mb-30 g-brd-gray--hover-edited g-cursor-pointer--hover panel panel-default"
+  [attr.data-product]="stringifyProduct(product)" [dragEnabled]="true" [dragData]="stringifyProduct(product)" (click)="selectProduct(productEl.getAttribute('data-product'))"
+  (dragstart)="dragStart()" (dragend)="dragEnd()">
   <figure class="g-pos-rel g-mb-20">
     <img class="img-fluid img-product" [src]="product.mainImage" alt="">
 
     <span *ngIf="product.discount > 0" class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">{{product.discount}}%</span>
 
     <figcaption *ngIf="product.newArrival" class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-      <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-        href="#!">New Arrival</a>
+      <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover" href="#!">New Arrival</a>
     </figcaption>
   </figure>
 

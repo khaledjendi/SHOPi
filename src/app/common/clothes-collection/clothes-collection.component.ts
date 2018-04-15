@@ -1,9 +1,9 @@
-import { Product } from './../Product';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { ProductsService, CallOperator } from './../../products.service';
+import { ProductsService, CallOperator } from './../../services/products.service';
 import { PageType } from './../common-header/common-header.component';
+import { Product } from './../Product';
 
 @Component({
   selector: 'app-clothes-collection',
@@ -72,7 +72,7 @@ export class ClothesCollectionComponent implements OnInit {
   trousersCollection = ['Chinos', 'Casual', 'Formal', 'Sweat Pants']
   jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
-  products: Product[] = []; 
+  products: Product[] = [];
 
 
   constructor(private route: ActivatedRoute, private productService: ProductsService) {
@@ -111,9 +111,9 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   createProducts(products) {
-    
+
     for (let product of products) {
-      let tProduct:Product = new Product();
+      let tProduct: Product = new Product();
       tProduct.id = product.id;
       tProduct.sku = product.sku;
       tProduct.slug = product.slug;
@@ -134,5 +134,9 @@ export class ClothesCollectionComponent implements OnInit {
       tProduct.description = product.description;
       this.products.push(tProduct);
     }
+  }
+
+  onProductSelected(product) {
+    //console.log(product);
   }
 }

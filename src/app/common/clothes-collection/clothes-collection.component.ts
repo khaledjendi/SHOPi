@@ -350,8 +350,6 @@ export class ClothesCollectionComponent implements OnInit {
       tProduct.description = product.description;
       this.products.push(tProduct);
     }
-
-    console.log("objects are: ", JSON.stringify(this.products));
   }
 
   onProductSelected(product) {

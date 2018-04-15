@@ -1,5 +1,7 @@
 import { expandCollapse } from '../home-category.animations';
-import { Component, OnInit, Injectable, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Injectable, Output, EventEmitter, AfterViewInit } from '@angular/core';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-man-home-category',
@@ -8,7 +10,7 @@ import { Component, OnInit, Injectable, Output, EventEmitter } from '@angular/co
   animations: [expandCollapse]
 })
 
-export class ManHomeCategoryComponent implements OnInit {
+export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
   private menuParts = {
     newArrival: {
       isInHeader: false,
@@ -112,11 +114,18 @@ export class ManHomeCategoryComponent implements OnInit {
     }]
   };
 
-  constructor() {
+  overlayHeight = '';
 
+  constructor() {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => { // we use settimeout to avoid error: ExpressionChangedAfterItHasBeenCheckedError
+      this.overlayHeight = (jQuery("#content-home-category").outerHeight() + 588) + "px";
+    }, 0);
   }
 
   enterHeader(type) {

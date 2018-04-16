@@ -1,4 +1,4 @@
 .DS_Store
 /node_modules/*
-/srs/app/config.ts
+/src/app/config.ts
 /src/environments/*

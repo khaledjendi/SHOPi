@@ -1,0 +1,17 @@
+
+:host {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    pointer-events: all;
+    cursor: pointer;
+  }
+
+  :host .toast-error {
+    background-image: none;
+    background-color: rgba(252, 94, 86, 0.1) !important;
+  }

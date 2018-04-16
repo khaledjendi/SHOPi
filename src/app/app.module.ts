@@ -34,6 +34,9 @@ import { PriceSliderComponent } from './common/price-slider/price-slider.compone
 import { CategoriesLabelsComponent } from './common/categories-labels/categories-labels.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonProductComponent } from './common/common-product/common-product.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CustomToastComponent } from './custom-toast/custom-toast.component';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [
@@ -52,13 +55,17 @@ import { CommonProductComponent } from './common/common-product/common-product.c
     CommonFooterComponent,
     PriceSliderComponent,
     CategoriesLabelsComponent,
-    CommonProductComponent
+    CommonProductComponent,
+    CustomToastComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      toastComponent: CustomToastComponent
+    }),
     MatFormFieldModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -82,9 +89,14 @@ import { CommonProductComponent } from './common/common-product/common-product.c
       { path: '**', component: NotFoundComponent }
     ]),
     HttpClientModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    BlockUIModule.forRoot()
   ],
-  providers: [ApiAuthService, ProductsService, CartService],
+  providers: [ApiAuthService, 
+    ProductsService, 
+    CartService
+  ],
+  entryComponents: [CustomToastComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

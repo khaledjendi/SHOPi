@@ -1,3 +1,16 @@
+<ng-template #blockTemplate>
+    <div class="d-flex block-ui-template justify-content-center align-items-center" style="top: 50%">
+        <div class="g-pa-10" style="background-color: rgba(50, 50, 50, 0.9); border-radius: 10px;">
+            <table>
+                <tr>
+                    <td><img width="32" height="32" src="../../../assets/shopi-theme/img/preloaders/preloader-colors.svg"></td>
+                    <td class="g-font-size-20 g-color-white font-cg-bold">Loading...</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+
 <app-common-header></app-common-header>
 <!-- Promo Block -->
 
@@ -120,7 +133,10 @@
 
                 <!-- Products -->
                 <div class="row g-pt-30 g-mb-50">
-                    <app-common-product class="row g-ml-5" [products]="products" (selectedProduct)="onProductSelected($event)"></app-common-product>
+                    <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
+                    <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
+                        <app-common-product class="row g-ml-5" [products]="products" (selectedProduct)="onProductSelected($event)"></app-common-product>
+                    </div>
                 </div>
                 <!-- End Products -->
 

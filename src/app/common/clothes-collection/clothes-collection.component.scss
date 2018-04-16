@@ -13,3 +13,7 @@
   top: 13px;
 }
 
+:host /deep/ .block-ui-wrapper {
+  background-color: rgba(0, 0, 0, 0.60) !important;
+}
+

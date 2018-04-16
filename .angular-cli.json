@@ -27,6 +27,7 @@
         "../src/assets/vendor/revolution-slider/revolution/css/layers.css",
         "../src/assets/vendor/revolution-slider/revolution/css/navigation.css",
         "../src/assets/vendor/slick-carousel/slick/slick.css",
+        "./toastr-customized.css",
         "./styles.scss"
       ],
       "scripts": [

@@ -1,9 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ProductsService, CallOperator } from './../../services/products.service';
 import { PageType } from './../common-header/common-header.component';
 import { Product } from './../Product';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-clothes-collection',
@@ -11,6 +13,8 @@ import { Product } from './../Product';
   styleUrls: ['./clothes-collection.component.scss']
 })
 export class ClothesCollectionComponent implements OnInit {
+  @BlockUI('block-products') blockUIProducts: NgBlockUI;
+
   private type: PageType;
   collectionHeader;
 
@@ -73,9 +77,12 @@ export class ClothesCollectionComponent implements OnInit {
   jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
   products = []; //: Product[]
+  errorMessage = {
+    text: "",
+    class: ""
+  };
 
-
-  constructor(private route: ActivatedRoute, private productService: ProductsService) {
+  constructor(private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -313,21 +320,53 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   getAllProducts() {
+    this.startBlocking();
     let productsService = this.productService.callGet(CallOperator.AllProducts);
     if (productsService instanceof Promise) {
-      productsService.then((promise) => promise.subscribe((products) => {
-        //console.log("promise productsService", products);
-        this.createProducts(products.data);
-      }))
+      productsService.then(
+        promise => promise.subscribe(
+          products => {
+            this.loadProducts(products.data);
+          },
+          error => { // catch observer error (in getting products)
+            this.loadProductsError();
+          }))
+        .catch(
+          error => { // // catch promise error (in getting api token)
+            this.loadProductsError();
+          }
+        )
     }
     else {
-      productsService.subscribe((products) => {
-        this.createProducts(products.data);
-      })
+      productsService.subscribe(
+        (products) => {
+          this.loadProducts(products.data);
+        },
+        error => { // catch observer error (in getting products)
+          this.loadProductsError();
+        })
     }
   }
 
-  createProducts(products) {
+  private startBlocking() {
+    this.blockUIProducts.start();
+    this.errorMessage.text = "";
+  }
+
+  loadProductsError() {
+    if(this.blockUIProducts.isActive) this.blockUIProducts.stop();
+    //this.products = [];
+    this.errorMessage.text = "Unexpected error while loading. Admin is notified.";
+  }
+
+  loadProducts(products) {
+    if(this.blockUIProducts.isActive) this.blockUIProducts.stop();
+    if (!products || products.length === 0) {
+      this.toast('No products found! Try different search options', 'Warning', 'warning', 5000);
+      //this.products = [];
+      this.errorMessage.text = "No products found! Try different search options";
+      return;
+    }
     for (let product of products) {
       let tProduct: Product = new Product();
       tProduct.id = product.id;
@@ -349,6 +388,40 @@ export class ClothesCollectionComponent implements OnInit {
       tProduct.reviews = product.reviews;
       tProduct.description = product.description;
       this.products.push(tProduct);
+    }
+    this.errorMessage.text = ""
+  }
+
+  private toast(message, header, type, timeOut) {
+    switch (type) {
+      case "error":
+        this.toastr.error(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "warning":
+        this.toastr.warning(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "info":
+        this.toastr.info(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "success":
+        this.toastr.success(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
     }
   }
 

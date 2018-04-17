@@ -40,17 +40,21 @@ export class ProductsService {
   private callGetMethod(operator: CallOperator, id?, filter?) {
     switch (operator) {
       case CallOperator.AllProducts:
-        return this.getAllProductsInternal();
+        return this.getProductsInternal();
+      case CallOperator.Product:
+        return this.getProductsInternal(id);
       case CallOperator.File:
         return this.getFileInternal(id);
     }
   }
 
-  private getAllProductsInternal() {
-    const url = 'https://api.moltin.com/v2/products';
+  private getProductsInternal(id?) {
+    let url: string;
+    if (id) url = 'https://api.moltin.com/v2/products/' + id
+    else url = 'https://aapi.moltin.com/v2/products'
     return this.http.get<any>(url, this.httpOptions)
-    .map(response => response)
-    .catch(this.handleError("getAllProductsInternal"))
+      .map(response => response)
+      .catch(this.handleError("getAllProductsInternal"))
   }
 
   private getFileInternal(id) {
@@ -64,7 +68,7 @@ export class ProductsService {
     }
   }
 
-  private handleError (operation = 'operation') {
+  private handleError(operation = 'operation') {
     return (error: HttpErrorResponse) => {
 
       this.toastr.error('Unexpected error while loading. Admin is notified.', 'Error', {

@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { SessionService } from './../../services/session.service';
 import { cartAnimation } from './common-product.component.animation';
 import { trigger, transition, useAnimation, animate, style } from '@angular/animations';
 import { CartProduct } from './../Cart';
@@ -16,7 +18,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CommonProductComponent implements OnInit {
   @Input("products") products: Product[];
-  @Output("selectedProduct") selectedProduct = new EventEmitter(); 
+
   isProductDragged = false;
 
   addToCart($event: any) {
@@ -27,13 +29,16 @@ export class CommonProductComponent implements OnInit {
     this.cartService.cartProducts.push(cartProduct);
   }
    
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService, private sessionService: SessionService, private router:Router) { }
 
   ngOnInit() {
   }
 
   selectProduct(product) {
-    this.selectedProduct.emit(product);
+    this.sessionService.selectedProduct = JSON.parse(product);
+    this.router.navigate(['/product-details'], {
+      queryParams: { id: this.sessionService.selectedProduct.id }
+    });
   }
 
   stringifyProduct(product) {

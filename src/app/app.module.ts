@@ -1,3 +1,4 @@
+import { SessionService } from './services/session.service';
 import { CartService } from './services/cart.service';
 import { ProductsService } from './services/products.service';
 import { ApiAuthService } from './services/api-auth.service';
@@ -11,7 +12,7 @@ import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxMod
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 
-import { RouterModule } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 
 import {DndModule} from 'ng2-dnd';
 
@@ -37,6 +38,15 @@ import { CommonProductComponent } from './common/common-product/common-product.c
 import { ToastrModule } from 'ngx-toastr';
 import { CustomToastComponent } from './custom-toast/custom-toast.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { Route } from '@angular/compiler/src/core';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
+  { path: 'product-details', component: ProductDetailsComponent},
+  { path: '**', component: NotFoundComponent }
+]
 
 @NgModule({
   declarations: [
@@ -56,7 +66,8 @@ import { BlockUIModule } from 'ng-block-ui';
     PriceSliderComponent,
     CategoriesLabelsComponent,
     CommonProductComponent,
-    CustomToastComponent
+    CustomToastComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -83,18 +94,15 @@ import { BlockUIModule } from 'ng-block-ui';
     MatDividerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
-      { path: '**', component: NotFoundComponent }
-    ]),
+    RouterModule.forRoot(routes),
     HttpClientModule,
     DndModule.forRoot(),
     BlockUIModule.forRoot()
   ],
   providers: [ApiAuthService, 
     ProductsService, 
-    CartService
+    CartService, 
+    SessionService
   ],
   entryComponents: [CustomToastComponent],
   bootstrap: [AppComponent]

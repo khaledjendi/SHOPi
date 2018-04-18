@@ -22,6 +22,9 @@ export class ClothesCollectionComponent implements OnInit {
   brandControl = new FormControl();
   brandsList = ['Asics', 'Bertoni', 'Dale Of Norway', 'Diesel Men', 'Edwin', 'G-Star', 'GANT', 'GANT Rugger', 'Boss'];
 
+  materialControl = new FormControl();
+  materialsList = ['Leather', 'Coton', 'Wool', 'Cashmere', 'Silk', 'Polyster', 'Nylon', 'Windproof', 'Water resistant'];
+
   sizeControl = new FormControl();
   sizeGroups = [
     {
@@ -62,14 +65,15 @@ export class ClothesCollectionComponent implements OnInit {
       code: '#2EFE2E'
     }, {
       name: 'Orange',
-      code: '##FF8000'
+      code: '#FF8000'
     }];
 
   priceCurrency = "kr";
   minPrice = "0";
   maxPrice = "5000";
   priceRange = "1350, 3500";
-  perPage = 35;
+  perPage;
+  sortingOption = "";
 
   topsCollection = ['Shirts', 'T-Shirts', 'Knitwear', 'Weatshirts & Hoodies', 'Polo Shirts']
   outerwareCollection = ['Jackets', 'Coats', 'Blazers', 'Rainwear', 'Vests']

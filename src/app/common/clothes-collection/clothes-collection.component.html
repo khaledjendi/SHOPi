@@ -3,7 +3,9 @@
         <div class="g-pa-10" style="background-color: rgba(50, 50, 50, 0.9); border-radius: 10px;">
             <table>
                 <tr>
-                    <td><img width="32" height="32" src="../../../assets/shopi-theme/img/preloaders/preloader-colors.svg"></td>
+                    <td>
+                        <img width="32" height="32" src="../../../assets/shopi-theme/img/preloaders/preloader-colors.svg">
+                    </td>
                     <td class="g-font-size-20 g-color-white font-cg-bold">Loading...</td>
                 </tr>
             </table>
@@ -48,8 +50,8 @@
                 <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-40 g-pb-20">
                     <!-- Show -->
                     <div class="g-mr-10">
-                        <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field style="width: 150px">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
                                 <mat-select placeholder="Brands" [formControl]="brandControl" multiple>
                                     <mat-select-trigger>
                                         {{brandControl.value ? brandControl.value[0] : ''}}
@@ -64,8 +66,8 @@
                     </div>
 
                     <div class="g-mr-10">
-                        <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field style="width: 100px">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
                                 <mat-select placeholder="Size" [formControl]="sizeControl" multiple>
                                     <mat-optgroup *ngFor="let group of sizeGroups" [label]="group.name" [disabled]="group.disabled">
                                         <mat-option *ngFor="let size of group.size" [value]="size">
@@ -78,8 +80,8 @@
                     </div>
 
                     <div class="g-mr-10">
-                        <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field style="width: 130px">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
                                 <mat-select placeholder="Colors" [formControl]="colorControl" multiple>
                                     <mat-select-trigger>
                                         {{colorControl.value ? colorControl.value[0] : ''}}
@@ -95,9 +97,44 @@
                         </div>
                     </div>
 
+                    <div class="g-mr-10 full-width">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2">
+                            <ul class="list-inline mb-0">
+                                <li class="g-mb-5">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="#">
+                                        <i class="icon-list"></i>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="u-icon-v2 u-icon-size--xs g-brd-primary g-color-primary" href="#">
+                                        <i class="icon-grid"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-20 g-pb-20">
                     <div class="g-mr-10">
-                        <div class="d-inline-block btn-group g-line-height-1_2">
-                            <mat-form-field style="width: 100px">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
+                                <mat-select [(value)]="sortingOption" placeholder="Sorting">
+                                    <mat-option [value]="newest">Newest</mat-option>
+                                    <mat-option [value]="popular">Popular</mat-option>
+                                    <mat-option [value]="hDiscount">Highest discount</mat-option>
+                                    <mat-option [value]="pLowHigh">Price low to high</mat-option>
+                                    <mat-option [value]="pHighLow">Price high to low</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
                                 <mat-select [(value)]="perPage" placeholder="Per Page">
                                     <mat-option [value]="35">35</mat-option>
                                     <mat-option [value]="70">70</mat-option>
@@ -107,35 +144,59 @@
                         </div>
                     </div>
 
-                    <div class="g-mb-20 g-width-150">
-                        <div class="text-center">
-                            <app-price-slider [currency]="priceCurrency" [min]="minPrice" [max]="maxPrice" [priceRange]="priceRange"></app-price-slider>
-                        </div>
-                    </div>
                     <div class="g-mr-10">
-                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2" style="top: 20px; left: 0px; width: 100%; position: absolute; z-index: -1;">
-                            <ul class="list-inline mb-0">
-                                <li class="g-mb-5">
-                                    <a class="u-icon-v2 u-icon-size--xs g-brd-gray-light-v3 g-brd-black--hover g-color-gray-dark-v5 g-color-black--hover" href="page-list-filter-left-sidebar-1.html">
-                                        <i class="icon-list"></i>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a class="u-icon-v2 u-icon-size--xs g-brd-primary g-color-primary" href="page-grid-filter-left-sidebar-1.html">
-                                        <i class="icon-grid"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                                <mat-form-field class="g-width-150">
+                                    <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
+                                        <mat-select-trigger>
+                                            {{materialControl.value ? materialControl.value[0] : ''}}
+                                            <span *ngIf="materialControl.value?.length > 1" class="additional-selection">
+                                                (+{{materialControl.value.length - 1}} others)
+                                            </span>
+                                        </mat-select-trigger>
+                                        <mat-option *ngFor="let material of materialsList" [value]="material">{{material}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    
+
+                    <div class="g-mr-10 full-width">
+                        <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2">
+                            <div class="text-center">
+                                <app-price-slider [currency]="priceCurrency" [min]="minPrice" [max]="maxPrice" [priceRange]="priceRange" [sliderWidth]="'200px'"></app-price-slider>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-slider [max]="maxPrice" [min]="minPrice" step="1" thumb-label="true" tick-interval="0" [(ngModel)]="minPriceValue">
+                            </mat-slider>
+                        </div>
+                    </div>
+
+                    <div class="g-mr-10">
+                        <div class="d-inline-block btn-group g-line-height-1_2">
+                            <mat-slider [max]="maxPrice" [min]="minPrice" step="1" thumb-label="true" tick-interval="0" [(ngModel)]="maxPriceValue">
+                            </mat-slider>
+                        </div>
+                    </div> -->
+
+
                 </div>
+
+
                 <!-- End Filters -->
+
+
 
                 <!-- Products -->
                 <div class="row g-pt-30 g-mb-50">
                     <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
                     <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
-                        <app-common-product class="row g-ml-5" [products]="products" [returnPageUrl]="returnPageUrl" [returnSubPageUrl]="returnSubPageUrl" (selectedProduct)="onProductSelected($event)"></app-common-product>
+                        <app-common-product class="row g-ml-5" [products]="products" [returnPageUrl]="returnPageUrl" [returnSubPageUrl]="returnSubPageUrl"
+                            (selectedProduct)="onProductSelected($event)"></app-common-product>
                     </div>
                 </div>
                 <!-- End Products -->

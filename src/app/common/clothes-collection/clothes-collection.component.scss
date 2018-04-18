@@ -17,3 +17,15 @@
   background-color: rgba(0, 0, 0, 0.60) !important;
 }
 
+
+.example-h2 {
+  margin: 10px;
+}
+
+:host /deep/ .mat-slider-thumb-label-text {
+  color: #fff;
+}
+
+.mat-slider-horizontal {
+  width: 100px;
+}

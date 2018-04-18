@@ -9,10 +9,11 @@ declare var jQuery: any;
   styleUrls: ['./price-slider.component.scss']
 })
 export class PriceSliderComponent implements OnInit, AfterViewInit {
-  @Input() currency;
-  @Input() min;
-  @Input() max;
-  @Input() priceRange;
+  @Input("currency") currency;
+  @Input("min") min;
+  @Input("max") max;
+  @Input("priceRange") priceRange;
+  @Input("sliderWidth") sliderWidth;
 
   constructor() { }
 

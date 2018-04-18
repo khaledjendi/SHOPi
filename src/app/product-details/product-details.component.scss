@@ -1,9 +1,20 @@
-.img-thumb {
-    width: 70px;
+.img-thumb-carousel {
+    width: 65px;
     object-fit: cover;
+    transition:all 0.3s ease;
+    opacity:0.5;
 }
 
 .img-carousel {
-    width: 552px;
+    max-height: 685px;
     object-fit: cover;
+}
+
+.img-thumb-carousel-active {
+    width: 70px;
+    padding: 3px;
+    border: 1px solid rgba(253, 126, 20, 0.5);
+    border-radius: 15px;
+    transition:all 0.3s ease;
+    opacity:1;
 }

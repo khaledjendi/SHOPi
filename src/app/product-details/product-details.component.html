@@ -31,23 +31,18 @@
     <div class="col-lg-7 g-mb-30 g-mb-0--lg">
       <div class="row align-items-center">
         <div class="col-2">
-          <div id="carouselCus2" class="js-carousel text-center u-carousel-v3" data-infinite="true" data-center-mode="true" data-vertical="true"
-            data-slides-show="3" data-is-thumbs="true" data-nav-for="#carouselCus1">
-            <div *ngFor="let imgUrl of sessionService.selectedProduct.images" class="js-slide g-cursor-pointer g-py-5">
-              <img class="img-fluid img-thumb" src="{{imgUrl}}" alt="">
-            </div>
-            <div *ngFor="let imgUrl of sessionService.selectedProduct.images" class="js-slide g-cursor-pointer g-py-5">
-              <img class="img-fluid img-thumb" src="{{imgUrl}}" alt="">
+          <div #thumbImageContainer class="text-center u-carousel-v3">
+            <div *ngFor="let imgUrl of sessionService.selectedProduct.images; let i = index" class="g-cursor-pointer g-py-5">
+              <img #thumbImage class="img-fluid img-thumb-carousel" [class.img-thumb-carousel-active]="i === 0" src="{{imgUrl}}" alt="" (click)="showImage(thumbImage.src)">
             </div>
           </div>
         </div>
 
         <div class="col-10">
           <!-- Carousel -->
-          <div id="carouselCus1" class="js-carousel g-pt-10 g-mb-10" data-infinite="true" data-fade="true" data-arrows-classes="u-arrow-v1 g-brd-around g-brd-white g-absolute-centered--y g-width-45 g-height-45 g-font-size-14 g-color-white g-color-primary--hover rounded-circle"
-            data-arrow-left-classes="fa fa-angle-left g-left-40" data-arrow-right-classes="fa fa-angle-right g-right-40" data-nav-for="#carouselCus2">
-            <div *ngFor="let imgUrl of sessionService.selectedProduct.images" class="js-slide g-bg-cover g-bg-black-opacity-0_1--after">
-              <img class="img-fluid w-100 img-carousel" src="{{imgUrl}}" alt="Image Description">
+          <div class="g-pt-10 g-mb-10">
+            <div class="g-bg-cover g-bg-black-opacity-0_1--after">
+              <img #mainImage *ngIf="sessionService.selectedProduct" class="img-fluid w-100 img-carousel" src="{{sessionService.selectedProduct.images[0]}}" alt="Image Description">
             </div>
           </div>
         </div>

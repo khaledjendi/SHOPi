@@ -18,6 +18,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CommonProductComponent implements OnInit {
   @Input("products") products: Product[];
+  @Input("returnPageUrl") returnPageUrl: string;
+  @Input("returnSubPageUrl") returnSubPageUrl: string;
 
   isProductDragged = false;
 
@@ -37,7 +39,11 @@ export class CommonProductComponent implements OnInit {
   selectProduct(product) {
     this.sessionService.selectedProduct = JSON.parse(product);
     this.router.navigate(['/product-details'], {
-      queryParams: { id: this.sessionService.selectedProduct.id }
+      queryParams: { 
+        id: this.sessionService.selectedProduct.id,
+        returnPageUrl: this.returnPageUrl,
+        returnSubPageUrl: this.returnSubPageUrl
+      }
     });
   }
 

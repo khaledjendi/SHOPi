@@ -27,11 +27,11 @@
                 <i class="g-color-white-opacity-0_5 g-ml-5">/</i>
             </li>
             <li class="list-inline-item g-mr-5">
-                <a class="u-link-v5 g-color-white g-color-primary--hover" outerLink="/">{{getType()}}</a>
+                <a class="u-link-v5 g-color-white g-color-primary--hover">Clothes Collection</a>
                 <i class="g-color-white-opacity-0_5 g-ml-5">/</i>
             </li>
             <li class="list-inline-item g-color-primary g-font-weight-400">
-                <span>Clothes Collection</span>
+                <span>{{ getType() }}</span>
             </li>
         </ul>
     </div>
@@ -135,7 +135,7 @@
                 <div class="row g-pt-30 g-mb-50">
                     <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
                     <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
-                        <app-common-product class="row g-ml-5" [products]="products" (selectedProduct)="onProductSelected($event)"></app-common-product>
+                        <app-common-product class="row g-ml-5" [products]="products" [returnPageUrl]="returnPageUrl" [returnSubPageUrl]="returnSubPageUrl" (selectedProduct)="onProductSelected($event)"></app-common-product>
                     </div>
                 </div>
                 <!-- End Products -->

@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export enum CallOperator {
   AllProducts,
   Product,
+  Files,
   File
 }
 

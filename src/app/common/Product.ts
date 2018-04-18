@@ -9,8 +9,7 @@ export class Product {
     public brands;
     public price: string;
     public formattedPrice: string;
-    public mainImage: string;
-    public images;
+    public images: string[] = [];
     public discount: number; 
     public rating: number;
     public color: string;

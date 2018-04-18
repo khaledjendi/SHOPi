@@ -1,6 +1,7 @@
+import { Config } from './../../config';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ProductsService, CallOperator } from './../../services/products.service';
 import { PageType } from './../common-header/common-header.component';
@@ -76,13 +77,16 @@ export class ClothesCollectionComponent implements OnInit {
   trousersCollection = ['Chinos', 'Casual', 'Formal', 'Sweat Pants']
   jeansCollection = ['Skinny', 'Slim', 'Regular', 'Relaxed']
 
-  products = []; //: Product[]
+  products: Product[] = []; //
   errorMessage = {
     text: "",
     class: ""
   };
 
-  constructor(private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService) {
+  returnPageUrl: string;
+  returnSubPageUrl: string;
+
+  constructor(private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
@@ -91,225 +95,513 @@ export class ClothesCollectionComponent implements OnInit {
       this.type = (type) ? PageType[type.charAt(0).toUpperCase() + type.substr(1).toLowerCase()] : null;
       switch (this.type) {
         case PageType.Men:
+          this.returnPageUrl = "clothes-collection";
+          this.returnSubPageUrl = "men"
           this.collectionHeader = "url('../../assets/img/collection/men/banner_1.jpg')";
           //this.getAllProducts();
-          this.products = [
+          this.loadProducts([
             {
+              "type": "product",
               "id": "c0802b48-8f95-41da-b979-a3f555140784",
-              "sku": "SAMM_18122304",
-              "slug": "SAMM_18122304",
               "name": "Maasai o-n 9670",
-              "collections": [
+              "slug": "SAMM_18122304",
+              "sku": "SAMM_18122304",
+              "manage_stock": true,
+              "description": "Fit: Regular\nMaterial: 100% cotton.\nCrew neck\nRibbed knit texture pattern\nContrast trim\nFine wash at max. 30˚C",
+              "price": [
                 {
-                  "type": "collection",
-                  "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                  "amount": 990,
+                  "currency": "SEK",
+                  "includes_tax": true
                 }
               ],
-              "categories": [
-                {
-                  "type": "category",
-                  "id": "d24fbadd-0067-487c-b45e-508947304906"
+              "status": "live",
+              "commodity_type": "physical",
+              "meta": {
+                "timestamps": {
+                  "created_at": "2018-04-14T10:58:02+00:00",
+                  "updated_at": "2018-04-14T18:03:24+00:00"
                 },
-                {
-                  "type": "category",
-                  "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                "display_price": {
+                  "with_tax": {
+                    "amount": 990,
+                    "currency": "SEK",
+                    "formatted": "990 kr"
+                  },
+                  "without_tax": {
+                    "amount": 990,
+                    "currency": "SEK",
+                    "formatted": "990 kr"
+                  }
                 },
-                {
-                  "type": "category",
-                  "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                "stock": {
+                  "level": 5,
+                  "availability": "in-stock"
                 }
-              ],
-              "brands": [
-                {
-                  "type": "brand",
-                  "id": "85d0308a-8b82-423c-b2b0-87800d9e9862"
+              },
+              "relationships": {
+                "files": {
+                  "data": [
+                    {
+                      "type": "file",
+                      "id": "47327a7b-3c3b-4ba6-b164-3a28159f2017"
+                    }
+                  ]
+                },
+                "categories": {
+                  "data": [
+                    {
+                      "type": "category",
+                      "id": "d24fbadd-0067-487c-b45e-508947304906"
+                    },
+                    {
+                      "type": "category",
+                      "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                    },
+                    {
+                      "type": "category",
+                      "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                    }
+                  ]
+                },
+                "collections": {
+                  "data": [
+                    {
+                      "type": "collection",
+                      "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                    }
+                  ]
+                },
+                "brands": {
+                  "data": [
+                    {
+                      "type": "brand",
+                      "id": "85d0308a-8b82-423c-b2b0-87800d9e9862"
+                    }
+                  ]
+                },
+                "main_image": {
+                  "data": {
+                    "type": "main_image",
+                    "id": "9955ba31-1df1-4efa-ac97-89a8f80df76f"
+                  }
                 }
-              ],
-              "price": 990,
-              "formattedPrice": "990 kr",
-              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/9955ba31-1df1-4efa-ac97-89a8f80df76f.jpg",
-              "discount": 20,
+              },
               "rating": 4,
+              "discount": 20,
               "color": "Dark Sapphire",
-              "colorCode": "black",
               "fit": "Regular",
               "newArrival": false,
               "reviews": 7,
-              "description": "Fit: Regular\nMaterial: 100% cotton.\nCrew neck\nRibbed knit texture pattern\nContrast trim\nFine wash at max. 30˚C"
+              "colorCode": "black",
+              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/9955ba31-1df1-4efa-ac97-89a8f80df76f.jpg",
+              "brand": "SAMSØE & SAMSØE"
             },
             {
+              "type": "product",
               "id": "200ad926-9563-4242-bb51-45de3898e1cc",
-              "sku": "SAMM_18122303",
-              "slug": "SAMM_18122303",
               "name": "Maasai o-n 9670",
-              "collections": [
+              "slug": "SAMM_18122303",
+              "sku": "SAMM_18122303",
+              "manage_stock": true,
+              "description": "100% cotton\nCrew neck\nRibbed knit texture pattern\nContrast trim\nFine wash at max. 30˚C\nItem number: 16055535\nSKU: SAMM18122303\nID: 16055529",
+              "price": [
                 {
-                  "type": "collection",
-                  "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                  "amount": 990,
+                  "currency": "SEK",
+                  "includes_tax": true
                 }
               ],
-              "categories": [
-                {
-                  "type": "category",
-                  "id": "d24fbadd-0067-487c-b45e-508947304906"
+              "status": "live",
+              "commodity_type": "physical",
+              "meta": {
+                "timestamps": {
+                  "created_at": "2018-04-14T10:51:34+00:00",
+                  "updated_at": "2018-04-14T19:16:37+00:00"
                 },
-                {
-                  "type": "category",
-                  "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                "display_price": {
+                  "with_tax": {
+                    "amount": 990,
+                    "currency": "SEK",
+                    "formatted": "990 kr"
+                  },
+                  "without_tax": {
+                    "amount": 990,
+                    "currency": "SEK",
+                    "formatted": "990 kr"
+                  }
                 },
-                {
-                  "type": "category",
-                  "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                "stock": {
+                  "level": 10,
+                  "availability": "in-stock"
                 }
-              ],
-              "brands": [
-                {
-                  "type": "brand",
-                  "id": "85d0308a-8b82-423c-b2b0-87800d9e9862"
+              },
+              "relationships": {
+                "files": {
+                  "data": [
+                    {
+                      "type": "file",
+                      "id": "9333e56e-a8cb-46ee-b2f1-aeeba6233466"
+                    }
+                  ]
+                },
+                "categories": {
+                  "data": [
+                    {
+                      "type": "category",
+                      "id": "d24fbadd-0067-487c-b45e-508947304906"
+                    },
+                    {
+                      "type": "category",
+                      "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                    },
+                    {
+                      "type": "category",
+                      "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                    }
+                  ]
+                },
+                "collections": {
+                  "data": [
+                    {
+                      "type": "collection",
+                      "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                    }
+                  ]
+                },
+                "brands": {
+                  "data": [
+                    {
+                      "type": "brand",
+                      "id": "85d0308a-8b82-423c-b2b0-87800d9e9862"
+                    }
+                  ]
+                },
+                "main_image": {
+                  "data": {
+                    "type": "main_image",
+                    "id": "a93a4194-f879-4259-b9d7-dc9f354786bb"
+                  }
                 }
-              ],
-              "price": 990,
-              "formattedPrice": "990 kr",
-              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
-              "discount": 0,
+              },
               "rating": 5,
+              "discount": 0,
               "color": "Clear Cream",
-              "colorCode": "white",
               "fit": "Regular",
               "newArrival": true,
               "reviews": 7,
-              "description": "100% cotton\nCrew neck\nRibbed knit texture pattern\nContrast trim\nFine wash at max. 30˚C\nItem number: 16055535\nSKU: SAMM18122303\nID: 16055529"
+              "colorCode": "white",
+              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/a93a4194-f879-4259-b9d7-dc9f354786bb.jpg",
+              "brand": "SAMSØE & SAMSØE"
             },
             {
+              "type": "product",
               "id": "4e124dde-2dd0-471a-8bbd-c1b64e3f5457",
-              "sku": "GCL_1000002",
-              "slug": "GCL_1000002",
               "name": "Cotton Cable Crew",
-              "collections": [
+              "slug": "GCL_1000002",
+              "sku": "GCL_1000002",
+              "manage_stock": true,
+              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C",
+              "price": [
                 {
-                  "type": "collection",
-                  "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                  "amount": 1250,
+                  "currency": "SEK",
+                  "includes_tax": true
                 }
               ],
-              "categories": [
-                {
-                  "type": "category",
-                  "id": "d24fbadd-0067-487c-b45e-508947304906"
+              "status": "live",
+              "commodity_type": "physical",
+              "meta": {
+                "timestamps": {
+                  "created_at": "2018-04-14T10:42:29+00:00",
+                  "updated_at": "2018-04-14T19:54:43+00:00"
                 },
-                {
-                  "type": "category",
-                  "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                "display_price": {
+                  "with_tax": {
+                    "amount": 1250,
+                    "currency": "SEK",
+                    "formatted": "1,250 kr"
+                  },
+                  "without_tax": {
+                    "amount": 1250,
+                    "currency": "SEK",
+                    "formatted": "1,250 kr"
+                  }
                 },
-                {
-                  "type": "category",
-                  "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                "stock": {
+                  "level": 15,
+                  "availability": "in-stock"
                 }
-              ],
-              "brands": [
-                {
-                  "type": "brand",
-                  "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+              },
+              "relationships": {
+                "files": {
+                  "data": [
+                    {
+                      "type": "file",
+                      "id": "5b6c5890-7e2b-40d6-bca1-7a0675b28024"
+                    },
+                    {
+                      "type": "file",
+                      "id": "2a9f4c21-f53d-416f-a1b2-0d4694ec13aa"
+                    }
+                  ]
+                },
+                "categories": {
+                  "data": [
+                    {
+                      "type": "category",
+                      "id": "d24fbadd-0067-487c-b45e-508947304906"
+                    },
+                    {
+                      "type": "category",
+                      "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                    },
+                    {
+                      "type": "category",
+                      "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                    }
+                  ]
+                },
+                "collections": {
+                  "data": [
+                    {
+                      "type": "collection",
+                      "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                    }
+                  ]
+                },
+                "brands": {
+                  "data": [
+                    {
+                      "type": "brand",
+                      "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+                    }
+                  ]
+                },
+                "main_image": {
+                  "data": {
+                    "type": "main_image",
+                    "id": "ef14e8ce-d86e-4dca-9cba-95ff81f748e7"
+                  }
                 }
-              ],
-              "price": 1250,
-              "formattedPrice": "1,250 kr",
-              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/ef14e8ce-d86e-4dca-9cba-95ff81f748e7.jpg",
-              "discount": 10,
+              },
               "rating": 5,
+              "discount": 10,
               "color": "Sand Melange",
-              "colorCode": "brown",
               "fit": "Regular",
               "newArrival": false,
               "reviews": 16,
-              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C"
+              "colorCode": "brown",
+              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/ef14e8ce-d86e-4dca-9cba-95ff81f748e7.jpg",
+              "brand": "Gant"
             },
             {
+              "type": "product",
               "id": "3ddd02b6-3575-408e-a59b-1be90e12cb3d",
-              "sku": "GCL_1000001",
-              "slug": "GCL_1000001",
               "name": "Cotton Cable Crew",
-              "collections": [
+              "slug": "GCL_1000001",
+              "sku": "GCL_1000001",
+              "manage_stock": true,
+              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C",
+              "price": [
                 {
-                  "type": "collection",
-                  "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                  "amount": 1500,
+                  "currency": "SEK",
+                  "includes_tax": true
                 }
               ],
-              "categories": [
-                {
-                  "type": "category",
-                  "id": "d24fbadd-0067-487c-b45e-508947304906"
+              "status": "live",
+              "commodity_type": "physical",
+              "meta": {
+                "timestamps": {
+                  "created_at": "2018-04-14T10:38:14+00:00",
+                  "updated_at": "2018-04-14T19:54:50+00:00"
                 },
-                {
-                  "type": "category",
-                  "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                "display_price": {
+                  "with_tax": {
+                    "amount": 1500,
+                    "currency": "SEK",
+                    "formatted": "1,500 kr"
+                  },
+                  "without_tax": {
+                    "amount": 1500,
+                    "currency": "SEK",
+                    "formatted": "1,500 kr"
+                  }
                 },
-                {
-                  "type": "category",
-                  "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                "stock": {
+                  "level": 25,
+                  "availability": "in-stock"
                 }
-              ],
-              "brands": [
-                {
-                  "type": "brand",
-                  "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+              },
+              "relationships": {
+                "files": {
+                  "data": [
+                    {
+                      "type": "file",
+                      "id": "157c84df-c237-40db-8328-8af591e496b5"
+                    },
+                    {
+                      "type": "file",
+                      "id": "9668e5f5-4a12-4448-99e0-e195b59ad233"
+                    }
+                  ]
+                },
+                "categories": {
+                  "data": [
+                    {
+                      "type": "category",
+                      "id": "d24fbadd-0067-487c-b45e-508947304906"
+                    },
+                    {
+                      "type": "category",
+                      "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                    },
+                    {
+                      "type": "category",
+                      "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                    }
+                  ]
+                },
+                "collections": {
+                  "data": [
+                    {
+                      "type": "collection",
+                      "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                    }
+                  ]
+                },
+                "brands": {
+                  "data": [
+                    {
+                      "type": "brand",
+                      "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+                    }
+                  ]
+                },
+                "main_image": {
+                  "data": {
+                    "type": "main_image",
+                    "id": "9ec801f4-8f0b-4006-a75d-8ae896d1e217"
+                  }
                 }
-              ],
-              "price": 1500,
-              "formattedPrice": "1,500 kr",
-              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/9ec801f4-8f0b-4006-a75d-8ae896d1e217.jpg",
-              "discount": 0,
+              },
               "rating": 4,
+              "discount": 0,
               "color": "Yale Blue",
-              "colorCode": "blue",
               "fit": "Regular",
               "newArrival": false,
               "reviews": 10,
-              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C"
+              "colorCode": "blue",
+              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/9ec801f4-8f0b-4006-a75d-8ae896d1e217.jpg",
+              "brand": "Gant"
             },
             {
+              "type": "product",
               "id": "be5a48e7-40ee-43c9-bfe3-f0e12af65169",
-              "sku": "GCL_1000000",
-              "slug": "GCL_1000000",
               "name": "Cotton Cable Crew",
-              "collections": [
+              "slug": "GCL_1000000",
+              "sku": "GCL_1000000",
+              "manage_stock": true,
+              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C",
+              "price": [
                 {
-                  "type": "collection",
-                  "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                  "amount": 1500,
+                  "currency": "SEK",
+                  "includes_tax": true
                 }
               ],
-              "categories": [
-                {
-                  "type": "category",
-                  "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+              "status": "live",
+              "commodity_type": "physical",
+              "meta": {
+                "timestamps": {
+                  "created_at": "2018-04-13T04:42:06+00:00",
+                  "updated_at": "2018-04-14T19:54:56+00:00"
                 },
-                {
-                  "type": "category",
-                  "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                "display_price": {
+                  "with_tax": {
+                    "amount": 1500,
+                    "currency": "SEK",
+                    "formatted": "1,500 kr"
+                  },
+                  "without_tax": {
+                    "amount": 1500,
+                    "currency": "SEK",
+                    "formatted": "1,500 kr"
+                  }
                 },
-                {
-                  "type": "category",
-                  "id": "d24fbadd-0067-487c-b45e-508947304906"
+                "stock": {
+                  "level": 0,
+                  "availability": "out-stock"
                 }
-              ],
-              "brands": [
-                {
-                  "type": "brand",
-                  "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+              },
+              "relationships": {
+                "files": {
+                  "data": [
+                    {
+                      "type": "file",
+                      "id": "0e868183-ba1a-4ad0-9a1d-6083ebdbb811"
+                    },
+                    {
+                      "type": "file",
+                      "id": "7dc2f96b-3020-404b-a49c-8209893b5e01"
+                    }
+                  ]
+                },
+                "categories": {
+                  "data": [
+                    {
+                      "type": "category",
+                      "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+                    },
+                    {
+                      "type": "category",
+                      "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+                    },
+                    {
+                      "type": "category",
+                      "id": "d24fbadd-0067-487c-b45e-508947304906"
+                    }
+                  ]
+                },
+                "collections": {
+                  "data": [
+                    {
+                      "type": "collection",
+                      "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+                    }
+                  ]
+                },
+                "brands": {
+                  "data": [
+                    {
+                      "type": "brand",
+                      "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+                    }
+                  ]
+                },
+                "main_image": {
+                  "data": {
+                    "type": "main_image",
+                    "id": "6f0f7c2c-6db0-447e-999a-8a7b0174cbcb"
+                  }
                 }
-              ],
-              "price": 1500,
-              "formattedPrice": "1,500 kr",
-              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/6f0f7c2c-6db0-447e-999a-8a7b0174cbcb.jpg",
-              "discount": 0,
+              },
               "rating": 5,
+              "discount": 0,
               "color": "Pacific Blue",
-              "colorCode": "blue",
               "fit": "Regular",
               "newArrival": true,
               "reviews": 17,
-              "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C"
+              "colorCode": "blue",
+              "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/6f0f7c2c-6db0-447e-999a-8a7b0174cbcb.jpg",
+              "brand": "Gant"
             }
-          ]
+          ]);
+          break;
+        default:
+          //navigate to unknown page
+          this.router.navigate(['unknown']);
           break;
       }
     })
@@ -354,19 +646,20 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   loadProductsError() {
-    if(this.blockUIProducts.isActive) this.blockUIProducts.stop();
+    if (this.blockUIProducts.isActive) this.blockUIProducts.stop();
     //this.products = [];
     this.errorMessage.text = "Unexpected error while loading. Admin is notified.";
   }
 
   loadProducts(products) {
-    if(this.blockUIProducts.isActive) this.blockUIProducts.stop();
+    if (this.blockUIProducts.isActive) this.blockUIProducts.stop();
     if (!products || products.length === 0) {
       this.toast('No products found! Try different search options', 'Warning', 'warning', 5000);
       //this.products = [];
       this.errorMessage.text = "No products found! Try different search options";
       return;
     }
+    
     for (let product of products) {
       let tProduct: Product = new Product();
       tProduct.id = product.id;
@@ -378,7 +671,10 @@ export class ClothesCollectionComponent implements OnInit {
       tProduct.brands = product.relationships.brands.data;
       tProduct.price = product.price[0].amount;
       tProduct.formattedPrice = product.meta.display_price.with_tax.formatted;
-      tProduct.mainImage = product.mainImage;
+      tProduct.images.push(Config.baseImagesUrl + product.relationships.main_image.data.id + ".jpg");
+      for(let img of product.relationships.files.data) {
+        tProduct.images.push(Config.baseImagesUrl + img.id + ".jpg");
+      }
       tProduct.discount = product.discount;
       tProduct.rating = product.rating;
       tProduct.color = product.color;

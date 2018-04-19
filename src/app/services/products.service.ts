@@ -55,7 +55,7 @@ export class ProductsService {
   private getProductsInternal(id?) {
     let url: string;
     if (id) url = 'https://api.moltin.com/v2/products/' + id
-    else url = 'https://aapi.moltin.com/v2/products'
+    else url = 'https://api.moltin.com/v2/products'
     return this.http.get<any>(url, this.httpOptions)
       .map(response => response)
       .catch(this.handleError("getAllProductsInternal"))

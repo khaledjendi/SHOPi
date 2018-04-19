@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommonMiniHeaderComponent implements OnInit {
 
-  constructor(private cartService: CartService) { }
+  constructor(public cartService: CartService) { }
 
   ngOnInit() {
   }

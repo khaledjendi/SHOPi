@@ -27,7 +27,7 @@ export class ProductDetailsComponent implements OnInit {
 
   @BlockUI() blockAllUI: NgBlockUI;
 
-  constructor(private sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router) {
+  constructor(public sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
@@ -282,7 +282,7 @@ export class ProductDetailsComponent implements OnInit {
     return this.sessionService.selectedProduct.price.formattedPrice;
   }
 
-  private eligibleDiscount() {
+  eligibleDiscount() {
     return this.sessionService.selectedProduct.discount && this.sessionService.selectedProduct.discount > 0;
   }
 }

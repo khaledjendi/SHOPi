@@ -40,108 +40,108 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(params => {
         if (!this.sessionService.selectedProduct) {
           this.id = params.id;
-          //this.getProduct(this.id);
-          this.loadProduct({
-            "type": "product",
-            "id": "be5a48e7-40ee-43c9-bfe3-f0e12af65169",
-            "name": "Cotton Cable Crew",
-            "slug": "GCL_1000000",
-            "sku": "GCL_1000000",
-            "manage_stock": true,
-            "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C",
-            "price": [
-              {
-                "amount": 1500,
-                "currency": "SEK",
-                "includes_tax": true
-              }
-            ],
-            "status": "live",
-            "commodity_type": "physical",
-            "meta": {
-              "timestamps": {
-                "created_at": "2018-04-13T04:42:06+00:00",
-                "updated_at": "2018-04-14T19:54:56+00:00"
-              },
-              "display_price": {
-                "with_tax": {
-                  "amount": 1500,
-                  "currency": "SEK",
-                  "formatted": "1,500 kr"
-                },
-                "without_tax": {
-                  "amount": 1500,
-                  "currency": "SEK",
-                  "formatted": "1,500 kr"
-                }
-              },
-              "stock": {
-                "level": 0,
-                "availability": "out-stock"
-              }
-            },
-            "relationships": {
-              "files": {
-                "data": [
-                  {
-                    "type": "file",
-                    "id": "0e868183-ba1a-4ad0-9a1d-6083ebdbb811"
-                  },
-                  {
-                    "type": "file",
-                    "id": "7dc2f96b-3020-404b-a49c-8209893b5e01"
-                  }
-                ]
-              },
-              "categories": {
-                "data": [
-                  {
-                    "type": "category",
-                    "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
-                  },
-                  {
-                    "type": "category",
-                    "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
-                  },
-                  {
-                    "type": "category",
-                    "id": "d24fbadd-0067-487c-b45e-508947304906"
-                  }
-                ]
-              },
-              "collections": {
-                "data": [
-                  {
-                    "type": "collection",
-                    "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
-                  }
-                ]
-              },
-              "brands": {
-                "data": [
-                  {
-                    "type": "brand",
-                    "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
-                  }
-                ]
-              },
-              "main_image": {
-                "data": {
-                  "type": "main_image",
-                  "id": "6f0f7c2c-6db0-447e-999a-8a7b0174cbcb"
-                }
-              }
-            },
-            "rating": 5,
-            "discount": 0,
-            "color": "Pacific Blue",
-            "fit": "Regular",
-            "newArrival": true,
-            "reviews": 17,
-            "colorCode": "blue",
-            "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/6f0f7c2c-6db0-447e-999a-8a7b0174cbcb.jpg",
-            "brand": "Gant"
-          });
+          this.getProduct(this.id);
+          // this.loadProduct({
+          //   "type": "product",
+          //   "id": "be5a48e7-40ee-43c9-bfe3-f0e12af65169",
+          //   "name": "Cotton Cable Crew",
+          //   "slug": "GCL_1000000",
+          //   "sku": "GCL_1000000",
+          //   "manage_stock": true,
+          //   "description": "Fit: Regular\nMaterial: Outer fabric: cotton 100%\nOuter fabric: cotton 100%\nCable knit\nFine wash at max. 40˚C",
+          //   "price": [
+          //     {
+          //       "amount": 1500,
+          //       "currency": "SEK",
+          //       "includes_tax": true
+          //     }
+          //   ],
+          //   "status": "live",
+          //   "commodity_type": "physical",
+          //   "meta": {
+          //     "timestamps": {
+          //       "created_at": "2018-04-13T04:42:06+00:00",
+          //       "updated_at": "2018-04-14T19:54:56+00:00"
+          //     },
+          //     "display_price": {
+          //       "with_tax": {
+          //         "amount": 1500,
+          //         "currency": "SEK",
+          //         "formatted": "1,500 kr"
+          //       },
+          //       "without_tax": {
+          //         "amount": 1500,
+          //         "currency": "SEK",
+          //         "formatted": "1,500 kr"
+          //       }
+          //     },
+          //     "stock": {
+          //       "level": 0,
+          //       "availability": "out-stock"
+          //     }
+          //   },
+          //   "relationships": {
+          //     "files": {
+          //       "data": [
+          //         {
+          //           "type": "file",
+          //           "id": "0e868183-ba1a-4ad0-9a1d-6083ebdbb811"
+          //         },
+          //         {
+          //           "type": "file",
+          //           "id": "7dc2f96b-3020-404b-a49c-8209893b5e01"
+          //         }
+          //       ]
+          //     },
+          //     "categories": {
+          //       "data": [
+          //         {
+          //           "type": "category",
+          //           "id": "c136df12-476c-4491-a4f1-5a42a6574a38"
+          //         },
+          //         {
+          //           "type": "category",
+          //           "id": "f6f964fb-4b23-47df-a0c1-208a93afdfb9"
+          //         },
+          //         {
+          //           "type": "category",
+          //           "id": "d24fbadd-0067-487c-b45e-508947304906"
+          //         }
+          //       ]
+          //     },
+          //     "collections": {
+          //       "data": [
+          //         {
+          //           "type": "collection",
+          //           "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+          //         }
+          //       ]
+          //     },
+          //     "brands": {
+          //       "data": [
+          //         {
+          //           "type": "brand",
+          //           "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+          //         }
+          //       ]
+          //     },
+          //     "main_image": {
+          //       "data": {
+          //         "type": "main_image",
+          //         "id": "6f0f7c2c-6db0-447e-999a-8a7b0174cbcb"
+          //       }
+          //     }
+          //   },
+          //   "rating": 5,
+          //   "discount": 0,
+          //   "color": "Pacific Blue",
+          //   "fit": "Regular",
+          //   "newArrival": true,
+          //   "reviews": 17,
+          //   "colorCode": "blue",
+          //   "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/6f0f7c2c-6db0-447e-999a-8a7b0174cbcb.jpg",
+          //   "brand": "Gant"
+          // });
           // if (this.sessionService.selectedProduct.brands && this.sessionService.selectedProduct.brands.length > 0)
           //   this.getBrand(this.sessionService.selectedProduct.brands[0].id);
         }

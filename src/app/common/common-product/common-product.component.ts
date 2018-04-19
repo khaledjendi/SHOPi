@@ -1,3 +1,5 @@
+import { Price } from './../Price';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { SessionService } from './../../services/session.service';
 import { cartAnimation } from './common-product.component.animation';
@@ -29,9 +31,10 @@ export class CommonProductComponent implements OnInit {
     cartProduct.amount = 1;
     cartProduct.product = product;
     this.cartService.cartProducts.push(cartProduct);
+    this.toast(product.name + " has been added to your cart!", "Info", "info", 3000);
   }
    
-  constructor(public cartService: CartService, private sessionService: SessionService, private router:Router) { }
+  constructor(public cartService: CartService, private sessionService: SessionService, private router:Router, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -59,5 +62,48 @@ export class CommonProductComponent implements OnInit {
     setTimeout(() => {
       this.isProductDragged = false;
     }, 250);
+  }
+
+  private toast(message, header, type, timeOut) {
+    switch (type) {
+      case "error":
+        this.toastr.error(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "warning":
+        this.toastr.warning(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "info":
+        this.toastr.info(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "success":
+        this.toastr.success(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+    }
+  }
+
+  getPrice(price: Price, discount: number) {
+    if (this.eligibleDiscount(discount))
+      return Price.getDisountPrice(price.amount, discount, price.currencyAbbr);
+    return price.formattedPrice;
+  }
+
+  private eligibleDiscount(discount: number) {
+    return (discount && discount > 0);
   }
 }

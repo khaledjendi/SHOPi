@@ -1,3 +1,4 @@
+import { Price } from './../common/Price';
 import { Config } from './../config';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from './../common/Product';
@@ -18,9 +19,11 @@ declare var jQuery: any;
 export class ProductDetailsComponent implements OnInit {
   @ViewChild("mainImage", { read: ElementRef }) mainImage: ElementRef;
   @ViewChild("thumbImageContainer", { read: ElementRef }) thumbImageContainer: ElementRef;
+
   id;
   returnPageUrl;
   returnSubPageUrl;
+  brand;
 
   @BlockUI() blockAllUI: NgBlockUI;
 
@@ -29,6 +32,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.queryParams();
+    jQuery(this.mainImage.nativeElement).xzoom({ zoomWidth: 500, title: true, tint: '#333', Xoffset: 15 })
   }
 
   private queryParams() {
@@ -138,10 +142,13 @@ export class ProductDetailsComponent implements OnInit {
             "mainImage": "https://s3-eu-west-1.amazonaws.com/bkt-svc-files-cmty-api-moltin-com/ee5732a5-0d9a-484f-b2ad-ee6b9ba92850/6f0f7c2c-6db0-447e-999a-8a7b0174cbcb.jpg",
             "brand": "Gant"
           });
+          // if (this.sessionService.selectedProduct.brands && this.sessionService.selectedProduct.brands.length > 0)
+          //   this.getBrand(this.sessionService.selectedProduct.brands[0].id);
         }
         else {
 
         }
+
         this.mapSiteTree(params.returnPageUrl, params.returnSubPageUrl);
       });
   }
@@ -158,26 +165,16 @@ export class ProductDetailsComponent implements OnInit {
     if (productsService instanceof Promise) {
       productsService.then(
         promise => promise.subscribe(
-          products => {
-            this.loadProduct(products.data);
-          },
-          error => { // catch observer error (in getting products)
-            this.loadError();
-          }))
+          products =>
+            this.loadProduct(products.data),
+          error => this.loadError()))
         .catch(
-          error => { // // catch promise error (in getting api token)
-            this.loadError();
-          }
-        )
+          error => this.loadError())
     }
     else {
       productsService.subscribe(
-        (products) => {
-          this.loadProduct(products.data);
-        },
-        error => { // catch observer error (in getting products)
-          this.loadError();
-        })
+        products => this.loadProduct(products.data),
+        error => this.loadError())
     }
   }
 
@@ -190,8 +187,9 @@ export class ProductDetailsComponent implements OnInit {
     this.sessionService.selectedProduct.collections = product.relationships.collections.data;
     this.sessionService.selectedProduct.categories = product.relationships.categories.data;
     this.sessionService.selectedProduct.brands = product.relationships.brands.data;
-    this.sessionService.selectedProduct.price = product.price[0].amount;
-    this.sessionService.selectedProduct.formattedPrice = product.meta.display_price.with_tax.formatted;
+    this.sessionService.selectedProduct.brand = product.brand;
+    let price: Price = new Price(product.meta.display_price.with_tax.amount, product.meta.display_price.with_tax.formatted, product.meta.display_price.with_tax.currency);
+    this.sessionService.selectedProduct.price = price;
     this.sessionService.selectedProduct.images.push(Config.baseImagesUrl + product.relationships.main_image.data.id + ".jpg");
     for (let auxImg of product.relationships.files.data) {
       this.sessionService.selectedProduct.images.push(Config.baseImagesUrl + auxImg.id + ".jpg");
@@ -204,9 +202,19 @@ export class ProductDetailsComponent implements OnInit {
     this.sessionService.selectedProduct.newArrival = product.newArrival;
     this.sessionService.selectedProduct.reviews = product.reviews;
     this.sessionService.selectedProduct.description = product.description;
-
+    //if (product.relationships.brands.data && product.relationships.brands.data.length > 0) this.getBrand(product.brands[0].id);
     if (this.blockAllUI.isActive) this.blockAllUI.stop();
     //console.log(this.sessionService.selectedProduct);
+  }
+
+  getBrand(id) {
+    let productsService = this.productService.callGet(CallOperator.Brand, id);
+    if (productsService instanceof Promise) {
+      productsService.then(promise => promise.subscribe(brand => this.brand = brand.data))
+    }
+    else {
+      productsService.subscribe(brand => this.brand = brand.data)
+    }
   }
 
   private toast(message, header, type, timeOut) {
@@ -250,7 +258,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   showImage(src) {
-    console.log(this.thumbImageContainer.nativeElement.childNodes)
     var containedEImgThumbs = this.thumbImageContainer.nativeElement.childNodes;
     for (let elm of containedEImgThumbs) {
       if (elm.nodeName == "DIV")
@@ -263,6 +270,19 @@ export class ProductDetailsComponent implements OnInit {
           }
     }
     this.mainImage.nativeElement.src = src;
+    this.mainImage.nativeElement.setAttribute('xoriginal', src);
   }
 
+  getPrice() {
+    if (this.eligibleDiscount())
+      return Price.getDisountPrice(
+        this.sessionService.selectedProduct.price.amount,
+        this.sessionService.selectedProduct.discount,
+        this.sessionService.selectedProduct.price.currencyAbbr);
+    return this.sessionService.selectedProduct.price.formattedPrice;
+  }
+
+  private eligibleDiscount() {
+    return this.sessionService.selectedProduct.discount && this.sessionService.selectedProduct.discount > 0;
+  }
 }

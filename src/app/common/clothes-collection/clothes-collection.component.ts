@@ -7,6 +7,7 @@ import { ProductsService, CallOperator } from './../../services/products.service
 import { PageType } from './../common-header/common-header.component';
 import { Product } from './../Product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Price } from '../Price';
 
 @Component({
   selector: 'app-clothes-collection',
@@ -673,8 +674,9 @@ export class ClothesCollectionComponent implements OnInit {
       tProduct.collections = product.relationships.collections.data;
       tProduct.categories = product.relationships.categories.data;
       tProduct.brands = product.relationships.brands.data;
-      tProduct.price = product.price[0].amount;
-      tProduct.formattedPrice = product.meta.display_price.with_tax.formatted;
+      tProduct.brand = product.brand;
+      let price: Price = new Price(product.meta.display_price.with_tax.amount, product.meta.display_price.with_tax.formatted, product.meta.display_price.with_tax.currency);
+      tProduct.price = price;
       tProduct.images.push(Config.baseImagesUrl + product.relationships.main_image.data.id + ".jpg");
       for(let img of product.relationships.files.data) {
         tProduct.images.push(Config.baseImagesUrl + img.id + ".jpg");

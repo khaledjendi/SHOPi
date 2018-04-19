@@ -28,6 +28,7 @@
         "../src/assets/vendor/revolution-slider/revolution/css/navigation.css",
         "../src/assets/vendor/slick-carousel/slick/slick.css",
         "./toastr-customized.css",
+        "../src/assets/js/xzoom/xzoom.css",
         "./styles.scss"
       ],
       "scripts": [
@@ -53,7 +54,8 @@
         "../src/assets/vendor/slick-carousel/slick/slick.js",
         "../src/assets/js/hs.core.js",
         "../src/assets/js/components/hs.carousel.js",
-        "../src/assets/js/components/hs.slider.js"
+        "../src/assets/js/components/hs.slider.js",
+        "../src/assets/js/xzoom/xzoom.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

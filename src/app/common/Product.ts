@@ -1,3 +1,4 @@
+import { Price } from './Price';
 
 export class Product {
     public id: string;
@@ -7,8 +8,8 @@ export class Product {
     public collections;
     public categories;
     public brands;
-    public price: string;
-    public formattedPrice: string;
+    public brand: string;
+    public price: Price;
     public images: string[] = [];
     public discount: number; 
     public rating: number;

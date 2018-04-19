@@ -1,3 +1,4 @@
+
 <block-ui></block-ui>
 <app-common-mini-header></app-common-mini-header>
 
@@ -26,7 +27,8 @@
 
 
 <!-- Product Description -->
-<div *ngIf="sessionService.selectedProduct" class="container g-pt-50 g-pb-100">
+<div class="container g-pt-50 g-pb-100">
+
   <div class="row">
     <div class="col-lg-7 g-mb-30 g-mb-0--lg">
       <div class="row align-items-center">
@@ -41,8 +43,8 @@
         <div class="col-10">
           <!-- Carousel -->
           <div class="g-pt-10 g-mb-10">
-            <div class="g-bg-cover g-bg-black-opacity-0_1--after">
-              <img #mainImage *ngIf="sessionService.selectedProduct" class="img-fluid w-100 img-carousel" src="{{sessionService.selectedProduct.images[0]}}" alt="Image Description">
+            <div class="">
+              <img #mainImage class="img-fluid w-100 img-carousel xzoom" src="{{sessionService.selectedProduct.images[0]}}" [attr.xoriginal]="sessionService.selectedProduct.images[0]" alt="">
             </div>
           </div>
         </div>
@@ -53,20 +55,18 @@
     <div class="col-lg-5">
       <div class="g-px-40--lg">
         <!-- Product Info -->
-        <div class="g-mb-30">
-          <h1 class="g-font-weight-300 mb-4">Men's Water
-            <br>Resistant Jacket</h1>
-          <p>Dress is the "rain mac" version of our beloved essential the Unify Parka. Crafted from a water resistant fluid
-            memory fabric to create an elegant draped effect when thrown on, this lightweight shell will take you from season
-            to season and protect you from that unexpected shower.</p>
+        <div class="">
+          <h4 class="font-cg-bold">
+            {{sessionService.selectedProduct.name}} - 
+            <span>{{sessionService.selectedProduct.brand}}</span>
+          </h4>
         </div>
         <!-- End Product Info -->
 
         <!-- Price -->
-        <div class="g-mb-30">
-          <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">Price</h2>
-          <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">$99.00</span>
-          <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s>
+        <div class="g-mb-10">
+            <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2" [class.g-color-primary]="eligibleDiscount()" >{{getPrice()}}</span>
+            <s *ngIf="eligibleDiscount()" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">{{this.sessionService.selectedProduct.price.formattedPrice}}</s>
         </div>
         <!-- End Price -->
 
@@ -81,11 +81,8 @@
             </h5>
           </div>
           <div id="accordion-01-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-01-heading-01">
-            <div class="g-py-10">
-              <p class="g-font-size-12 mb-2">SHELL: 100% POLYESTER</p>
-              <p class="g-font-size-12 mb-2">Always check the care label instructions.</p>
-              <p class="g-font-size-12 mb-2">Professional dry clean only. Remove all detachable parts before cleaning. Do not iron.</p>
-              <p class="g-font-size-12 mb-2">(Navy: Avoid contact with light coloured fabrics and upholstery especially whilst damp.)</p>
+            <div class="g-py-10" style="white-space: pre-line">
+              {{this.sessionService.selectedProduct.description}}
             </div>
           </div>
         </div>

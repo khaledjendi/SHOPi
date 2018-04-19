@@ -32,14 +32,15 @@
 
   <div class="media">
     <!-- Product Info -->
-    <div class="d-flex flex-column">
-      <h4 class="h6 g-color-black mb-1">
+    <div class="d-flex flex-column g-m-0">
+      <h4 class="h6 g-color-black">
         <a class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
           {{product.name}}
         </a>
       </h4>
       <!-- <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">{{product.collection}}</a> -->
-      <span class="d-block g-color-black g-font-size-17">{{product.formattedPrice}}</span>
+      <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(product.discount)">{{getPrice(product.price, product.discount)}} <s *ngIf="eligibleDiscount(product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{product.price.formattedPrice}}</s></span>
+      
     </div>
     <!-- End Product Info -->
 

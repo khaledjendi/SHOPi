@@ -48068,6 +48068,14 @@ p {
   position: absolute;
 }
 
+.g-color-primary {
+  color: #fd7e14 !important;
+}
+
+.g-m-0 {
+  margin: 0px;
+}
+
 .pointer {
   cursor: pointer;
 }

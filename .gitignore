@@ -1,3 +1,4 @@
 .DS_Store
 /node_modules/*
 /src/assets/img-temp/*
+/src/assets/shopi-theme/img-temp/*

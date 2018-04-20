@@ -2,6 +2,7 @@
 
 ### What is SHOPi
 SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project . Which is implemented using Angular, and firebase. It employs also moltin api and other apis such as Facebook login and google signin.
+You can watch a video at: https://vimeo.com/265825600
 
 ### What is done?
 

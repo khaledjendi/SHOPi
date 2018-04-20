@@ -472,8 +472,8 @@
       <h2 class="g-color-black mb-4">Products</h2>
       <p class="lead">SHOPi selection of most selling products </p>
     </div>
-
-    <app-product-carousel [carousel]="menCarousel"></app-product-carousel>
+    <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
+    <app-product-carousel *ngIf="carousel.products && carousel.products.length > 0" [carousel]="carousel" [returnPageUrl]="'Home'"></app-product-carousel>
 
   </div>
   <!-- End Products -->

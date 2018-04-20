@@ -2,7 +2,7 @@ import { Price } from './../Price';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { SessionService } from './../../services/session.service';
-import { cartAnimation } from './common-product.component.animation';
+import { cartAnimation } from '../animation/cart.animation';
 import { trigger, transition, useAnimation, animate, style } from '@angular/animations';
 import { CartProduct } from './../Cart';
 import { CartService } from './../../services/cart.service';

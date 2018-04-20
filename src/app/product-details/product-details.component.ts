@@ -17,17 +17,32 @@ declare var jQuery: any;
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  @ViewChild("mainImage", { read: ElementRef }) mainImage: ElementRef;
-  @ViewChild("thumbImageContainer", { read: ElementRef }) thumbImageContainer: ElementRef;
+  @ViewChild("mainImage") mainImage: ElementRef;
+  @ViewChild("thumbImageContainer") thumbImageContainer: ElementRef;
 
   id;
   returnPageUrl;
   returnSubPageUrl;
   brand;
 
+  carousel = {
+    slidesShow: 4,
+    products: (function () {
+      let products: Product[] = [];
+      return products;
+    })()
+  }
+
+  errorMessage = {
+    text: "",
+    class: ""
+  };
+
+
   @BlockUI() blockAllUI: NgBlockUI;
 
   constructor(public sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router) {
+    this.getProducts(); // to be replaced with related products
   }
 
   ngOnInit() {
@@ -39,6 +54,9 @@ export class ProductDetailsComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         if (!this.sessionService.selectedProduct) {
+          this.sessionService.selectedProduct = new Product();
+          this.sessionService.selectedProduct.images = [];
+          this.sessionService.selectedProduct.price = new Price();
           this.id = params.id;
           this.getProduct(this.id);
           // this.loadProduct({
@@ -145,10 +163,6 @@ export class ProductDetailsComponent implements OnInit {
           // if (this.sessionService.selectedProduct.brands && this.sessionService.selectedProduct.brands.length > 0)
           //   this.getBrand(this.sessionService.selectedProduct.brands[0].id);
         }
-        else {
-
-        }
-
         this.mapSiteTree(params.returnPageUrl, params.returnSubPageUrl);
       });
   }
@@ -284,5 +298,77 @@ export class ProductDetailsComponent implements OnInit {
 
   eligibleDiscount() {
     return this.sessionService.selectedProduct.discount && this.sessionService.selectedProduct.discount > 0;
+  }
+
+
+  getProducts() {
+    this.errorMessage.text = "";
+    let productsService = this.productService.callGet(CallOperator.AllProducts);
+    if (productsService instanceof Promise) {
+      productsService.then(
+        promise => promise.subscribe(
+          products => {
+            this.loadProducts(products.data);
+          },
+          error => { // catch observer error (in getting products)
+            this.loadProductsError();
+          }))
+        .catch(
+          error => { // // catch promise error (in getting api token)
+            this.loadProductsError();
+          }
+        )
+    }
+    else {
+      productsService.subscribe(
+        (products) => {
+          this.loadProducts(products.data);
+        },
+        error => { // catch observer error (in getting products)
+          this.loadProductsError();
+        })
+    }
+  }
+
+  loadProductsError() {
+    //this.products = [];
+    this.errorMessage.text = "Unexpected error while loading. Admin is notified.";
+  }
+
+  loadProducts(products) {
+    if (!products || products.length === 0) {
+      this.toast('No products found! Try different search options', 'Warning', 'warning', 5000);
+      //this.products = [];
+      this.errorMessage.text = "No products found! Try different search options";
+      return;
+    }
+
+    for (let product of products) {
+      let tProduct: Product = new Product();
+      tProduct.id = product.id;
+      tProduct.sku = product.sku;
+      tProduct.slug = product.slug;
+      tProduct.name = product.name;
+      tProduct.collections = product.relationships.collections.data;
+      tProduct.categories = product.relationships.categories.data;
+      tProduct.brands = product.relationships.brands.data;
+      tProduct.brand = product.brand;
+      let price: Price = new Price(product.meta.display_price.with_tax.amount, product.meta.display_price.with_tax.formatted, product.meta.display_price.with_tax.currency);
+      tProduct.price = price;
+      tProduct.images.push(Config.baseImagesUrl + product.relationships.main_image.data.id + ".jpg");
+      for (let img of product.relationships.files.data) {
+        tProduct.images.push(Config.baseImagesUrl + img.id + ".jpg");
+      }
+      tProduct.discount = product.discount;
+      tProduct.rating = product.rating;
+      tProduct.color = product.color;
+      tProduct.colorCode = product.colorCode;
+      tProduct.fit = product.fit;
+      tProduct.newArrival = product.newArrival;
+      tProduct.reviews = product.reviews;
+      tProduct.description = product.description;
+      this.carousel.products.push(tProduct);
+    }
+    this.errorMessage.text = ""
   }
 }

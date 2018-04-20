@@ -1,3 +1,6 @@
+import { SessionService } from './../../services/session.service';
+import { Router } from '@angular/router';
+import { Price } from './../Price';
 import { Component, OnInit } from '@angular/core';
 import { Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
@@ -9,18 +12,18 @@ declare var jQuery: any;
   styleUrls: ['./product-carousel.component.scss']
 })
 export class ProductCarouselComponent implements OnInit, AfterViewInit {
-  @Input() carousel;
+  @Input("carousel") carousel;
+  @Input("returnPageUrl") returnPageUrl: string;
+  @Input("returnSubPageUrl") returnSubPageUrl: string;
 
-  constructor() { }
+  constructor(private sessionService: SessionService, private router:Router) { }
 
   ngOnInit() {
-    //console.log(this.carousel);
   }
 
   @ViewChild('carouselSlider') carouselElm: ElementRef;
 
   ngAfterViewInit() {
-    //jQuery(this.carousel.nativeElement)
     jQuery.HSCore.components.HSCarousel.init('[class*="js-carousel"]');
 
     jQuery(this.carouselElm.nativeElement).slick('setOption', 'responsive', [{
@@ -40,5 +43,29 @@ export class ProductCarouselComponent implements OnInit, AfterViewInit {
       }
     }], true);
   }
+  getPrice(price: Price, discount: number) {
+    if (this.eligibleDiscount(discount))
+      return Price.getDisountPrice(price.amount, discount, price.currencyAbbr);
+    return price.formattedPrice;
+  }
 
+  private eligibleDiscount(discount: number) {
+    return (discount && discount > 0);
+  }
+
+  selectProduct(product) {
+    this.sessionService.selectedProduct = JSON.parse(product);
+    if(!this.returnPageUrl) return;
+    this.router.navigate(['/product-details'], {
+      queryParams: { 
+        id: this.sessionService.selectedProduct.id,
+        returnPageUrl: this.returnPageUrl,
+        returnSubPageUrl: this.returnSubPageUrl
+      }
+    });
+  }
+
+  stringifyProduct(product) {
+    return JSON.stringify(product);
+  }
 }

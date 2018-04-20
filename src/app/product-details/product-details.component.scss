@@ -18,3 +18,18 @@
     transition:all 0.3s ease;
     opacity:1;
 }
+
+::ng-deep .mat-tab-label, ::ng-deep .mat-tab-label-active {
+    min-width: 50px !important;
+    padding: 7px!important;
+    margin: 0px!important;
+}
+
+::ng-deep .mat-tab-body-wrapper, ::ng-deep .mat-tab-header {
+    z-index: 0 !important;
+}
+
+::ng-deep .mat-tab-labels {
+    justify-content: center; /* align items in Main Axis */
+    z-index: 99;
+}

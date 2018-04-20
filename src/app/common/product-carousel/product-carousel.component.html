@@ -2,16 +2,18 @@
   data-arrows-classes="u-arrow-v1 g-pos-abs g-bottom-0 g-width-45 g-height-45 g-color-gray-dark-v5 g-bg-secondary g-color-white--hover g-bg-primary--hover rounded"
   data-arrow-left-classes="fa fa-angle-left g-left-10" data-arrow-right-classes="fa fa-angle-right g-right-10" data-pagi-classes="u-carousel-indicators-v1 g-absolute-centered--x g-bottom-20 text-center">
 
-  <div *ngFor="let slide of carousel.slides" class="js-slide">
+  <div #productEl *ngFor="let slide of carousel.products" class="js-slide pointer"
+  [attr.data-product]="stringifyProduct(slide)"
+  (click)="selectProduct(productEl.getAttribute('data-product'))">
     <div class="g-px-10">
       <figure class="g-pos-rel g-mb-20">
-        <img class="img-fluid" [src]="slide.src" alt="Image Description">
+        <img class="img-fluid" [src]="slide.images[0]" alt="Image Description" style="height: 400px; object-fit: cover;">
 
-        <span *ngIf="slide.discount" class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">{{slide.discount}}</span>
+        <span *ngIf="eligibleDiscount(slide.discount)" class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">{{slide.discount}}%</span>
 
-        <figcaption *ngIf="slide.news" class="w-100 {{slide.news.backgroundColor}} g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-          <a *ngIf="slide.news" class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-            href="#!">{{slide.news.description}}</a>
+        <figcaption *ngIf="slide.newArrival" class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+          <a *ngIf="slide.newArrival" class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
+            href="#!">New Arrival</a>
         </figcaption>
       </figure>
     </div>
@@ -21,11 +23,76 @@
       <div class="d-flex flex-column g-pl-10">
         <h4 class="h6 g-color-black mb-1">
           <a class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
-            {{slide.title}}
+            {{slide.name}}
           </a>
         </h4>
-        <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">{{slide.gender}}</a>
-        <span class="d-block g-color-black g-font-size-17">{{slide.price}}</span>
+        <!-- <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">Man</a> -->
+
+        <!-- Checkbox -->
+        <!-- <ul class="list-inline g-ml-minus-10 mb-1">
+          <li class="list-inline-item g-mx-10">
+            <label class="form-check-inline u-check">
+              <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
+              <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-white--checked rounded-circle g-absolute-centered--y g-left-0">
+                <i class="d-block g-absolute-centered g-width-10 g-height-10 g-bg-bluegray rounded-circle"></i>
+              </span>
+            </label>
+          </li>
+          <li class="list-inline-item g-mx-10">
+            <label class="form-check-inline u-check">
+              <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
+              <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-white--checked rounded-circle g-absolute-centered--y g-left-0">
+                <i class="d-block g-absolute-centered g-width-10 g-height-10 g-bg-white rounded-circle"></i>
+              </span>
+            </label>
+          </li>
+          <li class="list-inline-item g-mx-10">
+            <label class="form-check-inline u-check">
+              <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
+              <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-white--checked rounded-circle g-absolute-centered--y g-left-0">
+                <i class="d-block g-absolute-centered g-width-10 g-height-10 g-bg-brown rounded-circle"></i>
+              </span>
+            </label>
+          </li>
+        </ul> -->
+        <!-- End Checkbox -->
+
+        <!-- Colour -->
+        <div class="d-flex justify-content-between align-items-left" style="width: 0px;" role="tab">
+          <!-- Checkbox -->
+          <label class="form-check-inline u-check g-m-0">
+            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
+            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
+              <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-primary rounded-circle"></i>
+            </span>
+          </label>
+          <label class="form-check-inline u-check g-m-0">
+            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
+            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
+              <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-beige rounded-circle"></i>
+            </span>
+          </label>
+          <label class="form-check-inline u-check g-m-0">
+            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
+            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
+              <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-black rounded-circle"></i>
+            </span>
+          </label>
+          <label class="form-check-inline u-check g-m-0">
+            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
+            <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
+              <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-gray-dark-v4 rounded-circle"></i>
+            </span>
+          </label>
+          <!-- End Checkbox -->
+        </div>
+        <!-- End Colour -->
+
+
+
+        <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(slide.discount)">{{getPrice(slide.price, slide.discount)}}
+          <s *ngIf="eligibleDiscount(slide.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{slide.price.formattedPrice}}</s>
+        </span>
       </div>
       <!-- End Product Info -->
 

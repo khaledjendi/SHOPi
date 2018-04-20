@@ -48076,6 +48076,10 @@ p {
   margin: 0px;
 }
 
+.g-p-0 {
+  padding: 0px !important;
+}
+
 .pointer {
   cursor: pointer;
 }

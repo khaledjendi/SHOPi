@@ -1,3 +1,8 @@
+import { Config } from './../../config';
+import { Price } from './../../common/Price';
+import { ToastrService } from 'ngx-toastr';
+import { ProductsService, CallOperator } from './../../services/products.service';
+import { Product } from './../../common/Product';
 import { expandCollapse } from '../home-category.animations';
 import { Component, OnInit, Injectable, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
@@ -63,11 +68,11 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
 
   menCarousel = {
     slidesShow: 4,
-    slides: [{
+    products: [{
       src: '../assets/img/carousel/jacket_1.jpg',
       discount: '25%',
       news: null,
-      title: 'Gant New Collection',
+      name: 'Gant New Collection',
       gender: 'Men',
       price: '530 kr'
     }, {
@@ -77,14 +82,14 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
         backgroundColor: 'g-bg-primary',
         description: 'New Arrival'
       },
-      title: 'Gianni Feraud Suit',
+      name: 'Gianni Feraud Suit',
       gender: 'Men',
       price: '1 550 kr'
     }, {
       src: '../assets/img/carousel/nike_1.jpg',
       discount: null,
       news: null,
-      title: 'Nike Air',
+      name: 'Nike Air',
       gender: 'Men',
       price: '1 250 kr'
     }, {
@@ -94,32 +99,45 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
         backgroundColor: 'g-bg-lightred',
         description: 'Sold Out'
       },
-      title: 'Tiger of Sweden Jeans',
+      name: 'Tiger of Sweden Jeans',
       gender: 'Men',
       price: '950 kr'
     }, {
       src: '../assets/img/carousel/fila_1.jpg',
       discount: null,
       news: null,
-      title: 'Filla Sweaters',
+      name: 'Filla Sweaters',
       gender: 'Men',
       price: '720 kr'
     }, {
       src: '../assets/img/carousel/sweater_1.jpg',
       discount: null,
       news: null,
-      title: 'Avslappnad Sweaters',
+      name: 'Avslappnad Sweaters',
       gender: 'Men',
       price: '520 kr'
     }]
   };
 
   overlayHeight = '';
+  carousel = {
+    slidesShow: 4,
+    products: (function () {
+      let products: Product[] = [];
+      return products;
+    })()
+  }
 
-  constructor() {
+  errorMessage = {
+    text: "",
+    class: ""
+  };
+
+  constructor(private productService: ProductsService, private toastr: ToastrService) {
   }
 
   ngOnInit() {
+    this.getProducts(); // This method will be replaced to load only new arrival or best selling items...
   }
 
   ngAfterViewInit() {
@@ -264,5 +282,109 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
       this.type = "";
     }, 250);
 
+  }
+
+  getProducts() {
+    this.errorMessage.text = "";
+    let productsService = this.productService.callGet(CallOperator.AllProducts);
+    if (productsService instanceof Promise) {
+      productsService.then(
+        promise => promise.subscribe(
+          products => {
+            this.loadProducts(products.data);
+          },
+          error => { // catch observer error (in getting products)
+            this.loadProductsError();
+          }))
+        .catch(
+          error => { // // catch promise error (in getting api token)
+            this.loadProductsError();
+          }
+        )
+    }
+    else {
+      productsService.subscribe(
+        (products) => {
+          this.loadProducts(products.data);
+        },
+        error => { // catch observer error (in getting products)
+          this.loadProductsError();
+        })
+    }
+  }
+
+  loadProductsError() {
+    //this.products = [];
+    this.errorMessage.text = "Unexpected error while loading. Admin is notified.";
+  }
+
+  loadProducts(products) {
+    if (!products || products.length === 0) {
+      this.toast('No products found! Try different search options', 'Warning', 'warning', 5000);
+      //this.products = [];
+      this.errorMessage.text = "No products found! Try different search options";
+      return;
+    }
+
+    for (let product of products) {
+      let tProduct: Product = new Product();
+      tProduct.id = product.id;
+      tProduct.sku = product.sku;
+      tProduct.slug = product.slug;
+      tProduct.name = product.name;
+      tProduct.collections = product.relationships.collections.data;
+      tProduct.categories = product.relationships.categories.data;
+      tProduct.brands = product.relationships.brands.data;
+      tProduct.brand = product.brand;
+      let price: Price = new Price(product.meta.display_price.with_tax.amount, product.meta.display_price.with_tax.formatted, product.meta.display_price.with_tax.currency);
+      tProduct.price = price;
+      tProduct.images.push(Config.baseImagesUrl + product.relationships.main_image.data.id + ".jpg");
+      for (let img of product.relationships.files.data) {
+        tProduct.images.push(Config.baseImagesUrl + img.id + ".jpg");
+      }
+      tProduct.discount = product.discount;
+      tProduct.rating = product.rating;
+      tProduct.color = product.color;
+      tProduct.colorCode = product.colorCode;
+      tProduct.fit = product.fit;
+      tProduct.newArrival = product.newArrival;
+      tProduct.reviews = product.reviews;
+      tProduct.description = product.description;
+      this.carousel.products.push(tProduct);
+    }
+    this.errorMessage.text = ""
+  }
+
+  private toast(message, header, type, timeOut) {
+    switch (type) {
+      case "error":
+        this.toastr.error(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "warning":
+        this.toastr.warning(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "info":
+        this.toastr.info(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+      case "success":
+        this.toastr.success(message, header, {
+          timeOut: timeOut,
+          easing: 'easeOutBounce',
+          progressBar: true
+        });
+        break;
+    }
   }
 }

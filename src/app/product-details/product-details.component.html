@@ -1,5 +1,5 @@
-
-<block-ui></block-ui>
+<block-ui>
+</block-ui>
 <app-common-mini-header></app-common-mini-header>
 
 
@@ -27,7 +27,7 @@
 
 
 <!-- Product Description -->
-<div class="container g-pt-50 g-pb-100">
+<div class="container g-pt-50 u-shadow-v19">
 
   <div class="row">
     <div class="col-lg-7 g-mb-30 g-mb-0--lg">
@@ -35,7 +35,8 @@
         <div class="col-2">
           <div #thumbImageContainer class="text-center u-carousel-v3">
             <div *ngFor="let imgUrl of sessionService.selectedProduct.images; let i = index" class="g-cursor-pointer g-py-5">
-              <img #thumbImage class="img-fluid img-thumb-carousel" [class.img-thumb-carousel-active]="i === 0" src="{{imgUrl}}" alt="" (click)="showImage(thumbImage.src)">
+              <img #thumbImage class="img-fluid img-thumb-carousel" [class.img-thumb-carousel-active]="i === 0" src="{{imgUrl}}" alt=""
+                (click)="showImage(thumbImage.src)">
             </div>
           </div>
         </div>
@@ -44,7 +45,8 @@
           <!-- Carousel -->
           <div class="g-pt-10 g-mb-10">
             <div class="">
-              <img #mainImage class="img-fluid w-100 img-carousel xzoom" src="{{sessionService.selectedProduct.images[0]}}" [attr.xoriginal]="sessionService.selectedProduct.images[0]" alt="">
+              <img #mainImage class="img-fluid w-100 img-carousel xzoom" src="{{sessionService.selectedProduct.images[0]}}" [attr.xoriginal]="sessionService.selectedProduct.images[0]"
+                alt="">
             </div>
           </div>
         </div>
@@ -57,7 +59,7 @@
         <!-- Product Info -->
         <div class="">
           <h4 class="font-cg-bold">
-            {{sessionService.selectedProduct.name}} - 
+            {{sessionService.selectedProduct.name}} -
             <span>{{sessionService.selectedProduct.brand}}</span>
           </h4>
         </div>
@@ -65,8 +67,8 @@
 
         <!-- Price -->
         <div class="g-mb-10">
-            <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2" [class.g-color-primary]="eligibleDiscount()" >{{getPrice()}}</span>
-            <s *ngIf="eligibleDiscount()" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">{{this.sessionService.selectedProduct.price.formattedPrice}}</s>
+          <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2" [class.g-color-primary]="eligibleDiscount()">{{getPrice()}}</span>
+          <s *ngIf="eligibleDiscount()" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">{{this.sessionService.selectedProduct.price.formattedPrice}}</s>
         </div>
         <!-- End Price -->
 
@@ -193,137 +195,121 @@
         </div>
         <!-- End Buttons -->
 
-        <!-- Nav Tabs -->
-        <ul class="nav d-flex justify-content-between g-font-size-12 text-uppercase" role="tablist" data-target="nav-1-1-default-hor-left">
-          <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
-            <a class="nav-link active g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab" href="#nav-1-1-default-hor-left--3"
-              role="tab">Returns</a>
-          </li>
-          <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
-            <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab" href="#nav-1-1-default-hor-left--1" role="tab">View Size Guide</a>
-          </li>
-          <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
-            <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab" href="#nav-1-1-default-hor-left--2" role="tab">Delivery</a>
-          </li>
-        </ul>
-        <!-- End Nav Tabs -->
-
-        <!-- Tab Panes -->
-        <div id="nav-1-1-default-hor-left" class="tab-content">
-          <div class="tab-pane fade show active g-pt-30" id="nav-1-1-default-hor-left--3" role="tabpanel">
-            <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">You can return/exchange your orders in Unify E-commerce. For more information, read our
-              <a href="page-help-1.html">Help</a>.</p>
-          </div>
-
-          <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
-            <h4 class="g-font-size-15 mb-3">General Clothing Size Guide</h4>
-
-            <!-- Size -->
-            <table>
-              <tbody>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">Unify Size (UK)</td>
-                  <td class="align-top g-width-50 g-py-5">S</td>
-                  <td class="align-top g-width-50 g-py-5">M</td>
-                  <td class="align-top g-width-50 g-py-5">L</td>
-                  <td class="align-top g-width-50 g-py-5">XL</td>
-                  <td class="align-top g-width-50 g-py-5">XXL</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">UK</td>
-                  <td class="align-top g-width-50 g-py-5">6</td>
-                  <td class="align-top g-width-50 g-py-5">8</td>
-                  <td class="align-top g-width-50 g-py-5">10</td>
-                  <td class="align-top g-width-50 g-py-5">12</td>
-                  <td class="align-top g-width-50 g-py-5">14</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">Europe</td>
-                  <td class="align-top g-width-50 g-py-5">32</td>
-                  <td class="align-top g-width-50 g-py-5">34</td>
-                  <td class="align-top g-width-50 g-py-5">36</td>
-                  <td class="align-top g-width-50 g-py-5">38</td>
-                  <td class="align-top g-width-50 g-py-5">40</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">US</td>
-                  <td class="align-top g-width-50 g-py-5">2</td>
-                  <td class="align-top g-width-50 g-py-5">4</td>
-                  <td class="align-top g-width-50 g-py-5">6</td>
-                  <td class="align-top g-width-50 g-py-5">8</td>
-                  <td class="align-top g-width-50 g-py-5">10</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">Australia</td>
-                  <td class="align-top g-width-50 g-py-5">6</td>
-                  <td class="align-top g-width-50 g-py-5">8</td>
-                  <td class="align-top g-width-50 g-py-5">10</td>
-                  <td class="align-top g-width-50 g-py-5">12</td>
-                  <td class="align-top g-width-50 g-py-5">14</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-width-150 g-py-5">Japan</td>
-                  <td class="align-top g-width-50 g-py-5">7</td>
-                  <td class="align-top g-width-50 g-py-5">9</td>
-                  <td class="align-top g-width-50 g-py-5">11</td>
-                  <td class="align-top g-width-50 g-py-5">13</td>
-                  <td class="align-top g-width-50 g-py-5">15</td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- End Size -->
-          </div>
-
-          <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--2" role="tabpanel">
-            <!-- Shipping Mehtod -->
-            <table>
-              <thead class="h6 g-brd-bottom g-brd-gray-light-v3 g-color-gray-dark-v3 g-font-size-13">
-                <tr>
-                  <th class="g-width-100 g-font-weight-500 g-pa-0 g-pb-10">Destination</th>
-                  <th class="g-width-140 g-font-weight-500 g-pa-0 g-pb-10">Delivery type</th>
-                  <th class="g-width-150 g-font-weight-500 g-pa-0 g-pb-10">Delivery time</th>
-                  <th class="g-font-weight-500 text-right g-pa-0 g-pb-10">Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-py-10">UK</td>
-                  <td class="align-top g-py-10">Standard delivery</td>
-                  <td class="align-top g-font-size-11 g-py-10">2-3 Working days</td>
-                  <td class="align-top text-right g-py-10">$5.5</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-py-10"></td>
-                  <td class="align-top g-py-10">Next day</td>
-                  <td class="align-top g-font-size-11 g-py-10">Order before 12pm monday - thursday and receive it the next day</td>
-                  <td class="align-top text-right g-py-10">$9.5</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-py-10"></td>
-                  <td class="align-top g-py-10">Saturday delivery</td>
-                  <td class="align-top g-font-size-11 g-py-10">Saturday delivery for orders placed before 12pm on friday</td>
-                  <td class="align-top text-right g-py-10">$12.00</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-py-10">Europe</td>
-                  <td class="align-top g-py-10">Standard delivery</td>
-                  <td class="align-top g-font-size-11 g-py-10">3-9 Working days</td>
-                  <td class="align-top text-right g-py-10">$20.00</td>
-                </tr>
-                <tr class="g-color-gray-dark-v4 g-font-size-12">
-                  <td class="align-top g-py-10">America</td>
-                  <td class="align-top g-py-10">Standard delivery</td>
-                  <td class="align-top g-font-size-11 g-py-10">3-9 Working days</td>
-                  <td class="align-top text-right g-py-10">$25.00</td>
-                </tr>
-              </tbody>
-            </table>
-            <!-- End Shipping Mehtod -->
-          </div>
-        </div>
-        <!-- End Tab Panes -->
+        <mat-tab-group>
+          <mat-tab label="Returns">
+            <div class="tab-pane fade show active g-pt-30" id="nav-1-1-default-hor-left--3" role="tabpanel">
+              <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">30 days open shop with free-of-charge clothes returning Contact us for <a href="#">returning your item</a>.</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Size Guide">
+            <div class="tab-pane g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
+              <table>
+                <tbody>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">Unify Size (UK)</td>
+                    <td class="align-top g-width-50 g-py-5">S</td>
+                    <td class="align-top g-width-50 g-py-5">M</td>
+                    <td class="align-top g-width-50 g-py-5">L</td>
+                    <td class="align-top g-width-50 g-py-5">XL</td>
+                    <td class="align-top g-width-50 g-py-5">XXL</td>
+                  </tr>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">UK</td>
+                    <td class="align-top g-width-50 g-py-5">6</td>
+                    <td class="align-top g-width-50 g-py-5">8</td>
+                    <td class="align-top g-width-50 g-py-5">10</td>
+                    <td class="align-top g-width-50 g-py-5">12</td>
+                    <td class="align-top g-width-50 g-py-5">14</td>
+                  </tr>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">Europe</td>
+                    <td class="align-top g-width-50 g-py-5">32</td>
+                    <td class="align-top g-width-50 g-py-5">34</td>
+                    <td class="align-top g-width-50 g-py-5">36</td>
+                    <td class="align-top g-width-50 g-py-5">38</td>
+                    <td class="align-top g-width-50 g-py-5">40</td>
+                  </tr>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">US</td>
+                    <td class="align-top g-width-50 g-py-5">2</td>
+                    <td class="align-top g-width-50 g-py-5">4</td>
+                    <td class="align-top g-width-50 g-py-5">6</td>
+                    <td class="align-top g-width-50 g-py-5">8</td>
+                    <td class="align-top g-width-50 g-py-5">10</td>
+                  </tr>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">Australia</td>
+                    <td class="align-top g-width-50 g-py-5">6</td>
+                    <td class="align-top g-width-50 g-py-5">8</td>
+                    <td class="align-top g-width-50 g-py-5">10</td>
+                    <td class="align-top g-width-50 g-py-5">12</td>
+                    <td class="align-top g-width-50 g-py-5">14</td>
+                  </tr>
+                  <tr class="g-color-gray-dark-v4 g-font-size-12">
+                    <td class="align-top g-width-150 g-py-5">Japan</td>
+                    <td class="align-top g-width-50 g-py-5">7</td>
+                    <td class="align-top g-width-50 g-py-5">9</td>
+                    <td class="align-top g-width-50 g-py-5">11</td>
+                    <td class="align-top g-width-50 g-py-5">13</td>
+                    <td class="align-top g-width-50 g-py-5">15</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Size -->
+            </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>
 </div>
 <!-- End Product Description -->
+
+<div class="g-my-45">
+  <div class="container g-pb-0">
+    <div class="text-center mx-auto g-max-width-600">
+      <h2 class="g-color-black mb-4">Related Items</h2>
+    </div>
+
+    <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
+    <app-product-carousel *ngIf="carousel.products && carousel.products.length > 0" [carousel]="carousel"></app-product-carousel>
+  </div>
+</div>
+
+<div class="g-brd-top g-brd-gray-light-v4">
+  <div class="container g-py-30">
+    <div class="row justify-content-center">
+      <div class="col-md-4 mx-auto g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
+          <div class="media-body">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Shipping</span>
+            <span class="d-block g-color-gray-dark-v4">In 2-3 Days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v3 g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
+          <div class="media-body">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Returns</span>
+            <span class="d-block g-color-gray-dark-v4">No Shipping Fees</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
+          <div class="media-body text-left">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">24/7 Customer Service</span>
+            <span class="d-block g-color-gray-dark-v4">Call Any Day Any Time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-common-footer></app-common-footer>

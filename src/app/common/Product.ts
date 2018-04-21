@@ -11,6 +11,7 @@ export class Product {
     public brand: string;
     public price: Price;
     public images: string[] = [];
+    public mainImagePng: string;
     public discount: number; 
     public rating: number;
     public color: string;

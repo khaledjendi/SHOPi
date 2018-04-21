@@ -21,7 +21,7 @@
   [attr.data-product]="stringifyProduct(product)" [dragEnabled]="true" [dragData]="stringifyProduct(product)" (click)="selectProduct(productEl.getAttribute('data-product'))"
   (dragstart)="dragStart()" (dragend)="dragEnd()">
   <figure class="g-pos-rel g-mb-20">
-    <img class="img-fluid img-product" [src]="product.images[0]" alt="productEl">
+    <img class="img-fluid img-product" [src]="product.mainImagePng? product.mainImagePng : product.images[0]" alt="productEl">
 
     <span *ngIf="product.discount > 0" class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">{{product.discount}}%</span>
 

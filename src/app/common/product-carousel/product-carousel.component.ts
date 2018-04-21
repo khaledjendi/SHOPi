@@ -55,6 +55,7 @@ export class ProductCarouselComponent implements OnInit, AfterViewInit {
 
   selectProduct(product) {
     this.sessionService.selectedProduct = JSON.parse(product);
+    window.scrollTo(0, 0);
     if(!this.returnPageUrl) return;
     this.router.navigate(['/product-details'], {
       queryParams: { 

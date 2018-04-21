@@ -67,8 +67,9 @@ src folder app folder (which consist of application logic, views, model, control
 
 App folder contain common foler which has resuable components, custom-pipes which has angular customized pipes, custom-toast for a customized toast, home which contains different home components (for men, women, kids, and hot-deals), product details component, services, app.module which has all required configurations to start angular components and services, and app.component files (a start point for one-page web app which contains the outer-outlet to navigate to different components).
 
- ####common folder
+#### common folder
  It contains the following folders:
- #####animation fol
+ 
+##### animation fol
 
 

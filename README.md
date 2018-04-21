@@ -22,6 +22,8 @@ https://vimeo.com/265825600
 
 - Drag an and drop: In product listing, when you drag an item, the shoping cart appears automatically in the right edge of the screen with angular animation.
 
+- Item images zooming capability (in the item details page)  
+
 - Different kind of carousels 
 
 - Loading indicator for carousels

@@ -66,59 +66,6 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
     price: '7 950 kr'
   }]
 
-  menCarousel = {
-    slidesShow: 4,
-    products: [{
-      src: '../assets/img/carousel/jacket_1.jpg',
-      discount: '25%',
-      news: null,
-      name: 'Gant New Collection',
-      gender: 'Men',
-      price: '530 kr'
-    }, {
-      src: '../assets/img/carousel/blazer_1.jpg',
-      discount: null,
-      news: {
-        backgroundColor: 'g-bg-primary',
-        description: 'New Arrival'
-      },
-      name: 'Gianni Feraud Suit',
-      gender: 'Men',
-      price: '1 550 kr'
-    }, {
-      src: '../assets/img/carousel/nike_1.jpg',
-      discount: null,
-      news: null,
-      name: 'Nike Air',
-      gender: 'Men',
-      price: '1 250 kr'
-    }, {
-      src: '../assets/img/carousel/jeans_1.jpg',
-      discount: '50%',
-      news: {
-        backgroundColor: 'g-bg-lightred',
-        description: 'Sold Out'
-      },
-      name: 'Tiger of Sweden Jeans',
-      gender: 'Men',
-      price: '950 kr'
-    }, {
-      src: '../assets/img/carousel/fila_1.jpg',
-      discount: null,
-      news: null,
-      name: 'Filla Sweaters',
-      gender: 'Men',
-      price: '720 kr'
-    }, {
-      src: '../assets/img/carousel/sweater_1.jpg',
-      discount: null,
-      news: null,
-      name: 'Avslappnad Sweaters',
-      gender: 'Men',
-      price: '520 kr'
-    }]
-  };
-
   overlayHeight = '';
   carousel = {
     slidesShow: 4,

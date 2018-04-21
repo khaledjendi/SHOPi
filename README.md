@@ -2,6 +2,11 @@
 
 ### What is SHOPi
 SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project . Which is implemented using Angular, and firebase. It employs also moltin api and other apis such as Facebook login and google signin.
+You can watch a video at:
+
+[![""](https://i.vimeocdn.com/video/695938544_200x150.webp)](https://vimeo.com/265825600)
+
+https://vimeo.com/265825600
 
 ### What is done?
 
@@ -16,6 +21,8 @@ SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion stor
 - Api calls to fetch items and other data
 
 - Drag an and drop: In product listing, when you drag an item, the shoping cart appears automatically in the right edge of the screen with angular animation.
+
+- Item images zooming capability (in the item details page)  
 
 - Different kind of carousels 
 
@@ -56,5 +63,12 @@ SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion stor
 - Use Recombee Product Recommendation api
 
 ### File Structure
-- Folder "common" contains resuable components including:
+src folder app folder (which consist of application logic, views, model, controllers, services, classes, ...) and assets folder (which contain different css files, js, and images. other files including index.html (the entrance to the project. src folder contains also shopi-theme.scss which deployes customized theme for angular meterial components, while style.scss is used to call some other css files. 
+
+App folder contain common foler which has resuable components, custom-pipes which has angular customized pipes, custom-toast for a customized toast, home which contains different home components (for men, women, kids, and hot-deals), product details component, services, app.module which has all required configurations to start angular components and services, and app.component files (a start point for one-page web app which contains the outer-outlet to navigate to different components).
+
+ ####common folder
+ It contains the following folders:
+ #####animation fol
+
 

@@ -42,7 +42,6 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { Route } from '@angular/compiler/src/core';
 import { CommonMiniHeaderComponent } from './common/common-mini-header/common-mini-header.component';
 import { SummaryPipe } from './custom-pipes/summary.pipe';
-import { DetailedProductCarouselComponent } from './detailed-product-carousel/detailed-product-carousel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -72,8 +71,7 @@ const routes: Routes = [
     CustomToastComponent,
     ProductDetailsComponent,
     CommonMiniHeaderComponent,
-    SummaryPipe,
-    DetailedProductCarouselComponent
+    SummaryPipe
   ],
   imports: [
     BrowserModule,

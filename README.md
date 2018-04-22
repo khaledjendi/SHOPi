@@ -67,10 +67,13 @@ src folder app folder (which consist of application logic, views, model, control
 
 App folder contain common foler which has resuable components, custom-pipes which has angular customized pipes, custom-toast for a customized toast, home which contains different home components (for men, women, kids, and hot-deals), product details component, services, app.module which has all required configurations to start angular components and services, and app.component files (a start point for one-page web app which contains the outer-outlet to navigate to different components).
 
+#### Note: There are commented JSON objects code
+That simulate the API calls. This is done because the free version of the API has a limited amount of calls, so I was trying sometimes to use the hard coded JSON object and for real tests I get back the API calls. 
+
 ### How each component is structured?
 Each component consist usually for 4 files: the typescript code (my-omponent-name.component.ts) which contain the control and logic for the component, the html, including angular derivatives, code (my-omponent-name.component.html), stylesheet file for this component (my-omponent-name.component.scss), and finally the unit tests for the previously mentioned source files (my-omponent-name.component.spec.ts)
 
-### common folder
+### common folder:
  It contains the following components:
  
 #### animation:

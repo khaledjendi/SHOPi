@@ -6,8 +6,9 @@ export class Price {
         this.currency = currency;
     }
 
-    public static getDisountPrice(originalPrice: number, disount: number, currencyAbbr: string) {
+    public static getDisountPrice(originalPrice: number, disount: number, currencyAbbr: string, decimals?: number) {
         if(!originalPrice || !disount) return;
-        return (originalPrice - (originalPrice * (disount / 100))) + " " + currencyAbbr;
+        decimals = decimals ? decimals : 0;
+        return (originalPrice - (originalPrice * (disount / 100))).toFixed(decimals) + " " + currencyAbbr;
     }
 }

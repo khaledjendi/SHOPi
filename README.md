@@ -4,7 +4,7 @@
 SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project . Which is implemented using Angular, and firebase. It employs also moltin api and other apis such as Facebook login and google signin.
 You can watch a video at:
 
-[![""](https://i.vimeocdn.com/video/695938544_200x150.webp)](https://vimeo.com/265825600)
+[![""](https://i.ytimg.com/vi/FeL12Cszhh8/0.jpg)](https://www.youtube.com/watch?v=FeL12Cszhh8)
 
 https://vimeo.com/265825600
 
@@ -68,7 +68,7 @@ src folder app folder (which consist of application logic, views, model, control
 App folder contain common foler which has resuable components, custom-pipes which has angular customized pipes, custom-toast for a customized toast, home which contains different home components (for men, women, kids, and hot-deals), product details component, services, app.module which has all required configurations to start angular components and services, and app.component files (a start point for one-page web app which contains the outer-outlet to navigate to different components).
 
 #### Note: There are commented JSON objects code
-That simulate the API calls. This is done because the free version of the API has a limited amount of calls, so I was trying sometimes to use the hard coded JSON object and for real tests I get back the API calls. 
+That simulate the API calls. This is done because the free version of the API has a limited amount of calls, so I was trying sometimes to use the hard coded JSON object and for real tests I get back the API calls. The current published SHOPi uses the API
 
 ### How each component is structured?
 Each component consist usually for 4 files: the typescript code (my-omponent-name.component.ts) which contain the control and logic for the component, the html, including angular derivatives, code (my-omponent-name.component.html), stylesheet file for this component (my-omponent-name.component.scss), and finally the unit tests for the previously mentioned source files (my-omponent-name.component.spec.ts)
@@ -147,6 +147,23 @@ A reusable carousel component in different home-categories pages
 #### home.component
 It is the entry point for different home pages (men, women, kids, and hot deals).
 
+### product-details folder
+Represents the single item details including item photo album, zooming capability (with zoom in/ out using mouse wheels), and related items carousel.
+
+### services folder
+There are four service in SHOPi web application:
+
+#### api-auth service
+Which is responsible to generate Bearer Token for the Moltin API, and validates the token in case the web app need to generate a new one. This service is actively used by another services, such as products service 
+
+#### cart service
+This service holds the shopping cart of the customer, the products, amount and payment.
+
+#### products service 
+This service deploys all api calls required by SHOPi. It also catches custom errors and return it to the view as a toast. A future work on this service is to save error logs in Firebase
+
+#### session service
+This service is responsible for all session data, including personal data
 
 
 

@@ -1,0 +1,20 @@
+.review {
+   padding: 20px 0 20px 20px;
+    
+}
+
+.stars span {
+    padding-left: 3px;
+    color: rgba(253, 126, 20, 0.8)
+}
+
+.review .description {
+    text-align: justify;
+    text-justify: inter-word;
+    padding-right: 20px;
+    border-right: 1px solid rgba(50, 50, 50, 0.2)
+}
+
+.review .date {
+    font-size: 11px; 
+}

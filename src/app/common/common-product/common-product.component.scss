@@ -61,7 +61,8 @@
     height: 200px;
     max-width: 250px;
     // padding: 10px;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden
 }
 
 .cart-float-table {

@@ -3,10 +3,8 @@
 <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3" style="z-index: 99">
   <nav class="navbar navbar-expand-lg g-pb-0">
     <div class="container">
-      <!-- Navigation -->
       <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-0--lg d-flex divider-solid-bottom">
         <ul class="navbar-nav full-width justify-content-center font-cg-bold" style="z-index: 999;">
-          <!-- Categories - Mega Menu -->
           <li class="nav-item g-mx-10--lg g-mx-15--xl g-pa-10 pointer">
             <a class="nav-link g-color-secondary g-py-0" [routerLink]="['/clothes-collection', 'men']">
               Sale
@@ -39,18 +37,15 @@
           </li>
         </ul>
       </div>
-      <!-- End Navigation -->
     </div>
   </nav>
 </div>
 
 <div class="container g-relative">
-  <!-- new arrival -->
   <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999"
     [@expandCollapse]="validateAnimationState('newArrival')" (mouseenter)="enterContent('newArrival')" (mouseleave)="leaveContent('newArrival')">
     <div class="row">
       <div class="col-md-4 g-mb-30 g-mb-0--md">
-        <!-- Article -->
         <article class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
           style="background-image: url('../assets/img/new_arrival/gant_1.jpg')">
           <div class="g-pos-rel g-z-index-1">
@@ -60,11 +55,10 @@
               [routerLink]="['/clothes-collection', 'men']">Shop Now</a>
           </div>
         </article>
-        <!-- End Article -->
+
       </div>
 
       <div class="col-md-4 g-mb-30 g-mb-0--md">
-        <!-- Article -->
         <article class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
           style="background-image: url('../assets/img/new_arrival/tiger_1.jpg')">
           <div class="g-pos-rel g-z-index-1">
@@ -74,11 +68,9 @@
               href="#!">Shop Now</a>
           </div>
         </article>
-        <!-- End Article -->
       </div>
 
       <div class="col-md-4 g-mb-30 g-mb-0--md">
-        <!-- Article -->
         <article class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
           style="background-image: url('../assets/img/new_arrival/desiel_1.jpg')">
           <div class="g-pos-rel g-z-index-1">
@@ -88,12 +80,11 @@
               href="#!">Shop Now</a>
           </div>
         </article>
-        <!-- End Article -->
+
       </div>
     </div>
   </div>
 
-  <!-- clothing -->
   <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999"
     [@expandCollapse]="validateAnimationState('clothing')" (mouseenter)="enterContent('clothing')" (mouseleave)="leaveContent('clothing')">
     <div class="row">
@@ -210,7 +201,6 @@
     </div>
   </div>
 
-  <!-- shoes -->
   <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute g-z-index-9999"
     [@expandCollapse]="validateAnimationState('shoes')" (mouseenter)="enterContent('shoes')" (mouseleave)="leaveContent('shoes')">
     <div class="row no-gutters">
@@ -264,7 +254,6 @@
     </div>
   </div>
 
-  <!-- sports -->
   <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-absolute g-z-index-9999"
     [@expandCollapse]="validateAnimationState('sport')" (mouseenter)="enterContent('sport')" (mouseleave)="leaveContent('sport')">
     <div class="row">
@@ -369,7 +358,6 @@
     </div>
   </div>
 
-  <!-- bags -->
   <div class="w-100 u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-absolute g-z-index-9999"
     [@expandCollapse]="validateAnimationState('accessoriesAndBags')" (mouseenter)="enterContent('accessoriesAndBags')" (mouseleave)="leaveContent('accessoriesAndBags')">
     <div class="row no-gutters">
@@ -428,7 +416,6 @@
 
   <app-rev-slider [slides]="menSlides"></app-rev-slider>
 
-  <!-- Features -->
   <div class="g-brd-bottom g-brd-gray-light-v4">
     <div class="container g-py-30">
       <div class="row justify-content-center">
@@ -464,18 +451,58 @@
       </div>
     </div>
   </div>
-  <!-- End Features -->
 
-  <!-- Products -->
-  <div class="container g-pb-100 g-mt-20">
+  <div class="container g-pb-50 g-mt-20">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
       <h2 class="g-color-black mb-4">Products</h2>
       <p class="lead">SHOPi selection of most selling products </p>
     </div>
     <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
     <app-product-carousel *ngIf="carousel.products && carousel.products.length > 0" [carousel]="carousel" [returnPageUrl]="'Home'"></app-product-carousel>
-
   </div>
+
+  <div class="container-fluid px-0">
+    <div class="row align-items-center no-gutters">
+      <div class="col-md-5 col-lg-4 u-block-hover g-bg-size-cover g-min-height-500 g-flex-centered" data-bg-img-src="assets/img/bg/secondary.png">
+       
+        <div *ngIf="!colltionBannerImg || colltionBannerImg.length === 0" class="col-md-7 col-lg-8 u-block-hover g-bg-size-cover">
+            <div class="d-flex justify-content-center full-width g-height-100x">
+              <img src={{preloader}}> <div class="g-py-5" style="display: inline-block;">Loading...</div>
+            </div>
+        </div>
+        
+        <div *ngIf="colltionBannerImg && colltionBannerImg.length > 0" class="text-center">
+          <img class="img-fluid mb-3" src="{{colltionBannerImg}}" alt="">
+          <h3 class="h5 u-link-v5 g-color-primary--hover g-font-weight-400 mb-3">BOSS GREEN Paddy Pro - Piké</h3>
+          <span class="g-color-primary g-font-weight-700 g-font-size-20">999 kr</span>
+        </div>
+
+        <a class="u-link-v2" href="#!"></a>
+      </div>
+      <div *ngIf="!collectionBannerBg || collectionBannerBg.length === 0" class="col-md-7 col-lg-8 u-block-hover g-bg-size-cover">
+        <div class="d-flex justify-content-center full-width g-height-100x">
+          <img src={{preloader}}> <div class="g-py-5" style="display: inline-block;">Loading...</div>
+        </div>
+      </div>
+      <div *ngIf="collectionBannerBg && collectionBannerBg.length > 0" class="col-md-7 col-lg-8 u-block-hover g-bg-size-cover g-min-height-500 g-flex-centered"
+        [ngStyle]="{'background-image': 'url(' + collectionBannerBg + ')'}">
+        <div class="g-flex-centered-item g-pa-50">
+          <h2 class="g-color-white g-font-weight-700 g-font-size-50 text-uppercase g-line-height-1 mb-4">Summer
+            <br>Collection
+          </h2>
+          <span class="u-link-v5 g-color-black g-color-primary--hover g-font-size-18 font-cg-bold">Shop Now</span>
+        </div>
+
+        <a class="u-link-v2" href="#!"></a>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Products -->
+  <app-reviews></app-reviews>
   <!-- End Products -->
+  
 
 </div>

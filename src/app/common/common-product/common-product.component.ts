@@ -7,7 +7,7 @@ import { trigger, transition, useAnimation, animate, style } from '@angular/anim
 import { CartProduct } from './../Cart';
 import { CartService } from './../../services/cart.service';
 import { Product } from './../Product';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class CommonProductComponent implements OnInit {
   @Input("products") products: Product[];
   @Input("returnPageUrl") returnPageUrl: string;
   @Input("returnSubPageUrl") returnSubPageUrl: string;
+  @ViewChild('droppedProducts') private droppedProducts: ElementRef;
 
   isProductDragged = false;
 
@@ -33,8 +34,8 @@ export class CommonProductComponent implements OnInit {
     this.cartService.cartProducts.push(cartProduct);
     this.toast(product.name + " has been added to your cart!", "Info", "info", 3000);
   }
-   
-  constructor(public cartService: CartService, private sessionService: SessionService, private router:Router, private toastr: ToastrService) { }
+
+  constructor(public cartService: CartService, private sessionService: SessionService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -42,7 +43,7 @@ export class CommonProductComponent implements OnInit {
   selectProduct(product) {
     this.sessionService.selectedProduct = JSON.parse(product);
     this.router.navigate(['/product-details'], {
-      queryParams: { 
+      queryParams: {
         id: this.sessionService.selectedProduct.id,
         returnPageUrl: this.returnPageUrl,
         returnSubPageUrl: this.returnSubPageUrl
@@ -61,6 +62,9 @@ export class CommonProductComponent implements OnInit {
   dragEnd() {
     setTimeout(() => {
       this.isProductDragged = false;
+      try {
+        this.droppedProducts.nativeElement.scrollTop = this.droppedProducts.nativeElement.scrollHeight;
+      } catch (err) { }
     }, 250);
   }
 

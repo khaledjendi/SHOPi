@@ -17,9 +17,6 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(items => {
       this.reviews = items.map(item => item.value);
-      // for(let review of reviews)
-
-      console.log(this.reviews)
       setTimeout(() => {
         jQuery.HSCore.components.HSCarousel.init('#review-carousel');
         this.averageReviewsStars = this.getAverage();

@@ -1,5 +1,5 @@
+<app-float-cart></app-float-cart>
 <header id="js-header" class="u-header u-header--static u-shadow-v19">
-  <!-- Top Bar -->
   <div class="u-header__section g-brd-bottom g-brd-gray-light-v4 g-transition-0_3">
     <div class="container">
       <div class="row justify-content-between align-items-center g-mx-0--lg">
@@ -29,13 +29,7 @@
         </div>
 
         <div class="col-sm-auto g-pos-rel g-py-14">
-          <img class="logo-mini-page" src="./assets/shopi-theme/img/logo/SHOPi-logo.png" alt="">
-        </div>
-
-        <div class="col-sm-auto g-pos-rel g-py-14">
-          <!-- List -->
           <ul class="list-inline g-overflow-hidden g-pt-1 mb-0">
-            <!-- Currency -->
             <li class="list-inline-item">
               <a id="currency-dropdown-invoker-2" class="g-color-text g-color-primary--hover g-font-weight-400 g-text-underline--none--hover"
                 href="#!">
@@ -43,11 +37,9 @@
                 Euro
               </a>
             </li>
-            <!-- End Currency -->
 
             <li class="list-inline-item g-color-gray-light-v3 g-mx-4">|</li>
 
-            <!-- Language -->
             <li class="list-inline-item g-mx-4">
               <a id="languages-dropdown-invoker-2" class="g-color-text g-color-primary--hover g-font-weight-400 g-text-underline--none--hover"
                 href="#!">
@@ -71,9 +63,22 @@
                 English
               </a>
             </li>
-            <!-- End Language -->
           </ul>
-          <!-- End List -->
+        </div>
+
+        <div class="col-sm-auto g-pos-rel g-py-14">
+          <ul class="list-inline g-overflow-hidden g-pt-1 g-mx-minus-4 mb-0">
+            <li class="list-inline-item g-mx-4">
+              <a class="g-color-text g-color-primary--hover g-font-weight-400 g-text-underline--none--hover" href="page-help-1.html">Help</a>
+            </li>
+            <li class="list-inline-item g-color-gray-light-v3 g-mx-4">|</li>
+            <li class="list-inline-item">
+              <a id="account-dropdown-invoker-2" class="g-color-text g-color-primary--hover g-font-weight-400 g-text-underline--none--hover"
+                href="#!">
+                FAQ
+              </a>
+            </li>
+          </ul>
         </div>
 
         <div class="col-sm-auto g-pr-15 g-pr-0--sm">
@@ -84,8 +89,6 @@
               </a>
             </div>
           </div>
-
-          <!-- Search -->
           <div class="d-inline-block g-valign-middle">
             <div class="g-py-10 g-pl-15">
               <a matTooltip="Search..." href="#!" class="g-color-black g-color-primary--hover g-font-size-17 g-text-underline--none--hover">
@@ -93,31 +96,46 @@
               </a>
             </div>
           </div>
-          <!-- End Search -->
 
           <div class="u-basket d-inline-block g-z-index-3">
             <div class="g-py-10 g-px-6">
-              <a matTooltip="Favorites" href="#!" id="basket-bar-invoker" class="u-icon-v1 g-color-black g-color-green--hover g-font-size-17 g-text-underline--none--hover">
+              <a matTooltip="Favorites" href="#!" class="u-icon-v1 g-color-black g-color-green--hover g-font-size-17 g-text-underline--none--hover">
                 <span class="u-badge-v1--sm g-color-white g-bg-green g-font-size-12 g-line-height-1_4 g-rounded-50x g-pa-4" style="top: 6px !important; right: 4px !important;">0</span>
                 <i class="icon-medical-022 u-line-icon-pro"></i>
               </a>
             </div>
           </div>
-
-          <!-- Basket -->
           <div class="u-basket d-inline-block g-z-index-3">
             <div class="g-py-10 g-px-6">
-              <a matTooltip="Shopping Cart" href="#!" id="basket-bar-invoker" class="u-icon-v1 g-color-black g-color-primary--hover g-font-size-17 g-text-underline--none--hover">
+              <span matTooltip="Shopping Cart" class="u-icon-v1 g-color-black g-color-primary--hover g-font-size-17 g-text-underline--none--hover g-cursor-pointer" (click)="showFloatCart()">
                 <span class="u-badge-v1--sm g-color-white g-bg-primary g-font-size-12 g-line-height-1_4 g-rounded-50x g-pa-4" style="top: 6px !important; right: 4px !important;">{{cartService.cartProducts.length}}</span>
                 <i class="icon-hotel-restaurant-105 u-line-icon-pro"></i>
-              </a>
+              </span>
             </div>
           </div>
-          <!-- End Basket -->
 
         </div>
       </div>
     </div>
   </div>
-  <!-- End Top Bar -->
+
+  <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10">
+    <div class="container">
+      <mat-toolbar class="mat-toolbar-transparent main-nav-bar">
+        <span>
+          <img src="./assets/shopi-theme/img/logo/SHOPi-logo.png">
+        </span>
+        <span class="fill-remaining-space"></span>
+
+        <span>
+          <button style="display: none" mat-button color="primary" class="mat-button-bold" [class.mat-button-active]="activeLinks.isHomeActive" (click)="changePage('home')">Home</button>
+          <button mat-button color="primary" class="mat-button-bold" [class.mat-button-active]="activeLinks.isManActive" (click)="changePage('man')">Men</button>
+          <button mat-button color="primary" class="mat-button-bold" [class.mat-button-active]="activeLinks.isWomanActive" (click)="changePage('woman')">Women</button>
+          <button mat-button color="primary" class="mat-button-bold" [class.mat-button-active]="activeLinks.isKidsActive" (click)="changePage('kids')">Kids</button>
+          <button mat-button color="accent" class="mat-button-bold" [class.mat-button-hot-active]="activeLinks.isHotDealsActive" (click)="changePage('deals')">Hot Deals</button>
+        </span>
+      </mat-toolbar>
+    </div>
+  </div>
+
 </header>

@@ -363,7 +363,7 @@ export class ProductDetailsComponent implements OnInit {
       this.getFirebaseImgUrl(product.relationships.main_image.data.id).then(url => {
         tProduct.mainImagePng = url;
       }).catch(error => {
-        console.log("product " + tProduct.id + " " + tProduct.name)
+        //console.log("product " + tProduct.id + " " + tProduct.name)
       });
       tProduct.discount = product.discount;
       tProduct.rating = product.rating;

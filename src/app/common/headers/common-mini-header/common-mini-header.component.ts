@@ -1,4 +1,4 @@
-import { CartService } from './../../services/cart.service';
+import { CartService } from './../../../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,5 +12,8 @@ export class CommonMiniHeaderComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
+  showFloatCart() {
+    this.cartService.setFloatCartView(true);
+  }
 }

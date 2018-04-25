@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageType } from '../common/common-header/common-header.component';
+import { PageType } from '../common/headers/common-header/common-header.component';
 
 
 @Component({

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ProductsService, CallOperator } from './../../services/products.service';
-import { PageType } from './../common-header/common-header.component';
+import { PageType } from './../headers/common-header/common-header.component';
 import { Product } from './../Product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Price } from '../Price';

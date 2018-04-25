@@ -1,0 +1,159 @@
+<div *ngIf="cartService.floatCartView" class="overlay-cart" [style.height]="getWindowHeight()"></div>
+<div [@floatCartAnimation]="cartService.floatCartView ? 'expanded' : 'collapsed'" class="container g-pt-10 float-cart">
+  <div style="display: inline;">
+    <img class="logo-cart" src="./assets/shopi-theme/img/logo/SHOPi-logo.png">
+  </div>
+  <div class="text-right g-font-size-26 g-mb-30">
+    <a class="g-cursor-pointer close-cart g-color-primary--hover" (click)="closeFloatCart()">X</a>
+  </div>
+  <div class="text-right g-mb-30">
+    <h4 class="g-font-size-16 text-uppercase mb-0">Shopping Cart</h4>
+  </div>
+
+  <div id="stepFormSteps">
+    <div class="row">
+      <div class="col-md-8 g-mb-30">
+        <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+
+          <div class="example-container mat-elevation-z0">
+            <div class="example-header">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search your cart...">
+              </mat-form-field>
+            </div>
+
+            <mat-table #table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="item">
+                <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Item </mat-header-cell>
+                <mat-cell *matCellDef="let cartProduct" class="g-mb-10">
+                  <div class="d-flex justify-content-center">
+                    <img [src]="cartProduct.product.mainImagePng ? cartProduct.product.mainImagePng : cartProduct.product.images[0]" style="height: 150px; object-fit: cover;">
+                  </div>
+                  <div class="d-flex justify-content-center font-cg-bold g-font-size-13">{{cartProduct.product.name}}</div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Price </mat-header-cell>
+                <mat-cell *matCellDef="let cartProduct">
+                  <div class="d-flex justify-content-center g-font-size-12">
+                    <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(cartProduct.product.discount)">{{getPrice(cartProduct.product.price, cartProduct.product.discount)}}
+                      <s *ngIf="eligibleDiscount(cartProduct.product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{cartProduct.product.price.formattedPrice}}</s>
+                    </span>
+                  </div>
+
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="details">
+                <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Details </mat-header-cell>
+                <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-center">
+                  <div>
+                    <div class="value-button minus-items" style="color: #ffffff;" value="Decrease Value" (click)="changeAmount('decrease', cartProduct)">-</div>
+                    <input type="text" class="amount-items" value="{{cartProduct.amount}}" disabled="disabled" />
+                    <div class="value-button plus-items" style="color: #ffffff;" value="Increase Value" (click)="changeAmount('increase', cartProduct)">+</div>
+                    <div class="d-flex justify-content-center g-font-size-12 g-py-5">
+                        {{cartProduct.product.color}}
+                    </div>
+                  </div>
+
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="remove">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-end">
+                  <span class="g-cursor-pointer" (click)="removeFromCart(cartProduct.product.id)">
+                    X
+                  </span>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4 g-mb-30">
+        <div class="row">
+
+          <div class="col-md-12 g-mb-30">
+            <div class="g-bg-gray-light-v5 g-pa-20 g-pb-50 mb-4">
+              <div class="g-brd-bottom g-brd-gray-light-v3 g-mb-15">
+                <h4 class="h6 text-uppercase mb-3">Order summary</h4>
+              </div>
+
+              <div class="d-flex justify-content-between mb-3">
+                <span class="g-color-black">Cart Subtotal</span>
+                <span class="g-color-black g-font-weight-300">{{cartService.totalCartPrice}} kr</span>
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="g-color-black">Shipping</span>
+                  <span class="g-color-black g-font-weight-300">0 kr</span>
+                </div>
+                <p class="g-font-size-13">Standard Delivery - 2-3 Working Days</p>
+              </div>
+              <div class="d-flex justify-content-between mb-3">
+                <span class="g-color-black">Order Total</span>
+                <span class="g-color-black g-font-weight-300">{{cartService.totalCartPrice}} kr</span>
+              </div>
+              <div class="d-flex justify-content-between mb-3 g-font-size-13 font-cg-bold">
+                  <span class="g-color-primary">You Save</span>
+                  <span class="g-color-primary g-font-weight-300">{{cartService.totalCartDiscount}} kr</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cart-customer-benefit g-pa-20">
+    <div class="container">
+      <div class="row justify-content-center justify-content-between">
+        <div class="col-md-4">
+          <!-- Media -->
+          <div class="media g-px-50--lg g-py-15">
+            <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
+            <div class="media-body">
+              <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Shipping</span>
+              <span class="d-block g-color-gray-dark-v4 g-font-size-12">In 2-3 Days</span>
+            </div>
+          </div>
+          <!-- End Media -->
+        </div>
+
+        <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v3 g-py-15">
+          <!-- Media -->
+          <div class="media g-px-50--lg">
+            <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
+            <div class="media-body">
+              <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Returns</span>
+              <span class="d-block g-color-gray-dark-v4 g-font-size-12">30 Days Free Return</span>
+            </div>
+          </div>
+          <!-- End Media -->
+        </div>
+
+        <!-- Media -->
+        <div class="col-md-4 mx-auto g-py-15">
+          <div class="media g-px-50--lg">
+            <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
+            <div class="media-body text-left">
+              <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">24/7 SERVICE</span>
+              <span class="d-block g-color-gray-dark-v4 g-font-size-12">Call Any Day Any Time</span>
+            </div>
+          </div>
+          <!-- End Media -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

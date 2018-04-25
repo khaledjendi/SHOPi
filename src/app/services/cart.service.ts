@@ -1,10 +1,23 @@
 import { CartProduct } from './../common/Cart';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class CartService {
-  public cartProducts: CartProduct[] = [];
+  @Output("changeFloatCartView") changeFloatCartView: EventEmitter<boolean> = new EventEmitter();
   
-  constructor() { }
+  public cartProducts: CartProduct[] = [];
+  public totalCartPrice:number = 0;
+  public totalCartDiscount:number = 0;
+  public floatCartView = false;
+  
+  constructor() { 
+    
+  }
+  
+  setFloatCartView(status) {
+    this.floatCartView = status;
+    this.changeFloatCartView.emit(this.floatCartView);
+  }
+
 
 }

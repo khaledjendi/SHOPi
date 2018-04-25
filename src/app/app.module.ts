@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -19,7 +19,7 @@ import {DndModule} from 'ng2-dnd';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonHeaderComponent } from './common/common-header/common-header.component';
+import { CommonHeaderComponent } from './common/headers/common-header/common-header.component';
 import { HomeComponent } from './home/home.component';
 import { ManHomeCategoryComponent } from './home/man-home-category/man-home-category.component';
 import { HomeDefaultComponent } from './home/home-default/home-default.component';
@@ -40,9 +40,10 @@ import { CustomToastComponent } from './custom-toast/custom-toast.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { Route } from '@angular/compiler/src/core';
-import { CommonMiniHeaderComponent } from './common/common-mini-header/common-mini-header.component';
+import { CommonMiniHeaderComponent } from './common/headers/common-mini-header/common-mini-header.component';
 import { SummaryPipe } from './custom-pipes/summary.pipe';
 import { ReviewsComponent } from './common/reviews/reviews.component';
+import { FloatCartComponent } from './common/headers/float-cart/float-cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -73,7 +74,8 @@ const routes: Routes = [
     ProductDetailsComponent,
     CommonMiniHeaderComponent,
     SummaryPipe,
-    ReviewsComponent
+    ReviewsComponent,
+    FloatCartComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +101,7 @@ const routes: Routes = [
     MatExpansionModule,
     MatDividerModule,
     MatSliderModule,
+    MatTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     RouterModule.forRoot(routes),

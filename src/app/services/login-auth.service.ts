@@ -8,6 +8,8 @@ import 'rxjs/add/operator/take';
 
 @Injectable()
 export class LoginAuthService {
+  user;
+  
   constructor(private auth: AngularFireAuth, private router: Router) { }
 
   // this method will be used in user pages (mina sidor)

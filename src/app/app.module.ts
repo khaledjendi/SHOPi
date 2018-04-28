@@ -48,7 +48,6 @@ import { FloatCartComponent } from './common/headers/float-cart/float-cart.compo
 import { FavViewComponent } from './common/fav-view/fav-view.component';
 import { ClickOutsideModule } from 'ng4-click-outside';
 import { LoginComponent } from './login-auth/login/login.component';
-import { EmailComponent } from './login-auth/email/email.component';
 import { SignupComponent } from './login-auth/signup/signup.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -58,7 +57,6 @@ const routes: Routes = [
   { path: 'product-details', component: ProductDetailsComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'login-email', component: EmailComponent },
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -88,7 +86,6 @@ const routes: Routes = [
     FloatCartComponent,
     FavViewComponent,
     LoginComponent,
-    EmailComponent,
     SignupComponent
   ],
   imports: [

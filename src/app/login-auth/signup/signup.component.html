@@ -1,16 +1,125 @@
-<div class="form-container">
-  <a routerLink="/login" id="goback">Go back</a>
+<app-common-mini-header></app-common-mini-header>
 
-  <h2>Join now</h2>
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <ul class="u-list-inline">
+      <li class="list-inline-item g-mr-5">
+        <a class="u-link-v5 g-color-text" routerLink=''>Home</a>
+        <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+      </li>
+      <li class="list-inline-item g-color-primary">
+        <span>Signup</span>
+      </li>
+    </ul>
+  </div>
+</section>
 
-  <span class="error" *ngIf="error" [@fallIn]='state'>{{ error }}</span>
-    
-  <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+<section class="g-py-50 g-bg-gray-light-v4">
+  <div class="d-flex row justify-content-center">
+    <div class="col-md-7 col-lg-6 g-p-0  login-box">
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-px-30 g-py-50 g-m-0">
+        <header class="text-center mb-4">
+          <h1 class="h4 g-color-primary g-font-weight-400 ">Create an account at SHOPi</h1>
+          <h1 class="h6 g-color-gray-dark-v5 g-font-weight-400 ">Please fill in the information below to create your account</h1>
+        </header>
 
-    <input type="text" placeholder="Email address.." (ngModel)="email" name="email" class="txt" required>
-    <input type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required>
+        <mat-error *ngIf="passwordNotMatch" class="row d-flex row justify-content-center g-mb-15">
+          <span class="g-font-size-13">Confirmation password does
+            <strong>NOT</strong> match the entered password.</span>
+        </mat-error>
+
+        <mat-error *ngIf="error" class="row d-flex row justify-content-center g-mb-15">
+          <span class="g-font-size-13">{{error}}</span>
+        </mat-error>
+
+        <div class="row d-flex row justify-content-center ">
+          <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="login-form">
+            <mat-form-field>
+              <input matInput placeholder="First Name" [formControl]="firstName" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="firstName.hasError('required')">
+                First name is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Last Name" [formControl]="lastName" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="lastName.hasError('required')">
+                Last name is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Email" [formControl]="email" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="email.hasError('required')">
+                Email is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password" [formControl]="password" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+                Password must be at least
+                <strong>8 characters</strong>
+              </mat-error>
+              <mat-error *ngIf="password.hasError('required')">
+                Password is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput type="password" placeholder="Confirm password" [formControl]="passwordConfirmation" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="passwordConfirmation.hasError('required')">
+                Password confirmation is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div class="mb-3 mt-2">
+              <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Create</button>
+            </div>
+          </form>
+        </div>
 
 
-    <button type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
-  </form>
-</div>
+        <div class="g-py-15">
+          <div class="d-flex justify-content-center text-center g-mb-30">
+            <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+            <span class="align-self-center g-color-gray-dark-v5 mx-4">OR</span>
+            <div class="d-inline-block align-self-center g-width-50 g-height-1 g-bg-gray-light-v1"></div>
+          </div>
+
+          <div class="row no-gutters">
+            <div class="col-6">
+              <button class="btn btn-block u-btn-facebook g-font-size-12 text-uppercase g-py-12 g-px-25 mr-2" type="button" (click)="loginFb()">
+                <i class="mr-1 fa fa-facebook"></i>
+                Facebook
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-block u-btn-google-plus g-font-size-12 text-uppercase g-py-12 g-px-25 ml-2" type="button" (click)="loginGoogle()">
+                <i class="mr-1 fa fa-google-plus"></i>
+                Google
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="g-color-gray-dark-v5 mb-0">Already have an account?
+            <a class="g-font-weight-600" routerLink="/login">Login</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-common-footer></app-common-footer>

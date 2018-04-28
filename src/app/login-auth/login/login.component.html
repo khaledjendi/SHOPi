@@ -23,6 +23,10 @@
           <h1 class="h6 g-color-gray-dark-v5 g-font-weight-400 ">Enter your details below to log in to your account</h1>
         </header>
 
+        <mat-error *ngIf="error" class="row d-flex row justify-content-center g-mb-15">
+            <span class="g-font-size-13">{{error}}</span>
+        </mat-error>
+
         <div class="row d-flex row justify-content-center ">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
             <mat-form-field>
@@ -80,7 +84,7 @@
 
         <div class="text-center">
           <p class="g-color-gray-dark-v5 mb-0">Don't have an account?
-            <a class="g-font-weight-600" href="page-signup-1.html">signup</a>
+            <a class="g-font-weight-600" routerLink="/signup">signup</a>
           </p>
         </div>
 
@@ -88,7 +92,5 @@
     </div>
   </div>
 </section>
-<!-- End Login -->
-
 
 <app-common-footer></app-common-footer>

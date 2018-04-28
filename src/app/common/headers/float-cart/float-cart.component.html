@@ -1,5 +1,5 @@
 <div *ngIf="cartService.floatCartView" class="overlay-cart" [style.height]="getWindowHeight()"></div>
-<div [@floatCartAnimation]="cartService.floatCartView ? 'expanded' : 'collapsed'" class="container g-pt-10 float-cart">
+<div [@floatCartAnimation]="cartService.floatCartView ? 'expanded' : 'collapsed'" class="container g-pt-10 float-cart" (clickOutside)="onClickedOutside($event)" [exclude]="'.float-cart-icon'">
   <div style="display: inline;">
     <img class="logo-cart" src="./assets/shopi-theme/img/logo/SHOPi-logo.png">
   </div>
@@ -64,7 +64,7 @@
               <ng-container matColumnDef="remove">
                 <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                 <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-end">
-                  <span class="g-cursor-pointer" (click)="removeFromCart(cartProduct.product.id)">
+                  <span class="g-cursor-pointer" (click)="removeFromCart($event, cartProduct.product.id)">
                     X
                   </span>
                 </mat-cell>

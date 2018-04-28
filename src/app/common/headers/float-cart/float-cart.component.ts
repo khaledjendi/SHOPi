@@ -17,6 +17,7 @@ export class FloatCartComponent implements OnInit {
 
   displayedColumns = ['item', 'price', 'details', 'remove'];
   dataSource = new MatTableDataSource();
+  //isAllowClose = false;
 
 
   constructor(public cartService: CartService) {
@@ -54,13 +55,15 @@ export class FloatCartComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  removeFromCart(id) {
+  removeFromCart(event, id) {
+    event.stopPropagation();
     for (let i = 0; i < this.cartService.cartProducts.length; i++) {
       if (this.cartService.cartProducts[i].product.id === id) {
         this.cartService.cartProducts.splice(i, 1);
       }
     }
     this.dataSource.data = this.cartService.cartProducts;
+    this.getTotal();
   }
 
   getPrice(price: Price, discount: number) {
@@ -100,5 +103,9 @@ export class FloatCartComponent implements OnInit {
     }
     this.cartService.totalCartPrice = <any>totalPrice.toFixed(0);
     this.cartService.totalCartDiscount = <any>totalDiscount.toFixed(0);
+  }
+
+  onClickedOutside(event) {
+    this.closeFloatCart();
   }
 }

@@ -1,6 +1,9 @@
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 
+import { AngularFireDatabase } from 'angularfire2/database';
+import {AngularFireAuth } from 'angularfire2/auth';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() {
+  constructor(private af: AngularFireAuth) {
+    af.auth.signOut();
   }
 
   ngOnInit() {

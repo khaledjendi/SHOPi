@@ -1,3 +1,4 @@
+import { LoginAuthService } from './services/login-auth.service';
 import { SessionService } from './services/session.service';
 import { CartService } from './services/cart.service';
 import { ProductsService } from './services/products.service';
@@ -7,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule, MatIconModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -44,11 +45,20 @@ import { CommonMiniHeaderComponent } from './common/headers/common-mini-header/c
 import { SummaryPipe } from './custom-pipes/summary.pipe';
 import { ReviewsComponent } from './common/reviews/reviews.component';
 import { FloatCartComponent } from './common/headers/float-cart/float-cart.component';
+import { FavViewComponent } from './common/fav-view/fav-view.component';
+import { ClickOutsideModule } from 'ng4-click-outside';
+import { LoginComponent } from './login-auth/login/login.component';
+import { EmailComponent } from './login-auth/email/email.component';
+import { SignupComponent } from './login-auth/signup/signup.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'clothes-collection/:type', component: ClothesCollectionComponent},
   { path: 'product-details', component: ProductDetailsComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'login-email', component: EmailComponent },
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -75,7 +85,11 @@ const routes: Routes = [
     CommonMiniHeaderComponent,
     SummaryPipe,
     ReviewsComponent,
-    FloatCartComponent
+    FloatCartComponent,
+    FavViewComponent,
+    LoginComponent,
+    EmailComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -102,17 +116,21 @@ const routes: Routes = [
     MatDividerModule,
     MatSliderModule,
     MatTableModule,
+    MatIconModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     DndModule.forRoot(),
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    ClickOutsideModule
   ],
   providers: [ApiAuthService, 
     ProductsService, 
     CartService, 
-    SessionService
+    SessionService,
+    LoginAuthService
   ],
   entryComponents: [CustomToastComponent],
   bootstrap: [AppComponent]

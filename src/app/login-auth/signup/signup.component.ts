@@ -9,6 +9,12 @@ import * as firebase from 'firebase'
 
 import { Router } from '@angular/router';
 
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -20,7 +26,15 @@ export class SignupComponent implements OnInit {
   error: any;
   passwordNotMatch: boolean = false;
 
-  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService) {
+  task: AngularFireUploadTask;
+  percentage: Observable<number>;
+  snapshot: Observable<any>;
+  downloadURL: Observable<string>;
+  isHovering: boolean;
+  fileName: string;
+  photoURL: string = "";
+
+  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore) {
   }
 
   ngOnInit() {
@@ -104,7 +118,8 @@ export class SignupComponent implements OnInit {
       this.af.auth.createUserWithEmailAndPassword(email, password)
         .then(user => {
           user.updateProfile({
-            displayName: displayName
+            displayName: displayName,
+            photoURL: this.photoURL
           })
           this.router.navigate(['/login'])
         })
@@ -146,6 +161,51 @@ export class SignupComponent implements OnInit {
         });
         break;
     }
+  }
+
+  toggleHover(event: boolean) {
+    this.isHovering = event;
+  }
+
+  startUpload(event: FileList) {
+
+    const file = event.item(0)
+
+    if (file.type.split('/')[0] !== 'image') {
+      this.toast("Unsupported file type", "Error", "error", 3000);
+      return;
+    }
+
+    if (this.fileName && this.fileName.length > 0) {
+      var desertRef = this.storage.storage.ref().child(`profile_images/${this.fileName}`);
+      desertRef.delete()
+        .then(() => { console.log("File profile_images/" + this.fileName + " deleted") })
+        .catch(error => console.log("delete previous file error", error));
+    }
+
+    this.fileName = new Date().getTime() + "_" + file.name;
+
+    let path = `profile_images/${this.fileName}`;
+
+    const customMetadata = { app: 'SHOPi Profiles!' };
+
+    this.task = this.storage.upload(path, file, { customMetadata })
+
+    // Progress monitoring
+    this.percentage = this.task.percentageChanges();
+    this.snapshot = this.task.snapshotChanges().pipe(
+      tap(snap => {
+        if (snap.bytesTransferred === snap.totalBytes) {
+          this.db.collection('photos').add({ path, size: snap.totalBytes })
+        }
+      })
+    )
+    this.downloadURL = this.task.downloadURL();
+    this.downloadURL.subscribe(photoURL => this.photoURL = photoURL, error => this.photoURL = "")
+  }
+
+  isActive(snapshot) {
+    return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
   }
 
 }

@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule, MatIconModule, MatProgressBarModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -50,6 +50,10 @@ import { ClickOutsideModule } from 'ng4-click-outside';
 import { LoginComponent } from './login-auth/login/login.component';
 import { SignupComponent } from './login-auth/signup/signup.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { FileSizePipe } from './custom-pipes/file-size.pipe';
+import { DropZoneDirective } from './directives/drop-zone.directive';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -86,7 +90,9 @@ const routes: Routes = [
     FloatCartComponent,
     FavViewComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DropZoneDirective,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
@@ -114,8 +120,11 @@ const routes: Routes = [
     MatSliderModule,
     MatTableModule,
     MatIconModule,
+    MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
     HttpClientModule,

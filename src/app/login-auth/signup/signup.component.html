@@ -32,7 +32,7 @@
           <span class="g-font-size-13">{{error}}</span>
         </mat-error>
 
-        <div class="row d-flex row justify-content-center ">
+        <div class="row d-flex row justify-content-center">
           <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="login-form">
             <mat-form-field>
               <input matInput placeholder="First Name" [formControl]="firstName" [errorStateMatcher]="matcher">
@@ -81,12 +81,45 @@
               </mat-error>
             </mat-form-field>
 
-            <div class="mb-3 mt-2">
+
+            <div class="d-flex row justify-content-center" *ngIf="downloadURL | async as url">
+              <img class="profile_image" [src]="url">
+            </div>
+            <div class="dropzone" dropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)" [class.hovering]="isHovering">
+              <h6>Profile Image Drop Zone</h6>
+              <p>Drag and Drop a File</p>
+
+              <div class="file">
+                <label class="file-label">
+
+                  <input class="file-input" type="file" (change)="startUpload($event.target.files)">
+
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      or choose a file…
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div *ngIf="percentage | async as pct">
+
+              <mat-progress-bar mode="determinate" [value]="pct"></mat-progress-bar>
+              <span class="g-color-primary font-cg-bold">{{ pct | number }}% </span>
+              <span *ngIf="(snapshot | async) as snap" >
+                -- {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
+              </span>
+            </div>
+
+            <div class="mb-3 g-mt-30">
               <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Create</button>
             </div>
           </form>
         </div>
-
 
         <div class="g-py-15">
           <div class="d-flex justify-content-center text-center g-mb-30">

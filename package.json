@@ -37,7 +37,6 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.10",
     "ng-block-ui": "^1.0.4",
     "ng2-dnd": "^5.0.2",
     "ng4-click-outside": "^1.0.1",

@@ -1,0 +1,184 @@
+<app-common-mini-header></app-common-mini-header>
+
+<div class="d-flex justify-content-center g-bg-gray-light-v5">
+  <div class="row col-md-9 g-my-50 pages-box g-bg-white">
+    <!-- Profile Settings -->
+    <div class="col-lg-3 g-mb-50">
+      <aside class="g-brd-around g-brd-gray-light-v4 rounded g-px-20 g-py-30">
+        <!-- Profile Picture -->
+        <div class="text-center g-pos-rel g-mb-30">
+          <img class="profile_image" src="{{loginAuthService.currentUserPhotoURL}}">
+
+          <span class="d-block font-cg-bold g-color-primary--hover g-cursor-pointer">{{loginAuthService.currentUserDisplayName | summary:15}}</span>
+          <span class="d-block g-font-size-12 g-color-gray-dark-v4">{{loginAuthService.currentUserEmail | summary:21 }}</span>
+
+          <span class="u-icon-v3 u-icon-size--xs g-color-white--hover g-bg-primary--hover rounded-circle g-pos-abs g-top-0 g-right-15 g-cursor-pointer"
+            matTooltip="Change Profile Picture" data-placement="top">
+            <i class="icon-finance-067 u-line-icon-pro"></i>
+          </span>
+        </div>
+        <!-- End Profile Picture -->
+
+        <hr class="g-brd-gray-light-v4 g-my-30">
+
+        <!-- Profile Settings List -->
+        <ul class="list-unstyled mb-0">
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-114 u-line-icon-pro"></i>
+              </span>
+              Orders
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-115 u-line-icon-pro"></i>
+              </span>
+              Favorites
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-113 u-line-icon-pro"></i>
+              </span>
+              Views
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-medical-022 u-line-icon-pro"></i>
+              </span>
+              Personal Data
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-real-estate-027 u-line-icon-pro"></i>
+              </span>
+              Addresses
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-110 u-line-icon-pro"></i>
+              </span>
+              Payment Options
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-135 u-line-icon-pro"></i>
+              </span>
+              Login &amp; Security
+            </a>
+          </li>
+          <li class="g-pt-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-education-033 u-line-icon-pro"></i>
+              </span>
+              Help
+            </a>
+          </li>
+          <li class="g-pt-3">
+            <span class="d-block align-middle u-link-v5 g-color-primary g-bg-gray-light-v5--hover rounded g-pa-3 font-cg-bold text-center g-mt-10 g-cursor-pointer"
+              (click)="loginAuthService.signOut()">
+              Logout
+            </span>
+          </li>
+        </ul>
+        <!-- End Profile Settings List -->
+      </aside>
+    </div>
+
+    <div class="col-lg-9 g-mb-50">
+      <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30">
+        <section class="g-brd-bottom g-brd-gray-light-v4 g-pb-30 g-pt-10">
+          <div class="container">
+            <div class="d-sm-flex text-center">
+              <div class="align-self-center">
+                <h1 class="h6 mb-0 font-cg-bold">SHOPi Account</h1>
+              </div>
+
+              <div class="align-self-center ml-auto">
+                <ul class="u-list-inline">
+                  <li class="list-inline-item g-mr-5">
+                    <a class="u-link-v5 g-color-text" routerLink="/user">My SHOPi</a>
+                    <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+                  </li>
+                  <li class="list-inline-item g-color-primary">
+                    <span>Overview</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="col-s-12 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer" style="background-color: rgba(255, 160, 122, 0.7);">
+          <div class="d-flex justify-content-center align-items-center"><i class="icon-finance-114 u-line-icon-pro"></i></div> My Orders
+        </div>
+
+        <div class="row g-px-15">
+          <div class="col-lg-6 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer g-my-0" style="background-color: rgba(114,192,44, 0.7);">
+            <div class="d-flex justify-content-center align-items-center"><i class="icon-medical-022 u-line-icon-pro"></i></div> My Favorites
+          </div>
+  
+          <div class="col-lg-6 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer g-my-0" style="background-color: rgba(163, 163, 163, 0.7);">
+            <div class="d-flex justify-content-center align-items-center"><i class=" icon-medical-054 u-line-icon-pro"></i></div> My Veiwed Items
+          </div>
+        </div>
+        
+        <div class="col-s-12 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer" style="background-color: rgba(124, 122, 255, 0.7);">
+          <div class="d-flex justify-content-center align-items-center"><i class="icon-hotel-restaurant-105 u-line-icon-pro"></i></div> Shopping Cart
+          <span *ngIf="cartService.cartProducts && cartService.cartProducts.length > 0">&nbsp;&nbsp;({{cartService.cartProducts.length}} items)</span>
+        </div>  
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center g-brd-bottom g-brd-gray-light-v4 g-pb-0" style="width: 100%">
+      <div class="container g-py-30">
+        <div class="row justify-content-center">
+          <div class="col-md-4 mx-auto g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
+              <div class="media-body">
+                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Shipping</span>
+                <span class="d-block g-color-gray-dark-v4">In 2-3 Days</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v3 g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
+              <div class="media-body">
+                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Returns</span>
+                <span class="d-block g-color-gray-dark-v4">No Shipping Fees</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mx-auto g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
+              <div class="media-body text-left">
+                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">24/7 Customer Service</span>
+                <span class="d-block g-color-gray-dark-v4">Call Any Day Any Time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-common-footer></app-common-footer>

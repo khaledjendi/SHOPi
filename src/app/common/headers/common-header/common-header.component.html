@@ -84,7 +84,7 @@
         <div class="col-sm-auto g-pr-15 g-pr-0--sm">
           <div class="d-inline-block g-valign-middle">
             <div class="g-py-10 g-pl-15">
-              <a matTooltip="Welcome Khaled" routerLink="/login" class="g-color-black g-color-primary--hover g-font-size-17 g-text-underline--none--hover">
+              <a matTooltip="{{welcomeUser}}" routerLink="/user" class="g-color-black g-color-primary--hover g-font-size-17 g-text-underline--none--hover">
                 <i class="g-pos-rel g-top-3 icon-finance-067 u-line-icon-pro"></i>
               </a>
             </div>
@@ -122,7 +122,7 @@
   <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10">
     <div class="container">
       <mat-toolbar class="mat-toolbar-transparent main-nav-bar">
-        <span>
+        <span routerLink="" class="g-cursor-pointer outline-none" >
           <img src="./assets/shopi-theme/img/logo/SHOPi-logo.png">
         </span>
         <span class="fill-remaining-space"></span>

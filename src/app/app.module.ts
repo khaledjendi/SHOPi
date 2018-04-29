@@ -54,6 +54,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { FileSizePipe } from './custom-pipes/file-size.pipe';
 import { DropZoneDirective } from './directives/drop-zone.directive';
+import { UserPageComponent } from './user-pages/user-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'product-details', component: ProductDetailsComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'user', component: UserPageComponent, canActivate: [LoginAuthService] },
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -92,7 +94,8 @@ const routes: Routes = [
     LoginComponent,
     SignupComponent,
     DropZoneDirective,
-    FileSizePipe
+    FileSizePipe,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,

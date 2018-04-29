@@ -1,9 +1,5 @@
-import { ToastrService } from 'ngx-toastr';
+import { LoginAuthService } from './../../services/login-auth.service';
 import { Component, OnInit, HostBinding } from '@angular/core';
-
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase'
 
 import { Router } from '@angular/router';
 
@@ -23,36 +19,13 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   error: any;
-  constructor(public af: AngularFireAuth, public db: AngularFireAuth, private router: Router, private toastr: ToastrService) {
-    this.af.authState.subscribe(auth => {
-      if (auth) {
-        console.log("user logged in!", auth)
-        this.router.navigate(['']);
-      }
-    });
-  }
-
-  ngOnInit() {
-  }
-
-  loginFb() {
-    this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(success => this.router.navigate(['']))
-      .catch(err => {
-        this.toast(err, "Facebook Error", "error", 3000);
-        this.error = err
-      })
-  }
-
-  loginGoogle() {
-    this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(success => this.router.navigate(['']))
-      .catch(err => {
-        this.toast(err, "Google Error", "error", 3000);
-        this.error = err
-      })
+  constructor(private router: Router, private loginAuthService: LoginAuthService) {
+    this.loginAuthService.currentUserObservable.subscribe(user => {
+      if (user)
+        this.router.navigate(['/']);
+    })
   }
 
   loginForm = new FormGroup({
@@ -75,57 +48,19 @@ export class LoginComponent implements OnInit {
 
   matcher = new LoginErrorStateMatcher();
 
+  loginFb() {
+    this.loginAuthService.facebookLogin();
+  }
+
+  loginGoogle() {
+    this.loginAuthService.googleLogin();
+  }
+
   onSubmit() {
     if (this.loginForm.valid) {
       let email = <string><any>this.loginForm.value.email;
       let password = <string><any>this.loginForm.value.password
-      this.af.auth.signInWithEmailAndPassword(email, password)
-        .then(success => this.router.navigate(['']))
-        .catch(err => {
-          switch (err.code) {
-            case "auth/user-not-found":
-              this.error = "There is no user record corresponding to this identifier";
-              this.toast("There is no user record corresponding to this identifier", "Error", "error", 3000);
-              break;
-            default:
-              this.toast(err, "Error", "error", 3000);
-              this.error = err
-              break;
-          }
-        })
-    }
-  }
-
-  private toast(message, header, type, timeOut) {
-    switch (type) {
-      case "error":
-        this.toastr.error(message, header, {
-          timeOut: timeOut,
-          easing: 'easeOutBounce',
-          progressBar: true
-        });
-        break;
-      case "warning":
-        this.toastr.warning(message, header, {
-          timeOut: timeOut,
-          easing: 'easeOutBounce',
-          progressBar: true
-        });
-        break;
-      case "info":
-        this.toastr.info(message, header, {
-          timeOut: timeOut,
-          easing: 'easeOutBounce',
-          progressBar: true
-        });
-        break;
-      case "success":
-        this.toastr.success(message, header, {
-          timeOut: timeOut,
-          easing: 'easeOutBounce',
-          progressBar: true
-        });
-        break;
+      this.loginAuthService.signin(email, password);
     }
   }
 

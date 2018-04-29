@@ -15,18 +15,15 @@ export class UploadService {
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
-        // upload in progress
         upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100;
       },
       (error) => {
-        // upload failed
+        // save to firebase log [future work]. 
         console.log(error)
       },
       () => {
-        // upload success
         upload.url = uploadTask.snapshot.downloadURL
         upload.name = upload.file.name
-        //this.saveFileData(upload)
       }
     );
   }

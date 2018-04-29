@@ -48060,6 +48060,10 @@ p {
   font-family: "century_gothic_bold", Verdana, Tahoma;
 }
 
+.outline-none {
+  outline: none !important;
+}
+
 .g-relative {
   position: relative;
 }

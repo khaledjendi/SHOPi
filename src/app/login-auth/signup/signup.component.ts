@@ -21,7 +21,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./signup.component.scss']
 })
 
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   state: string = '';
   error: any;
   passwordNotMatch: boolean = false;
@@ -35,9 +35,11 @@ export class SignupComponent implements OnInit {
   photoURL: string = "";
 
   constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore) {
-  }
-
-  ngOnInit() {
+    this.af.authState.subscribe(auth => {
+      if (auth) {
+        this.router.navigate(['']);
+      }
+    });
   }
 
   loginFb() {

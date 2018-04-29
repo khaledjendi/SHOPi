@@ -1,3 +1,4 @@
+import { LoginAuthService } from './../../../services/login-auth.service';
 import { CartService } from './../../../services/cart.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
@@ -16,6 +17,7 @@ export enum PageType {
 })
 export class CommonHeaderComponent implements OnInit {
   @Output() change = new EventEmitter();
+  welcomeUser;
   activeLinks = {
     isHomeActive: false,
     isManActive: true,
@@ -24,7 +26,14 @@ export class CommonHeaderComponent implements OnInit {
     isHotDealsActive: false
   }
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService, private loginAuthService: LoginAuthService) {
+    this.loginAuthService.currentUserObservable.subscribe(user => {
+      if (user)
+        this.welcomeUser = `Welcome ${this.loginAuthService.currentUserDisplayName}`
+      else
+        this.welcomeUser = "Welcome";
+    });
+  }
 
   ngOnInit() {
   }

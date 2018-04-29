@@ -43,17 +43,17 @@ https://www.youtube.com/watch?v=FeL12Cszhh8
 
 - Creating checkout page
 
-- Creating login page and use Facebook and google apis
+- [Completed] Creating login page and use Facebook and google apis (Completed)
+
+- [Completed] Use firebase for signing up (Completed, with a smooth drag and drop user image)
 
 - Create Personal details page
+
+- Work with firebase to store personal data, orders, favorites, ...
 
 - Perform search on the product
 
 - Add more facilities to the product page with capability to veiw correct related items
-
-- Work with firebase to store personal data, orders, favorites, ...
-
-- Use local storage to save login details
 
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies

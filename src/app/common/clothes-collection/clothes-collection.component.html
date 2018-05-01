@@ -1,12 +1,12 @@
 <ng-template #blockTemplate>
-    <div class="d-flex block-ui-template justify-content-center align-items-center" style="top: 50%">
+    <div class="d-flex block-ui-template justify-content-center g-mt-20" style="top: 20px">
         <div class="g-pa-10" style="background-color: rgba(50, 50, 50, 0.9); border-radius: 10px;">
             <table>
                 <tr>
                     <td>
                         <img width="32" height="32" src="../../../assets/shopi-theme/img/preloaders/preloader-colors.svg">
                     </td>
-                    <td class="g-font-size-20 g-color-white font-cg-bold">Loading...</td>
+                    <td class="g-font-size-20 g-color-white">Loading...</td>
                 </tr>
             </table>
         </div>
@@ -14,7 +14,6 @@
 </ng-template>
 <app-fav-view></app-fav-view>
 <app-common-header></app-common-header>
-<!-- Promo Block -->
 
 <div class="container g-pt-100 g-pb-40" [style.background-image]="collectionHeader">
     <div class="g-mb-50">
@@ -38,17 +37,12 @@
         </ul>
     </div>
 </div>
-<!-- End Promo Block -->
 
-<!-- Products -->
 <div class="container">
     <div class="row">
-        <!-- Content -->
         <div class="col-md-9 order-md-2">
             <div class="g-pl-15--lg">
-                <!-- Filters -->
                 <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-40 g-pb-20">
-                    <!-- Show -->
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
                             <mat-form-field class="g-width-150">
@@ -145,21 +139,21 @@
                     </div>
 
                     <div class="g-mr-10">
-                            <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                                <mat-form-field class="g-width-150">
-                                    <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
-                                        <mat-select-trigger>
-                                            {{materialControl.value ? materialControl.value[0] : ''}}
-                                            <span *ngIf="materialControl.value?.length > 1" class="additional-selection">
-                                                (+{{materialControl.value.length - 1}} others)
-                                            </span>
-                                        </mat-select-trigger>
-                                        <mat-option *ngFor="let material of materialsList" [value]="material">{{material}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
+                            <mat-form-field class="g-width-150">
+                                <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
+                                    <mat-select-trigger>
+                                        {{materialControl.value ? materialControl.value[0] : ''}}
+                                        <span *ngIf="materialControl.value?.length > 1" class="additional-selection">
+                                            (+{{materialControl.value.length - 1}} others)
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-option *ngFor="let material of materialsList" [value]="material">{{material}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
-                    
+                    </div>
+
 
                     <div class="g-mr-10 full-width">
                         <div class="d-flex justify-content-end d-inline-block btn-group g-line-height-1_2">
@@ -186,12 +180,6 @@
 
                 </div>
 
-
-                <!-- End Filters -->
-
-
-
-                <!-- Products -->
                 <div class="row g-pt-30 g-mb-50">
                     <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
                     <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
@@ -199,7 +187,6 @@
                             (selectedProduct)="onProductSelected($event)"></app-common-product>
                     </div>
                 </div>
-                <!-- End Products -->
 
                 <hr class="g-mb-60">
 
@@ -239,13 +226,9 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- End Pagination -->
             </div>
-
         </div>
-        <!-- End Content -->
 
-        <!-- Filters -->
         <div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-20">
             <div class="g-pr-15--lg">
                 <a id="mega-menu-label-3" class="d-flex justify-content-center nav-link text-uppercase g-color-primary--hover g-px-5 g-font-size-16 font-cg-bold"
@@ -255,63 +238,62 @@
                 <hr style="margin-top: 1.4rem;">
                 <mat-accordion>
 
-                    <mat-expansion-panel expanded="true" hideToggle="true">
-                        <mat-expansion-panel-header>
+                    <mat-expansion-panel expanded="true" hideToggle="true" (opened)="getProducts('all')">
+                        <mat-expansion-panel-header >
                             <mat-panel-title class="font-cg-bold">
                                 View All
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel hideToggle="true">
+                    <mat-expansion-panel hideToggle="true" (opened)="getProducts('tops')">
                         <mat-expansion-panel-header>
                             <mat-panel-title class="font-cg-bold">
                                 Tops
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <app-categories-labels [collection]="topsCollection"></app-categories-labels>
+                        <app-categories-labels [collection]="topsCollection" (click)=getProducts($event)></app-categories-labels>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel hideToggle="true">
-                        <mat-expansion-panel-header class="font-cg-bold">
-                            <mat-panel-title>
-                                Outerwear
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <app-categories-labels [collection]="outerwareCollection"></app-categories-labels>
-                    </mat-expansion-panel>
-
-                    <mat-expansion-panel hideToggle="true">
-                        <mat-expansion-panel-header class="font-cg-bold">
-                            <mat-panel-title>
-                                Suits & Blazers
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <app-categories-labels [collection]="suitsCollection"></app-categories-labels>
-                    </mat-expansion-panel>
-
-                    <mat-expansion-panel hideToggle="true">
-                        <mat-expansion-panel-header class="font-cg-bold">
-                            <mat-panel-title>
-                                Trousers
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <app-categories-labels [collection]="trousersCollection"></app-categories-labels>
-                    </mat-expansion-panel>
-
-                    <mat-expansion-panel hideToggle="true">
+                    <mat-expansion-panel hideToggle="true" (opened)="getProducts('jeans')">
                         <mat-expansion-panel-header class="font-cg-bold">
                             <mat-panel-title>
                                 Jeans
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <app-categories-labels [collection]="jeansCollection"></app-categories-labels>
+                        <app-categories-labels [collection]="jeansCollection" (click)=getProducts($event)></app-categories-labels>
                     </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Outerwear')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Outerwear
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="outerwareCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Suits & Blazers')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Suits & Blazers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="suitsCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle="true" (opened)="unsupported('Trousers')">
+                        <mat-expansion-panel-header class="font-cg-bold">
+                            <mat-panel-title>
+                                Trousers
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <app-categories-labels [collection]="trousersCollection" (click)=unsupported($event)></app-categories-labels>
+                    </mat-expansion-panel>
+
                 </mat-accordion>
             </div>
         </div>
-        <!-- End Filters -->
     </div>
 </div>
-<!-- End Products -->
 <app-common-footer></app-common-footer>

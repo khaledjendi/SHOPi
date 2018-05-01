@@ -19,7 +19,6 @@
     </div>
 
     <div class="media">
-      <!-- Product Info -->
       <div class="d-flex flex-column g-pl-10">
         <h4 class="h6 g-color-black mb-1">
           <a class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
@@ -28,7 +27,6 @@
         </h4>
         <!-- <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">Man</a> -->
 
-        <!-- Checkbox -->
         <!-- <ul class="list-inline g-ml-minus-10 mb-1">
           <li class="list-inline-item g-mx-10">
             <label class="form-check-inline u-check">
@@ -55,11 +53,8 @@
             </label>
           </li>
         </ul> -->
-        <!-- End Checkbox -->
 
-        <!-- Colour -->
         <div class="d-flex justify-content-between align-items-left" style="width: 0px;" role="tab">
-          <!-- Checkbox -->
           <label class="form-check-inline u-check g-m-0">
             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
             <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
@@ -84,19 +79,13 @@
               <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-gray-dark-v4 rounded-circle"></i>
             </span>
           </label>
-          <!-- End Checkbox -->
         </div>
-        <!-- End Colour -->
-
-
 
         <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(slide.discount)">{{getPrice(slide.price, slide.discount)}}
           <s *ngIf="eligibleDiscount(slide.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{slide.price.formattedPrice}}</s>
         </span>
       </div>
-      <!-- End Product Info -->
 
-      <!-- Products Icons -->
       <ul class="list-inline media-body text-right">
         <li class="list-inline-item align-middle mx-0">
           <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle" href="#!"
@@ -111,7 +100,6 @@
           </a>
         </li>
       </ul>
-      <!-- End Products Icons -->
     </div>
   </div>
 </div>

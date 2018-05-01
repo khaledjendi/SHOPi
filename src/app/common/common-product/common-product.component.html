@@ -31,7 +31,6 @@
   </figure>
 
   <div class="media">
-    <!-- Product Info -->
     <div class="d-flex flex-column g-m-0">
       <h4 class="h6 g-color-black">
         <a class="u-link-v5 g-color-black g-color-primary--hover" href="#!">
@@ -42,9 +41,7 @@
       <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(product.discount)">{{getPrice(product.price, product.discount)}} <s *ngIf="eligibleDiscount(product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{product.price.formattedPrice}}</s></span>
       
     </div>
-    <!-- End Product Info -->
 
-    <!-- Products Icons -->
     <ul class="list-inline media-body text-right">
       <li class="list-inline-item align-middle mx-0">
         <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle" href="#!"
@@ -59,6 +56,5 @@
         </a>
       </li>
     </ul>
-    <!-- End Products Icons -->
   </div>
 </div>

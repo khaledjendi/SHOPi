@@ -1,3 +1,4 @@
+import { Config } from './../config';
 import { Injectable } from '@angular/core';
 import { ApiAuthService } from './api-auth.service';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -10,6 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 
 export enum CallOperator {
   AllProducts,
+  TopsProducts,
+  JeansProducts,
+  TShirtProducts,
+  KnitwearProducts,
+  PoloShirtsProducts,
+  RegularProducts,
+  ShirtsProducts,
+  SkinnyProducts,
   Product,
   Brand,
   Files,
@@ -37,6 +46,50 @@ export class ProductsService {
     else {
       return this.callGetMethod(operator, id, filter);
     }
+  }
+
+  callAPI(operator: CallOperator) {
+    switch (operator) {
+      case CallOperator.TopsProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Tops' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.JeansProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Jeans' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.TShirtProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'TShirts' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.SkinnyProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Skinny' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.ShirtsProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Shirts' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.RegularProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Regular' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.PoloShirtsProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'PoloShirts' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+      case CallOperator.KnitwearProducts:
+        return Config.Moltin.Categories.Filter({ eq: { name: 'Knitwear' } }).All().then(categories => {
+          return this.callApiProductsByCategory(categories);
+        }).catch(this.handleError("callAPI"))
+
+    }
+  }
+
+  private callApiProductsByCategory(categories) {
+    if (categories && categories.data.length > 0)
+      return Config.Moltin.Products.Filter({ eq: { 'category.id': categories.data[0].id } }).All();
+    return null;
   }
 
   private callGetMethod(operator: CallOperator, id?, filter?) {

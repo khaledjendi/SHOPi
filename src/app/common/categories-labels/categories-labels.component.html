@@ -1,3 +1,3 @@
-<div *ngFor="let label of collection">
-  <a class="g-color-primary--hover">{{label}}</a>
+<div *ngFor="let label of collection" >
+  <a class="g-color-primary--hover" (click)="getProducts($event, label)">{{label}}</a>
 </div>

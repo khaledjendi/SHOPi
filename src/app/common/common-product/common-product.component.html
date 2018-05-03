@@ -1,13 +1,15 @@
 <div [@cartAnimation]="isProductDragged ? 'expanded' : 'collapsed'" class="row cart-float-view" [style.opacity]="isProductDragged ? 1 : 0">
   <img src="../../../assets/img/cart/add_to_cart_128.png">
   <div class="col-sm-12">
-    <div dnd-droppable class="panel panel-info" (onDropSuccess)="addToCart($event)">
+    <div dnd-droppable class="panel panel-info" (onDropSuccess)="dropProductSuccess($event)">
       <div class="g-width-100 customized-drop"></div>
       <div #droppedProducts class="dropped-products">
         <div [hidden]="cartService.cartProducts.length === 0" class="font-white">
           <table class="cart-float-table">
             <tr *ngFor="let cartProduct of cartService.cartProducts">
-              <td style="width: 40px"><img class="icon-product-image" src="{{cartProduct.product.images[0]}}"></td>
+              <td style="width: 40px">
+                <img class="icon-product-image" src="{{cartProduct.product.images[0]}}">
+              </td>
               <td>{{cartProduct.product.name}}</td>
             </tr>
           </table>
@@ -38,16 +40,18 @@
         </a>
       </h4>
       <!-- <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#!">{{product.collection}}</a> -->
-      <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(product.discount)">{{getPrice(product.price, product.discount)}} <s *ngIf="eligibleDiscount(product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{product.price.formattedPrice}}</s></span>
-      
+      <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(product.discount)">{{getPrice(product.price, product.discount)}}
+        <s *ngIf="eligibleDiscount(product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{product.price.formattedPrice}}</s>
+      </span>
+
     </div>
 
     <ul class="list-inline media-body text-right">
       <li class="list-inline-item align-middle mx-0">
-        <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle" href="#!"
-          matTooltip="Add to Cart" data-placement="top" title="Add to Cart">
+        <span class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle g-cursor-pointer--hover"
+          matTooltip="Add to Cart" data-placement="top" title="Add to Cart" (click)="addToCartClicked($event, product)">
           <i class="icon-finance-100 u-line-icon-pro"></i>
-        </a>
+        </span>
       </li>
       <li class="list-inline-item align-middle mx-0">
         <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle" href="#!"

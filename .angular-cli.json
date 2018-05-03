@@ -27,7 +27,8 @@
         "../src/assets/vendor/revolution-slider/revolution/css/layers.css",
         "../src/assets/vendor/revolution-slider/revolution/css/navigation.css",
         "../src/assets/vendor/slick-carousel/slick/slick.css",
-        "./toastr-customized.css",
+        "../src/assets/vendor/toastr/toastr-customized.css",
+        "../src/assets/vendor/nouislider/nouislider-customized.css",
         "../src/assets/js/xzoom/xzoom.css",
         "./styles.scss"
       ],
@@ -37,10 +38,6 @@
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.tools.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/jquery.themepunch.revolution.min.js",
-
-        "../src/assets/vendor/jquery-ui/ui/widget.js",
-        "../src/assets/vendor/jquery-ui/ui/widgets/mouse.js",
-        "../src/assets/vendor/jquery-ui/ui/widgets/slider.js",
         
         "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.actions.min.js",
         "../src/assets/vendor/revolution-slider/revolution/js/extensions/revolution.extension.carousel.min.js",
@@ -54,7 +51,6 @@
         "../src/assets/vendor/slick-carousel/slick/slick.js",
         "../src/assets/js/hs.core.js",
         "../src/assets/js/components/hs.carousel.js",
-        "../src/assets/js/components/hs.slider.js",
         "../src/assets/js/xzoom/xzoom.min.js"
       ],
       "environmentSource": "environments/environment.ts",

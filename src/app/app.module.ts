@@ -1,3 +1,4 @@
+import { ProductsDataService } from './services/products-data.service';
 import { LoginAuthService } from './services/login-auth.service';
 import { SessionService } from './services/session.service';
 import { CartService } from './services/cart.service';
@@ -55,6 +56,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { FileSizePipe } from './custom-pipes/file-size.pipe';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { UserPageComponent } from './user-pages/user-page.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -133,10 +135,12 @@ const routes: Routes = [
     HttpClientModule,
     DndModule.forRoot(),
     BlockUIModule.forRoot(),
-    ClickOutsideModule
+    ClickOutsideModule,
+    NouisliderModule
   ],
   providers: [ApiAuthService, 
     ProductsService, 
+    ProductsDataService,
     CartService, 
     SessionService,
     LoginAuthService

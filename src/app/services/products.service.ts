@@ -20,6 +20,8 @@ export enum CallOperator {
   ShirtsProducts,
   SkinnyProducts,
   Product,
+  AllBrands,
+  AllProductFlowEntries,
   Brand,
   Files,
   File
@@ -48,61 +50,59 @@ export class ProductsService {
     }
   }
 
-  callAPI(operator: CallOperator) {
-    switch (operator) {
-      case CallOperator.TopsProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Tops' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.JeansProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Jeans' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.TShirtProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'TShirts' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.SkinnyProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Skinny' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.ShirtsProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Shirts' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.RegularProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Regular' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.PoloShirtsProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'PoloShirts' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-      case CallOperator.KnitwearProducts:
-        return Config.Moltin.Categories.Filter({ eq: { name: 'Knitwear' } }).All().then(categories => {
-          return this.callApiProductsByCategory(categories);
-        }).catch(this.handleError("callAPI"))
-
-    }
-  }
-
-  private callApiProductsByCategory(categories) {
-    if (categories && categories.data.length > 0)
-      return Config.Moltin.Products.Filter({ eq: { 'category.id': categories.data[0].id } }).All();
-    return null;
-  }
-
   private callGetMethod(operator: CallOperator, id?, filter?) {
     switch (operator) {
       case CallOperator.AllProducts:
         return this.getProductsInternal();
+      case CallOperator.TopsProducts:
+        return this.getProductsByCategoryInternal("Tops")
+      case CallOperator.JeansProducts:
+        return this.getProductsByCategoryInternal("Jeans")
+      case CallOperator.TShirtProducts:
+        return this.getProductsByCategoryInternal("TShirts")
+      case CallOperator.SkinnyProducts:
+        return this.getProductsByCategoryInternal("Skinny")
+      case CallOperator.ShirtsProducts:
+        return this.getProductsByCategoryInternal("Shirts")
+      case CallOperator.RegularProducts:
+        return this.getProductsByCategoryInternal("Regular")
+      case CallOperator.PoloShirtsProducts:
+        return this.getProductsByCategoryInternal("PoloShirts")
+      case CallOperator.KnitwearProducts:
+        return this.getProductsByCategoryInternal("Knitwear")
+      case CallOperator.AllBrands:
+        return this.getBrandsInternal();
+      case CallOperator.AllProductFlowEntries:
+        return this.getProductFlowsInternal();
       case CallOperator.Product:
         return this.getProductsInternal(id);
       case CallOperator.Brand:
-        return this.getBrandInternal(id);
+        return this.getBrandsInternal(id);
       case CallOperator.File:
         return this.getFileInternal(id);
     }
+  }
+
+  private getProductsByCategoryInternal(category) {
+    let url = `https://api.moltin.com/v2/categories?filter=eq(name,${category})`;
+    return this.http.get<any>(url, this.httpOptions)
+      .map(categories => {
+        if (categories && categories.data.length > 0) {
+          url = `https://api.moltin.com/v2/products?filter=eq(category.id,${categories.data[0].id})`
+          return this.http.get<any>(url, this.httpOptions)
+            .map(response => response)
+            .catch(this.handleError("getProductsByCategoryInternal -- nested call"))
+        }
+        return null;
+      })
+      .catch(this.handleError("getProductsByCategoryInternal"))
+  }
+
+  private getProductFlowsInternal() {
+    let url = 'https://api.moltin.com/v2/flows/products/entries/';
+    return this.http.get<any>(url, this.httpOptions)
+      .map(response => response)
+      .catch(this.handleError("getAllProductsInternal"))
   }
 
   private getProductsInternal(id?) {
@@ -114,8 +114,10 @@ export class ProductsService {
       .catch(this.handleError("getAllProductsInternal"))
   }
 
-  private getBrandInternal(id) {
-    const url = 'https://api.moltin.com/v2/brands/' + id;
+  private getBrandsInternal(id?) {
+    let url: string;
+    if (id) url = 'https://api.moltin.com/v2/brands/' + id
+    else url = 'https://api.moltin.com/v2/brands/'
     return this.http.get<any>(url, this.httpOptions)
       .map(response => response)
       .catch(this.handleError("getBrandInternal", false))

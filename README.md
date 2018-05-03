@@ -7,6 +7,7 @@ You can watch a video at:
 [![""](https://i.ytimg.com/vi/FeL12Cszhh8/0.jpg)](https://www.youtube.com/watch?v=FeL12Cszhh8)
 
 https://www.youtube.com/watch?v=FeL12Cszhh8
+Note: previous video is outdated! many new options are already added!
 
 ### What is done?
 
@@ -35,9 +36,9 @@ https://www.youtube.com/watch?v=FeL12Cszhh8
 - You can view the project online at: https://shopi5.herokuapp.com/
 
 ### What is remaining?
-- Continue working with api to use it to call products by their brands, colors, ...
+- [Completed] Continue working with api to use it to call products by their brands, colors, ...
 
-- Add the facility of adding product to favorites, or to cart. 
+- [Partially Completed ] Add the facility of adding product to favorites, or to cart. 
 
 - Viewing favorite items as sticky section on the page with angular animation 
 
@@ -47,9 +48,9 @@ https://www.youtube.com/watch?v=FeL12Cszhh8
 
 - [Completed] Use firebase for signing up (Completed, with a smooth drag and drop user image)
 
-- Create Personal details page
+- [Completed] Create Personal details page
 
-- Work with firebase to store personal data, orders, favorites, ...
+- [Partially Completed] Work with firebase to store personal data, orders, favorites, ...
 
 - Perform search on the product
 

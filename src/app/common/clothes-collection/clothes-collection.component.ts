@@ -96,13 +96,13 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getBrandsCallByAPI();
-    this.getColorsCallByAPI();
+    // this.getBrandsCallByAPI();
+    // this.getColorsCallByAPI();
     /* 
     * Below code is for development perposes ()
     */
-    // this.brandsList = this.staticBrandsList;
-    // this.colorsList = ["brown", "blue", "black", "white", "gray", "beige"];
+    this.brandsList = this.staticBrandsList;
+    this.colorsList = ["brown", "blue", "black", "white", "gray", "beige"];
   }
 
   getType() {
@@ -253,8 +253,8 @@ export class ClothesCollectionComponent implements OnInit {
     // To simplify things for now, lets assume we have only Men's page 
     switch (type) {
       case "all":
-        this.getProductsCall(CallOperator.AllProducts);
-        //this.loadProducts(this.staticProducts);
+        //this.getProductsCall(CallOperator.AllProducts);
+        this.loadProducts(this.staticProducts);
         break;
       case "tops":
         this.getProductsCall(CallOperator.TopsProducts);

@@ -59,6 +59,7 @@ import { UserPageComponent } from './user-pages/user-page.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutDialogComponent } from './checkout/dialog/checkout-dialog.component';
+import { OrderCompletedComponent } from './checkout/order-completed/order-completed.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -102,7 +103,8 @@ const routes: Routes = [
     FileSizePipe,
     UserPageComponent,
     CheckoutComponent,
-    CheckoutDialogComponent
+    CheckoutDialogComponent,
+    OrderCompletedComponent
   ],
   imports: [
     BrowserModule,

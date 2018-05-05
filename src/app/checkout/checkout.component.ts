@@ -1,3 +1,5 @@
+import { Address } from './../common/address';
+import { Order } from './../common/order';
 import { LoginAuthService } from './../services/login-auth.service';
 import { CheckoutDialogComponent } from './dialog/checkout-dialog.component';
 import { LoginErrorStateMatcher } from './../login-auth/login/login.component';
@@ -6,8 +8,10 @@ import { paymentDescAnimation } from './checkout.component.animations';
 import { Price } from './../common/Price';
 import { CartProduct } from './../common/Cart';
 import { CartService } from './../services/cart.service';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
+
+import { AngularFireDatabase } from 'angularfire2/database';
 
 export enum PaymentMethod {
   Card,
@@ -117,14 +121,17 @@ export class CheckoutComponent implements OnInit {
 
   matcher = new LoginErrorStateMatcher();
   phonePrefix = "";
+  orders$;
 
-  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService) {
+  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService, private db: AngularFireDatabase) {
     this.dataSource.filterPredicate =
       (data: CartProduct, filter: string) => {
         let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
           data.product.price.amount.toString().toLowerCase().indexOf(filter) != -1
         return bool;
       };
+
+    this.orders$ = this.db.list<Order>('orders');
   }
 
   ngOnInit() {
@@ -229,7 +236,7 @@ export class CheckoutComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result && result === "confirm") {
+      if (result && result === "confirm") {
         let firstName = <string><any>this.checkoutForm.value.firstName;
         let lastName = <string><any>this.checkoutForm.value.lastName;
         let address = <string><any>this.checkoutForm.value.address;
@@ -239,6 +246,25 @@ export class CheckoutComponent implements OnInit {
         let country = <string><any>this.checkoutForm.value.country;
         let phoneNumber = <string><any>this.checkoutForm.value.phoneNumber;
         let email = <string><any>this.checkoutForm.value.email;
+        let addressObj = new Address(firstName, lastName, address, address2 ? address2 : "", postalCode, city, country, phoneNumber, email);
+        let id = (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
+        let date = new Date(Date.now()).toLocaleString('en-SE', { timeZone: 'UTC' })
+        let userId = this.loginAuthService.currentUserId;
+
+        let order = new Order(id, userId, this.cartService.cartProducts, this.cartService.totalCartPrice, this.cartService.totalCartDiscount, "kr", addressObj, date);
+        this.orders$.push(order);
+
+        let listObservable = this.orders$.snapshotChanges();
+        listObservable.subscribe(result => {
+          let orderKey = result[result.length-1].key;
+          this.cartService.cartProducts = [];
+          this.cartService.totalCartPrice = 0;
+          this.cartService.totalCartDiscount = 0;
+
+          
+        }, error => {
+
+        });
       }
     });
   }

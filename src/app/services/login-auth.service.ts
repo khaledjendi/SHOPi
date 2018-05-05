@@ -30,6 +30,11 @@ export class LoginAuthService {
     else { return this.authState['displayName'] || '' }
   }
 
+  get currentUserId(): string {
+    if (!this.authState) { return 'Guest' }
+    else { return this.authState['uid'] || '' }
+  }
+
   get currentUserPhotoURL(): string {
     return this.authState['photoURL'] || '../../assets/img/login/default-user.png'
   }

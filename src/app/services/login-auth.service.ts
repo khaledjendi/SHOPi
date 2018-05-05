@@ -1,3 +1,4 @@
+import { CartService } from './cart.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";

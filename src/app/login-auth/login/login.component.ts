@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginAuthService } from './../../services/login-auth.service';
 import { Component, OnInit, HostBinding } from '@angular/core';
@@ -22,7 +23,7 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
 
 export class LoginComponent {
   error: any;
-  constructor(private router: Router, private loginAuthService: LoginAuthService, private route: ActivatedRoute, private toastr: ToastrService) {
+  constructor(private router: Router, private loginAuthService: LoginAuthService, private route: ActivatedRoute, private toastr: ToastrService, private cartService: CartService) {
     this.loginAuthService.currentUserObservable.subscribe(user => {
       if (user) {
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
@@ -62,6 +63,7 @@ export class LoginComponent {
   completeSocialLogin(promiseToLogin: Promise<any>) {
     promiseToLogin.then(credential => {
       this.loginAuthService.authState = credential.user;
+      this.cartService.getSavedCartByUser();
       this.navigateBack();
     })
       .catch(err => {
@@ -77,6 +79,7 @@ export class LoginComponent {
       this.loginAuthService.signin(email, password)
         .then(user => {
           this.loginAuthService.authState = user;
+          this.cartService.getSavedCartByUser();
           this.navigateBack();
         })
         .catch(err => {

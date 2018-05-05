@@ -173,6 +173,7 @@ export class CheckoutComponent implements OnInit {
     }
     this.dataSource.data = this.cartService.cartProducts;
     this.getTotal();
+    this.cartService.saveCart();
   }
 
   getPrice(price: Price, discount: number) {
@@ -199,6 +200,7 @@ export class CheckoutComponent implements OnInit {
         cartProduct.amount++;
     }
     this.getTotal();
+    this.cartService.saveCart();
   }
 
   getTotal() {

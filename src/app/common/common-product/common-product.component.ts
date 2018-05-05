@@ -52,12 +52,13 @@ export class CommonProductComponent {
     for (let inCartProduct of this.cartService.cartProducts) {
       if (inCartProduct.product.id === cartProduct.product.id) {
         //inCartProduct.amount++;
-        this.toast(product.name + " is already in your cart!", "Warning", "warning", 3000);
+        this.toast(product.name + " is already in your cart!", "Warning", "warning", 2500);
         return;
       }
     }
     this.cartService.cartProducts.push(cartProduct);
-    this.toast(product.name + " has been added to your cart!", "Info", "info", 3000);
+    this.cartService.saveCart();
+    this.toast(product.name + " has been added to your cart!", "Info", "info", 2500);
   }
 
   private filterProducts(filteredData: any) {

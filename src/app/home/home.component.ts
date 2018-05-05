@@ -1,3 +1,4 @@
+import { CartService } from './../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { PageType } from '../common/headers/common-header/common-header.component';
 
@@ -10,7 +11,9 @@ import { PageType } from '../common/headers/common-header/common-header.componen
 export class HomeComponent implements OnInit {
   page: PageType = PageType.Men;
 
-  constructor() { }
+  constructor(cartService: CartService) { 
+    cartService.getSavedCartByUser();
+  }
 
   ngOnInit() {
   }

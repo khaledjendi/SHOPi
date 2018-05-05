@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginErrorStateMatcher } from './../login/login.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -76,7 +77,7 @@ export class SignupComponent {
 
   matcher = new LoginErrorStateMatcher();
 
-  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore, private route: ActivatedRoute) {
+  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore, private route: ActivatedRoute, private cartService: CartService) {
     this.af.authState.subscribe(auth => {
       if (auth) {
         this.navigateBack();
@@ -124,6 +125,7 @@ export class SignupComponent {
 
       this.af.auth.createUserWithEmailAndPassword(email, password)
         .then(user => {
+          this.cartService.getSavedCartByUser();
           user.updateProfile({
             displayName: displayName,
             photoURL: this.photoURL

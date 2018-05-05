@@ -1,0 +1,29 @@
+.profile_image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    padding: 10px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    border: 2px solid rgba(20,20,20,0.68);
+    margin-bottom: 5px;
+}
+
+
+.profile-info {
+    border-right: 1px solid rgba(20,20,20,0.68)
+}
+
+.final-checkout-info {
+    text-align: left
+}
+
+@media only screen and (max-width: 991px) { 
+    .profile-info {
+        border-right: none;
+    }
+    .final-checkout-info {
+        text-align: center
+    }
+}

@@ -15,8 +15,8 @@
       <div class="col-md-8 g-mb-30">
         <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
 
-          <div class="example-container mat-elevation-z0">
-            <div class="example-header">
+          <div class="cart-container mat-elevation-z0">
+            <div class="cart-header">
               <mat-form-field>
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search your cart (name or origibal price) ...">
               </mat-form-field>
@@ -107,6 +107,11 @@
                   <span class="g-color-primary g-font-weight-300">{{cartService.totalCartDiscount}} kr</span>
               </div>
             </div>
+            <div class="d-flex justify-content-center mb-3">
+              <button *ngIf="cartService.cartProducts.length > 0" class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 font-cg-bold" routerLink="/checkout">Checkout</button>
+              <span *ngIf="!cartService.cartProducts || cartService.cartProducts.length === 0" class="g-color-primary g-font-size-14 font-cg-bold text-uppercase g-py-12">Your cart is empty!</span>
+            </div>
+
           </div>
         </div>
       </div>

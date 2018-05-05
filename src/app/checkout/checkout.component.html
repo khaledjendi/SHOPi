@@ -1,0 +1,343 @@
+<app-common-mini-header></app-common-mini-header>
+
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <ul class="u-list-inline">
+      <li class="list-inline-item g-mr-5">
+        <a class="u-link-v5 g-color-text" routerLink="/">Home</a>
+        <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+      </li>
+      <li class="list-inline-item g-color-primary">
+        <span>Checkout</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="g-py-30 g-bg-gray-light-v4">
+  <div class="d-flex row justify-content-center">
+    <div class="col-md-6 col-md-6 col-lg-6 g-p-0 ">
+
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-pa-30 cart">
+        <div class="d-flex justify-content-left">
+          <div class="row">
+            <div class="col-lg-2">
+              <div class="step d-flex justify-content-center align-items-center font-cg-bold g-font-size-17">1</div>
+            </div>
+            <div class="col-lg-10 font-cg-bold g-font-size-17 d-flex justify-content-left align-items-center">
+              Review Your Shopping Cart
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-container mat-elevation-z0">
+          <div class="cart-header">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search your cart (name or origibal price) ...">
+            </mat-form-field>
+          </div>
+
+          <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="item">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Item </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct" class="g-mb-10">
+                <div class="d-flex justify-content-center">
+                  <img [src]="cartProduct.product.mainImagePng ? cartProduct.product.mainImagePng : cartProduct.product.images[0]" style="height: 150px; object-fit: cover;">
+                </div>
+                <div class="d-flex justify-content-center font-cg-bold g-font-size-13">{{cartProduct.product.name}}</div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Price </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct">
+                <div class="d-flex justify-content-center g-font-size-12">
+                  <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(cartProduct.product.discount)">{{getPrice(cartProduct.product.price, cartProduct.product.discount)}}
+                    <s *ngIf="eligibleDiscount(cartProduct.product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{cartProduct.product.price.formattedPrice}}</s>
+                  </span>
+                </div>
+
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Details </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-center">
+                <div>
+                  <div class="value-button minus-items" style="color: #ffffff;" value="Decrease Value" (click)="changeAmount('decrease', cartProduct)">-</div>
+                  <input type="text" class="amount-items" value="{{cartProduct.amount}}" disabled="disabled" />
+                  <div class="value-button plus-items" style="color: #ffffff;" value="Increase Value" (click)="changeAmount('increase', cartProduct)">+</div>
+                  <div class="d-flex justify-content-center g-font-size-12 g-py-5">
+                    {{cartProduct.product.color}}
+                  </div>
+                </div>
+
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+              <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-end">
+                <span class="g-cursor-pointer" (click)="removeFromCart($event, cartProduct.product.id)">
+                  X
+                </span>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-pa-30 g-mt-20 cart">
+        <div class="d-flex justify-content-left">
+          <div class="row">
+            <div class="col-lg-2">
+              <div class="step d-flex justify-content-center align-items-center font-cg-bold g-font-size-17">2</div>
+            </div>
+            <div class="col-lg-10 font-cg-bold g-font-size-17 d-flex justify-content-left align-items-center">
+              Choose Payment Option
+            </div>
+          </div>
+        </div>
+        <div class="g-mt-20">
+          <mat-radio-group class="payment-radio-group" [(ngModel)]="payment">
+            <mat-radio-button class="payment-radio-button" *ngFor="let payment of payments" [value]="payment.method">
+              <div class="col-lg-12 d-inline-flex justify-content-start">
+                <ul class="row u-steps-v1" style="width: 100%">
+                  <li class="col-lg-2">
+                    <img class="payment-icon" [src]="payment.img">
+                  </li>
+                  <li class="col-lg-4">{{payment.title}}</li>
+                  <li class="col-lg-6 payment-fee">No Fee</li>
+                </ul>
+              </div>
+            </mat-radio-button>
+            <div [@paymentDescAnimation]="payment === 0 ? 'expanded' : 'collapsed'" class="col-lg-12 method-desc">
+              <div class="font-cg-bold g-color-primary g-font-size-14">Credit Card</div>
+              When placing an order the amount is reserved on your card but are not deducted until we have sent your order. No extra charges
+              will be added. We accept the following cards: Visa, Mastercard , Dankort, Eurocard, Diners Card & American
+              Express.
+            </div>
+
+            <div [@paymentDescAnimation]="payment === 1 ? 'expanded' : 'collapsed'" class="col-lg-12 method-desc">
+              <div class="font-cg-bold g-color-primary g-font-size-14">Klarna - Pay later</div>
+              <div>Pay 14 days after delivery</div>
+
+              <ul class="klarna-ul">
+                <li>Get your goods before you pay</li>
+                <li>No credit application</li>
+                <li>No interest or fees</li>
+                <li>Sit back and relax. Klarna will notify you when payment is due</li>
+              </ul>
+
+              <div>
+                Klarna will perform a quotation search with an external credit reference agency. This search is not a full credit check and
+                it will not affect your credit rating or be visible to other companies.
+              </div>
+
+              <p class="font-cg-bold g-font-size-17 g-m-0" style="text-align: center">Klarna</p>
+            </div>
+
+            <div [@paymentDescAnimation]="payment === 2 ? 'expanded' : 'collapsed'" class="col-lg-12 method-desc">
+              <div class="font-cg-bold g-color-primary g-font-size-14">PayPal</div>
+              When you place your order, the amount will be withdrawn from your PayPal account. No extra charges will be added. Please
+              note! the address used in PayPal must be the same as the delivery address below.
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-pa-30 g-mt-20 cart">
+          <div class="d-flex justify-content-left">
+            <div class="row">
+              <div class="col-lg-2">
+                <div class="step d-flex justify-content-center align-items-center font-cg-bold g-font-size-17">3</div>
+              </div>
+              <div class="col-lg-10 font-cg-bold g-font-size-17 d-flex justify-content-left align-items-center">
+                Your Billing & Shipping Information
+              </div>
+            </div>
+          </div>
+          <div class="g-mt-20">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="First name" [formControl]="firstName" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="firstName.hasError('required')">
+                    First name is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="City" [formControl]="city" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="city.hasError('required')">
+                    City is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="Last name" [formControl]="lastName" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="lastName.hasError('required')">
+                    Last name is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <mat-select placeholder="Country" [formControl]="country" [errorStateMatcher]="matcher" (change)="countryChange($event.value)">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      {{country | titlecase}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="country.hasError('required')">
+                    Country is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="Address" [formControl]="address" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="address.hasError('required')">
+                    Address is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <span matPrefix>{{phonePrefix}} &nbsp;</span>
+                  <input type="tel" matInput placeholder="Telephone" [formControl]="phoneNumber" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="address.hasError('required')">
+                    Phone number is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="Address 2" [formControl]="address2">
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="Email" [formControl]="email" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
+                  <mat-error *ngIf="email.hasError('required')">
+                    Email is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field>
+                  <input matInput placeholder="Postal code" [formControl]="postalCode" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="postalCode.hasError('required')">
+                    PostalCode is
+                    <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-pa-30 g-mt-20 cart">
+          <div class="d-flex justify-content-left">
+            <div class="row">
+              <div class="col-lg-2">
+                <div class="step d-flex justify-content-center align-items-center font-cg-bold g-font-size-17">4</div>
+              </div>
+              <div class="col-lg-10 font-cg-bold g-font-size-17 d-flex justify-content-left align-items-center">
+                Confirm payment&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
+          <div class="g-mt-20">
+            <div class="row">
+              <p class="col-lg-12">
+                By ordering you agree to the cancellation period, our cookies & privacy policy and our sales & delivery conditions.
+              </p>
+            </div>
+            <div class="mb-3">
+              <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 font-cg-bold g-font-size-15" type="submit">Checkout</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+
+    <div class="col-md-3 col-lg-3 g-p-0">
+      <div class="g-brd-around g-brd-gray-light-v3 g-bg-white rounded g-pa-30 g-m-0 total-section">
+        <div class="col-md-12 g-mb-30">
+          <div class="g-brd-bottom g-brd-gray-light-v3 g-mb-15">
+            <h4 class="h6 text-uppercase mb-3">Order summary</h4>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3">
+            <span class="g-color-black">Cart Subtotal</span>
+            <span class="g-color-black g-font-weight-300">{{cartService.totalCartPrice}} kr</span>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="g-color-black">Shipping</span>
+              <span class="g-color-black g-font-weight-300">0 kr</span>
+            </div>
+            <p class="g-font-size-13">Standard Delivery - 2-3 Working Days</p>
+          </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span class="g-color-black">Order Total</span>
+            <span class="g-color-black g-font-weight-300">{{cartService.totalCartPrice}} kr</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3 g-font-size-13 font-cg-bold">
+            <span class="g-color-primary">You Save</span>
+            <span class="g-color-primary g-font-weight-300">{{cartService.totalCartDiscount}} kr</span>
+          </div>
+          <div class="d-flex justify-content-center mb-3">
+            <span *ngIf="!cartService.cartProducts || cartService.cartProducts.length === 0" class="g-color-primary g-font-size-14 font-cg-bold text-uppercase g-py-12">Your cart is empty!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<app-common-footer></app-common-footer>

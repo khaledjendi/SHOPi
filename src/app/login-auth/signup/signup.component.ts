@@ -7,7 +7,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase'
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -33,32 +33,6 @@ export class SignupComponent {
   isHovering: boolean;
   fileName: string;
   photoURL: string = "";
-
-  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore) {
-    this.af.authState.subscribe(auth => {
-      if (auth) {
-        this.router.navigate(['']);
-      }
-    });
-  }
-
-  loginFb() {
-    this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(success => this.router.navigate(['']))
-      .catch(err => {
-        this.toast(err, "Facebook Error", "error", 3000);
-        this.error = err
-      })
-  }
-
-  loginGoogle() {
-    this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(success => this.router.navigate(['']))
-      .catch(err => {
-        this.toast(err, "Google Error", "error", 3000);
-        this.error = err
-      })
-  }
 
   createForm = new FormGroup({
     firstName: new FormControl('', [
@@ -102,6 +76,37 @@ export class SignupComponent {
 
   matcher = new LoginErrorStateMatcher();
 
+  constructor(public af: AngularFireAuth, private router: Router, private toastr: ToastrService, private storage: AngularFireStorage, private db: AngularFirestore, private route: ActivatedRoute) {
+    this.af.authState.subscribe(auth => {
+      if (auth) {
+        this.navigateBack();
+      }
+    });
+  }
+
+  loginFb() {
+    this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(success => this.navigateBack())
+      .catch(err => {
+        this.toast(err, "Facebook Error", "error", 3000);
+        this.error = err
+      })
+  }
+
+  loginGoogle() {
+    this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(success => this.navigateBack())
+      .catch(err => {
+        this.toast(err, "Google Error", "error", 3000);
+        this.error = err
+      })
+  }
+
+  private navigateBack() {
+    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    this.router.navigate([returnUrl || '/']);
+  }
+
   onSubmit() {
     this.error = undefined;
     if (this.createForm.valid) {
@@ -123,7 +128,8 @@ export class SignupComponent {
             displayName: displayName,
             photoURL: this.photoURL
           })
-          this.router.navigate(['/login'])
+
+          this.navigateBack();
         })
         .catch(err => {
           this.toast(err, "Error", "error", 3000);

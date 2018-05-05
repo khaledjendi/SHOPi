@@ -1,0 +1,165 @@
+.checkout-box {
+    -webkit-box-shadow: 0px 0px 49px 2px rgba(0,0,0,0.68); 
+    box-shadow: 0px 0px 49px 2px rgba(0,0,0,0.68);
+}
+
+.cart {
+    margin-right: 20px;
+    margin-bottom: 0px;
+}
+
+.total-section {
+    position: sticky !important;
+    top: 15px;
+    height: 300px;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.cart-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+  
+.mat-table {
+    overflow: auto;
+}
+
+.mat-header-row {
+    position: sticky;
+    top: 0;
+    background: white;
+}
+
+.mat-column-item, .mat-column-price, .mat-column-details {
+    flex: 2;
+}
+
+.value-button {
+    display: inline-block;
+    border: 1px solid #ddd;
+    margin: 0px;
+    width: 20px;
+    
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgba(53, 53, 53, 0.7);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.value-button:hover {
+    cursor: pointer;
+}
+
+.minus-items {
+
+    border-radius: 8px 0 0 8px;
+}
+
+.plus-items {
+
+    border-radius: 0 8px 8px 0;
+}
+
+input.amount-items {
+    text-align: center;
+    border: none;
+    margin: 0px;
+    width: 40px;
+    vertical-align: middle;
+}
+
+.logo-cart {
+    position: absolute;
+    width: 100px;
+    object-fit: cover;
+}
+
+.cart-customer-benefit {
+    position: fixed;
+    bottom: 0;
+    background: white;
+}
+
+.step {
+    border-radius: 50px;
+    width: 35px;
+    height: 35px;
+    background-color: rgba($color: #FD7E14, $alpha: 0.7)
+}
+
+.payment-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+.payment-radio-button {
+    margin: 5px;
+}
+
+::ng-deep .mat-radio-label {
+    width: 100% !important;
+}
+
+::ng-deep .mat-radio-label-content {
+    width: 100% !important;
+}
+
+.payment-icon {
+    height: 30px;
+    object-fit: cover;
+}
+
+.payment-fee {
+    text-align: right;
+}
+
+.method-desc {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: rgba(220, 220, 220, 0.4)
+}
+
+.method-desc > div:first-of-type {
+    text-align: center
+}
+
+.klarna-ul {
+    list-style: square inside; 
+    padding: 10px !important; 
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    background-color: rgba(220, 220, 220, 0.6); 
+    width: auto;
+}
+
+strong {
+    color: red;
+}
+
+@media only screen and (max-width: 995px) { 
+    .payment-fee {
+        text-align: left;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .cart {
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+}
+

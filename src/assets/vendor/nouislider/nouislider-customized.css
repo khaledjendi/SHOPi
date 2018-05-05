@@ -74,6 +74,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
   left: -17px;
   top: -6px;
   outline: none;
+  cursor: pointer;
 }
 .noUi-vertical {
   width: 18px;

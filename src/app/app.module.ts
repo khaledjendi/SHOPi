@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule, MatIconModule, MatProgressBarModule } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatInputModule, MatCheckboxModule, MatDatepickerModule, MatToolbarModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MatCardModule, MatTooltipModule, MatSelectModule, MatRadioModule, MatExpansionModule, MatDividerModule, MatSliderModule, MatTableModule, MatIconModule, MatProgressBarModule, MatDialogModule } from '@angular/material';
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -57,6 +57,8 @@ import { FileSizePipe } from './custom-pipes/file-size.pipe';
 import { DropZoneDirective } from './directives/drop-zone.directive';
 import { UserPageComponent } from './user-pages/user-page.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutDialogComponent } from './checkout/dialog/checkout-dialog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -65,6 +67,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'user', component: UserPageComponent, canActivate: [LoginAuthService] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [LoginAuthService] },
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -97,7 +100,9 @@ const routes: Routes = [
     SignupComponent,
     DropZoneDirective,
     FileSizePipe,
-    UserPageComponent
+    UserPageComponent,
+    CheckoutComponent,
+    CheckoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +131,7 @@ const routes: Routes = [
     MatTableModule,
     MatIconModule,
     MatProgressBarModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
@@ -145,7 +151,7 @@ const routes: Routes = [
     SessionService,
     LoginAuthService
   ],
-  entryComponents: [CustomToastComponent],
+  entryComponents: [CustomToastComponent, CheckoutDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

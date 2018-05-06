@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from './../common/address';
 import { Order } from './../common/order';
 import { LoginAuthService } from './../services/login-auth.service';
@@ -123,7 +125,7 @@ export class CheckoutComponent implements OnInit {
   phonePrefix = "";
   orders$;
 
-  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService, private db: AngularFireDatabase) {
+  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService, private db: AngularFireDatabase, private toastr: ToastrService, private router: Router) {
     this.dataSource.filterPredicate =
       (data: CartProduct, filter: string) => {
         let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
@@ -251,19 +253,30 @@ export class CheckoutComponent implements OnInit {
         let date = new Date(Date.now()).toLocaleString('en-SE', { timeZone: 'UTC' })
         let userId = this.loginAuthService.currentUserId;
 
-        let order = new Order(id, userId, this.cartService.cartProducts, this.cartService.totalCartPrice, this.cartService.totalCartDiscount, "kr", addressObj, date);
+        let order = new Order(id, userId, this.cartService.cartProducts, this.cartService.totalCartPrice, this.cartService.totalCartDiscount, "kr", addressObj, date, PaymentMethod[this.payment]);
         this.orders$.push(order);
 
         let listObservable = this.orders$.snapshotChanges();
         listObservable.subscribe(result => {
-          let orderKey = result[result.length-1].key;
+          // to be changed in the future: get the latest order for this user.
+          let orderKey = result[result.length - 1].key;
           this.cartService.cartProducts = [];
           this.cartService.totalCartPrice = 0;
           this.cartService.totalCartDiscount = 0;
-
-          
+          this.cartService.saveCart();
+          this.router.navigate(['/order-completed'], {
+            queryParams: {
+              orderKey: orderKey ? orderKey : ''
+            }
+          });
         }, error => {
-
+          this.toastr.error('Unexpected error while processing order. Admin is notified. Please try again later', 'Error', {
+            timeOut: 5000,
+            easing: 'easeOutBounce',
+            progressBar: true,
+            positionClass: 'toast-top-full-width'
+          });
+          // save error in the log [future work...]
         });
       }
     });

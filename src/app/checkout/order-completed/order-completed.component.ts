@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-completed.component.scss']
 })
 export class OrderCompletedComponent implements OnInit {
-
-  constructor() { }
+  orderKey;
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParams
+      .subscribe(params => {
+        this.orderKey = params.orderKey;
+      });
+  }
 
   ngOnInit() {
   }

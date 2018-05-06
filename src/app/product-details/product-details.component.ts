@@ -60,8 +60,8 @@ export class ProductDetailsComponent implements OnInit {
           this.sessionService.selectedProduct.images = [];
           this.sessionService.selectedProduct.price = new Price();
           this.id = params.id;
-          //this.getProduct(this.id);
-          this.loadProduct(this.staticProducts);
+          this.getProduct(this.id);
+          //this.loadProduct(this.staticProducts);
         }
         this.mapSiteTree(params.returnPageUrl, params.returnSubPageUrl);
       });

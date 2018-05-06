@@ -69,6 +69,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'user', component: UserPageComponent, canActivate: [LoginAuthService] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [LoginAuthService] },
+  { path: 'order-completed', component: OrderCompletedComponent, canActivate: [LoginAuthService] },
   { path: '**', component: NotFoundComponent }
 ]
 

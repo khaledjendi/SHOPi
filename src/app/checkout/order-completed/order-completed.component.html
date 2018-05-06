@@ -1,3 +1,79 @@
-<p>
-  order-completed works!
-</p>
+<app-common-mini-header></app-common-mini-header>
+
+<section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+  <div class="container">
+    <ul class="u-list-inline">
+      <li class="list-inline-item g-mr-5">
+        <a class="u-link-v5 g-color-text" routerLink="/">Home</a>
+        <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+      </li>
+      <li class="list-inline-item g-color-primary">
+        <span>Order Completed</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<div class="container-fluid g-py-100 g-bg-gray-light-v4">
+  <div class="u-shadow-v19 g-max-width-645 g-brd-around g-brd-gray-light-v4 text-center rounded mx-auto g-pa-30 g-pa-50--md completed-box g-bg-white">
+    <span class="u-icon-v3 u-icon-size--lg g-color-white g-bg-primary rounded-circle g-pa-15 mb-5 ">
+      <svg width="30" height="30" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" y="0px" viewBox="0 0 497.5 497.5" style="enable-background:new 0 0 497.5 497.5;" xml:space="preserve">
+        <g>
+          <path d="M487.75,78.125c-13-13-33-13-46,0l-272,272l-114-113c-13-13-33-13-46,0s-13,33,0,46l137,136
+            c6,6,15,10,23,10s17-4,23-10l295-294C500.75,112.125,500.75,91.125,487.75,78.125z" fill="#fff" />
+        </g>
+      </svg>
+    </span>
+
+    <div class="mb-5">
+      <h2 class="mb-4">Your Order is Completed!</h2>
+      <p>Thank you for your order! Your order is being processed and will be completed within 3-6 hours. You will receive an
+        email confirmation when your order is completed.</p>
+      <p>Your order key is: {{orderKey}}
+        <span class="g-color-primary g-color-teal--hover g-cursor-pointer">Track Order</span>
+      </p>
+    </div>
+
+    <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" routerLink="/">Continue Shopping</a>
+  </div>
+</div>
+
+
+<div class="g-brd-bottom g-brd-gray-light-v3 g-bg-gray-light-v4">
+  <div class="container g-py-30">
+    <div class="row justify-content-center">
+      <div class="col-md-4 mx-auto g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
+          <div class="media-body">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Shipping</span>
+            <span class="d-block g-color-gray-dark-v3">In 2-3 Days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v1 g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
+          <div class="media-body">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free Returns</span>
+            <span class="d-block g-color-gray-dark-v3">No Shipping Fees</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mx-auto g-py-15">
+        <div class="media g-px-50--lg">
+          <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
+          <div class="media-body text-left">
+            <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">24/7 Customer Service</span>
+            <span class="d-block g-color-gray-dark-v3">Call Any Day Any Time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-common-footer></app-common-footer>

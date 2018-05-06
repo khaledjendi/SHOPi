@@ -60,6 +60,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutDialogComponent } from './checkout/dialog/checkout-dialog.component';
 import { OrderCompletedComponent } from './checkout/order-completed/order-completed.component';
+import { UserOverviewComponent } from './user-pages/user-overview/user-overview.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -105,7 +106,8 @@ const routes: Routes = [
     UserPageComponent,
     CheckoutComponent,
     CheckoutDialogComponent,
-    OrderCompletedComponent
+    OrderCompletedComponent,
+    UserOverviewComponent
   ],
   imports: [
     BrowserModule,

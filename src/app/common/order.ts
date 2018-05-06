@@ -2,7 +2,7 @@ import { Address } from './address';
 import { CartProduct } from './../common/Cart';
 export class Order {
 
-    constructor(public id?: string,
+    constructor(
         public userId?: string,
         public cartProducts?: CartProduct[],
         public totalCartPrice?: number,

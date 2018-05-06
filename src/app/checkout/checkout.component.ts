@@ -13,7 +13,7 @@ import { CartService } from './../services/cart.service';
 import { MatTableDataSource, MatDialog, MAT_DRAWER_DEFAULT_AUTOSIZE } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase'
 
 export enum PaymentMethod {
   Card,
@@ -123,17 +123,14 @@ export class CheckoutComponent implements OnInit {
 
   matcher = new LoginErrorStateMatcher();
   phonePrefix = "";
-  orders$;
 
-  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService, private db: AngularFireDatabase, private toastr: ToastrService, private router: Router) {
+  constructor(public cartService: CartService, public dialog: MatDialog, public loginAuthService: LoginAuthService, private toastr: ToastrService, private router: Router) {
     this.dataSource.filterPredicate =
       (data: CartProduct, filter: string) => {
         let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
           data.product.price.amount.toString().toLowerCase().indexOf(filter) != -1
         return bool;
       };
-
-    this.orders$ = this.db.list<Order>('orders');
   }
 
   ngOnInit() {
@@ -253,30 +250,27 @@ export class CheckoutComponent implements OnInit {
         let date = new Date(Date.now()).toLocaleString('en-SE', { timeZone: 'UTC' })
         let userId = this.loginAuthService.currentUserId;
 
-        let order = new Order(id, userId, this.cartService.cartProducts, this.cartService.totalCartPrice, this.cartService.totalCartDiscount, "kr", addressObj, date, PaymentMethod[this.payment]);
-        this.orders$.push(order);
+        let order = new Order(userId, this.cartService.cartProducts, this.cartService.totalCartPrice, this.cartService.totalCartDiscount, "kr", addressObj, date, PaymentMethod[this.payment]);
 
-        let listObservable = this.orders$.snapshotChanges();
-        listObservable.subscribe(result => {
-          // to be changed in the future: get the latest order for this user.
-          let orderKey = result[result.length - 1].key;
+        let orderRef = firebase.database().ref(`orders`).push();
+        orderRef.set(order).then(() => {
           this.cartService.cartProducts = [];
           this.cartService.totalCartPrice = 0;
           this.cartService.totalCartDiscount = 0;
           this.cartService.saveCart();
           this.router.navigate(['/order-completed'], {
             queryParams: {
-              orderKey: orderKey ? orderKey : ''
+              orderKey: orderRef.key
             }
           });
-        }, error => {
+        }).catch(error => {
           this.toastr.error('Unexpected error while processing order. Admin is notified. Please try again later', 'Error', {
             timeOut: 5000,
             easing: 'easeOutBounce',
             progressBar: true,
             positionClass: 'toast-top-full-width'
           });
-          // save error in the log [future work...]
+          //   // save error in the log [future work...]
         });
       }
     });

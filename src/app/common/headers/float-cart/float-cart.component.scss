@@ -37,8 +37,14 @@
   
 .cart-header {
     min-height: 64px;
-    padding: 8px 24px 0;
+    padding: 10px 0px 0px;
 }
+
+::ng-deep .filter-input .mat-input-wrapper {
+    width: 100% !important;
+    max-width: 100% !important
+}
+
   
 .mat-form-field {
     font-size: 14px;

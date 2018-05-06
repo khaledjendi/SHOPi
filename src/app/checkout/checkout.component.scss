@@ -21,7 +21,7 @@
   
 .cart-header {
     min-height: 64px;
-    padding: 8px 24px 0;
+    padding: 10px 0px 0px;
 }
   
 .mat-form-field {
@@ -149,6 +149,15 @@ input.amount-items {
 
 strong {
     color: red;
+}
+
+::ng-deep .mat-input-wrapper {
+    max-width:311px !important;
+}
+
+::ng-deep .filter-input .mat-input-wrapper {
+    width: 100% !important;
+    max-width: 100% !important
 }
 
 @media only screen and (max-width: 995px) { 

@@ -24,7 +24,7 @@
               <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
                 <i class="icon-finance-114 u-line-icon-pro"></i>
               </span>
-              Orders
+              Orders <span *ngIf="totalOrders && totalOrders > 0" class="g-color-primary">({{totalOrders}})</span>
             </a>
           </li>
           <li class="g-py-3">
@@ -109,32 +109,16 @@
                     <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
                   </li>
                   <li class="list-inline-item g-color-primary">
-                    <span>Overview</span>
+                    <span>{{pagePage}}</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
-
-        <div class="col-s-12 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer" style="background-color: rgba(255, 160, 122, 0.7);">
-          <div class="d-flex justify-content-center align-items-center"><i class="icon-finance-114 u-line-icon-pro"></i></div> My Orders
-        </div>
-
-        <div class="row g-px-15">
-          <div class="col-lg-6 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer g-my-0" style="background-color: rgba(114,192,44, 0.7);">
-            <div class="d-flex justify-content-center align-items-center"><i class="icon-medical-022 u-line-icon-pro"></i></div> My Favorites
-          </div>
-  
-          <div class="col-lg-6 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer g-my-0" style="background-color: rgba(163, 163, 163, 0.7);">
-            <div class="d-flex justify-content-center align-items-center"><i class=" icon-medical-054 u-line-icon-pro"></i></div> My Veiwed Items
-          </div>
-        </div>
+    
+        <app-user-overview *ngIf="userPageType === 0" [totalOrders]="totalOrders"></app-user-overview>
         
-        <div class="col-s-12 d-flex justify-content-center align-items-center overview-box font-cg-bold g-cursor-pointer" style="background-color: rgba(124, 122, 255, 0.7);">
-          <div class="d-flex justify-content-center align-items-center"><i class="icon-hotel-restaurant-105 u-line-icon-pro"></i></div> Shopping Cart
-          <span *ngIf="cartService.cartProducts && cartService.cartProducts.length > 0">&nbsp;&nbsp;({{cartService.cartProducts.length}} items)</span>
-        </div>  
       </div>
     </div>
 

@@ -20,11 +20,22 @@
 
         <ul class="list-unstyled mb-0">
           <li class="g-py-3">
-            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer"
+              (click)="goToPage(0, $event)">
               <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
                 <i class="icon-finance-114 u-line-icon-pro"></i>
               </span>
-              Orders <span *ngIf="totalOrders && totalOrders > 0" class="g-color-primary">({{totalOrders}})</span>
+              Overview
+            </a>
+          </li>
+          <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer"
+              (click)="goToPage(1, $event)">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-114 u-line-icon-pro"></i>
+              </span>
+              Orders
+              <span *ngIf="totalOrders && totalOrders > 0" class="g-color-primary">({{totalOrders}})</span>
             </a>
           </li>
           <li class="g-py-3">
@@ -94,7 +105,7 @@
     </div>
 
     <div class="col-lg-9 g-mb-50">
-      <div class="g-brd-around g-brd-gray-light-v4 rounded g-px-30">
+      <div class="g-brd-around">
         <section class="g-brd-bottom g-brd-gray-light-v4 g-pb-30 g-pt-10">
           <div class="container">
             <div class="d-sm-flex text-center">
@@ -116,9 +127,16 @@
             </div>
           </div>
         </section>
-    
-        <app-user-overview *ngIf="userPageType === 0" [totalOrders]="totalOrders"></app-user-overview>
+
+        <div [@userPageAnimation]="userPageType === 0 ? 'expanded' : 'collapsed'">
+            <app-user-overview  [totalOrders]="totalOrders" (ordersClicked)="goToPage(1)"></app-user-overview>
+        </div>
+        <div [@userPageAnimation]="userPageType === 1 ? 'expanded' : 'collapsed'">
+            <app-user-orders *ngIf="orders && orders.length > 0" [orders]="orders"></app-user-orders>
+            <div *ngIf="!orders || orders.length === 0" class="font-cg-bold g-color-lightred g-font-size-16 g-pa-15 text-center full-width">No orders found in your account!</div>
+        </div>
         
+
       </div>
     </div>
 

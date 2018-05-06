@@ -1,0 +1,107 @@
+<div class="text-center mb-3">
+  <h3 class="h6 d-inline-block">2 orders
+    <span class="g-color-gray-dark-v4 g-font-weight-400">placed in</span>
+  </h3>
+
+  <div class="d-inline-block  ml-2">
+    <mat-form-field>
+      <mat-select [(ngModel)]="ordersPeriod" color="orange">
+        <mat-option value="3">last 3 months</mat-option>
+        <mat-option value="6">last 6 months</mat-option>
+        <mat-option value="12">last 12 months</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+
+
+<div *ngFor="let order of orders" class="g-brd-around g-brd-gray-light-v4 rounded g-mb-30 order-header" style="position: relative;">
+    <header class="g-bg-gray-light-v4 g-pa-20" [class.expanded]="isExpanded">
+      <div class="g-cursor-pointer" [class.expand-order]="!isExpandedIcon" [class.collapse-order]="isExpandedIcon" (click)="toggle()"></div>
+      <div class="row">
+        <div class="col-lg-3 d-flex justify-content-center align-items-center">
+          <span class="g-color-black g-font-size-15 font-cg-bold">{{formatDate(order.value.date)}}</span>
+        </div>
+
+        <div class="col-lg-6">
+          <ul class="g-color-gray-dark-v3 g-font-size-13">
+            <li>
+              <span class="">Order #:</span>
+              <span class="g-color-indigo font-cg-bold">{{order.key}}</span>
+            </li>
+            <li>
+              <span class="">Order Status:</span>
+              <span class="g-color-indigo font-cg-bold">Processing</span>
+            </li>
+            <li>
+              <span class="">Track & Trace:</span>
+              <span class="g-color-indigo g-cursor-pointer font-cg-bold">95432886430SE</span>
+            </li>
+            <li>
+              <span class="g-color-primary g-cursor-pointer font-cg-bold">
+                Show Details
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <ul class="g-color-gray-dark-v3 g-font-size-13">
+            <li>
+              <span class="">Total:</span>
+              <span class="g-color-indigo font-cg-bold">{{order.value.totalCartPrice}} {{order.value.currency}}</span>
+            </li>
+            <li>
+              <span class="">Discount:</span>
+              <span class="g-color-indigo font-cg-bold">{{order.value.totalCartDiscount}} {{order.value.currency}}</span>
+            </li>
+            <li>
+              <span class="g-color-primary g-cursor-pointer font-cg-bold">
+                Invoice
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div [@orderExpandCollapse]="isExpanded ? 'expanded' : 'collapsed'">
+      <div class="row g-pa-20">
+        <div class="col-md-8">
+          <div class="mb-4">
+            <h3 class="h5 mb-1">Delivered Yesterday</h3>
+            <p class="g-color-gray-dark-v4 g-font-size-13">Your package was delivered per the instructions.</p>
+          </div>
+
+          <div class="row">
+            <div class="col-4 col-sm-3 g-mb-30">
+              <img class="img-fluid" src="assets/img-temp/150x150/img9.jpg" alt="Image Description">
+            </div>
+
+            <div class="col-8 col-sm-9 g-mb-30">
+              <h4 class="h6 g-font-weight-400">
+                <a href="#!">Wacom Intuos Pro digital graphic clock for Mac or PC, Medium, (PTH660) NEW MODEL</a>
+              </h4>
+              <span class="d-block g-color-gray-dark-v4 g-font-size-13 mb-2">Sold by: Unify.com LLC</span>
+              <span class="d-block g-color-lightred mb-2">$364.80</span>
+              <a class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
+                href="#!">Buy it Again</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <a class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4" href="#!">Track Package</a>
+          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
+            href="#!">Return Item</a>
+          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
+            href="#!">Leave Package Feedback</a>
+          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
+            href="#!">Write a Product Review</a>
+          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
+            href="#!">Archive Order</a>
+        </div>
+      </div>
+    </div>
+  </div>

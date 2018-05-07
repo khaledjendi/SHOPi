@@ -42,7 +42,11 @@ Note: previous video is outdated! many new options are already added!
 
 - Viewing favorite items as sticky section on the page with angular animation 
 
-- Creating checkout page
+- [Completed] Displaying orders per user (with expand/ collapse orders)
+
+- [Completed] managing payment cards with facility to sort (rearrange) them by dragging and dropping
+
+- [Completed] Creating checkout page
 
 - [Completed] Creating login page and use Facebook and google apis (Completed)
 
@@ -50,7 +54,7 @@ Note: previous video is outdated! many new options are already added!
 
 - [Completed] Create Personal details page
 
-- [Partially Completed] Work with firebase to store personal data, orders, favorites, ...
+- [Completed] Work with firebase to store personal data, orders, favorites, ...
 
 - Perform search on the product
 

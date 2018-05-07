@@ -3,12 +3,12 @@
     <div class="col-md-6">
       <div class="mb-4">
         <h3 class="h5 mb-3">Your Cards</h3>
+        <p class="g-font-size-13">Now you can sort your card preferences by draging them.</p>
         <ul dnd-sortable-container [sortableData]="cards">
-          <li *ngFor="let card of cards; let i = index" class="d-flex justify-content-between align-items-center g-pa-10 mb-3" [style.background-color]="card.background"dnd-sortable [sortableIndex]="i">
-            <img class="g-width-12 g-mr-10" src="../../../assets/img/cart/arrow-up-down.png">
-            
-            <img class="g-width-35" src="../../../assets/img/cart/card_icon.png">
-            <span class="g-font-size-14 g-pl-20">{{card.no}}</span>
+          <li *ngFor="let card of cards; let i = index" class="d-flex justify-content-between align-items-center g-pa-10 mb-3 payment-card"
+            [style.background-color]="card.background" dnd-sortable [sortableIndex]="i">
+
+            <span class="g-font-size-14 g-pl-60">{{card.no}}</span>
 
             <div class="ml-auto">
               <span class="u-icon-v1 u-icon-size--xs g-color-gray-dark-v1 g-color-primary--hover g-font-size-16 g-text-underline--none--hover g-cursor-pointer"
@@ -37,47 +37,62 @@
               </a>
             </h5>
           </div>
-          <div id="accordion-12-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-12-heading-01">
-            <div class="u-accordion__body g-color-gray-dark-v5 g-pt-20 g-pl-0 g-pr-0 g-pb-0">
-              <p class="g-font-size-13">Enter your card information:</p>
 
-              <div class="row g-mx-minus-5 mb-3">
-                <div class="col-3 col-md-12 col-lg-3 g-px-5 g-mb-20">
-                  <h4 class="h6 g-color-black g-font-weight-400 mb-3">Card Name</h4>
-                  <div class="input-group g-pos-rel">
-                    <input class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-left-0 g-pr-40 g-ml-minus-1"
-                      type="tel">
-                  </div>
-                </div>
+          <form [formGroup]="addCardForm" (ngSubmit)="onSubmit()">
+            <div id="accordion-12-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-12-heading-01">
+              <div class="u-accordion__body g-color-gray-dark-v5 g-pt-20 g-pl-0 g-pr-0 g-pb-0">
+                <p class="g-font-size-13">Enter your card information:</p>
 
-                <div class="col-4 col-md-12 col-lg-4 g-px-5 g-mb-20">
-                  <h4 class="h6 g-color-black g-font-weight-400 mb-3">Card Number</h4>
-                  <div class="input-group g-pos-rel">
-                    <input class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-left-0 g-pr-40 g-ml-minus-1"
-                      type="tel">
-                  </div>
-                </div>
-
-                <div class="col-5 col-md-12 col-lg-5 g-px-5 g-mb-20">
-                  <h4 class="h6 g-color-black g-font-weight-400 mb-3">Expiration Date</h4>
-                  <div class="row g-mx-minus-2">
-                    <div class="col g-px-2">
-                      <input class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-rounded-right-0"
-                        type="tel" placeholder="MM">
+                <div class="row g-mx-minus-5 mb-3">
+                  <div class="col-lg-3 g-mb-20 g-pa-0 g-pr-5">
+                    <div class="input-group g-pos-rel">
+                      <mat-form-field style="width: 60px;">
+                        <input matInput placeholder="Name" [formControl]="name" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="name.hasError('required')">
+                          Name is
+                          <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
                     </div>
-                    <div class="col g-px-2">
-                      <input class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3"
-                        type="tel" placeholder="YYYY">
+                  </div>
+
+                  <div class="col-lg-4 g-mb-20 g-pa-0 g-pr-5">
+                    <mat-form-field style="width: 90px">
+                      <input matInput placeholder="Card No." [formControl]="number" [errorStateMatcher]="matcher">
+                      <mat-error *ngIf="!number.hasError('required')">
+                        Incorrect card
+                      </mat-error>
+                      <mat-error *ngIf="number.hasError('required')">
+                        Card No. is
+                        <strong>required</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-lg-4 g-mb-20 g-pa-0">
+                    <div class="row g-mx-minus-2">
+                      <mat-form-field style="width: 30px">
+                        <input matInput placeholder="MM" [formControl]="month" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="month.hasError('required')">
+                          <strong>MM*</strong>
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field style="margin-left: 5px ; width: 40px">
+                        <input matInput placeholder="YYYY" [formControl]="year" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="year.hasError('required')">
+                          <strong>YYYY*</strong>
+                        </mat-error>
+                      </mat-form-field>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <button class="btn u-btn-primary g-font-size-13 rounded g-px-18 g-py-10" type="submit">Add Card</button>
+              <div class="d-flex justify-content-center">
+                <button class="btn u-btn-primary g-font-size-13 rounded g-px-18 g-py-10" type="submit">Add Card</button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

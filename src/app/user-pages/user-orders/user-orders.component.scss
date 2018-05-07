@@ -19,3 +19,27 @@
     background-repeat: no-repeat;
     opacity: 0.7;
 }
+
+.line-height-1 {
+    line-height: 1em
+}
+
+.order-table-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.order-table-header {
+    min-height: 64px;
+    padding: 0px;
+}
+
+::ng-deep .filter-input {
+    width: 100% !important;
+    max-width: 100% !important
+}
+
+::ng-deep .filter-input .mat-input-wrapper {
+    width: 100% !important;
+    max-width: 100% !important
+}

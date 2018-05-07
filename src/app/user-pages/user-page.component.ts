@@ -8,7 +8,8 @@ import * as firebase from 'firebase'
 
 export enum UserPageType {
   Overivew = 0,
-  Orders = 1
+  Orders = 1,
+  PaymentOptions = 2
 }
 
 @Component({
@@ -25,14 +26,16 @@ export class UserPageComponent {
 
   constructor(public cartService: CartService, public loginAuthService: LoginAuthService) {
     let ordersRef = firebase.database().ref('orders');
-    ordersRef.orderByChild('userId').equalTo('kNW9Xrn2BITbjylfjYpIkuppc2q1').on('value', snapshot => {
+    ordersRef.orderByChild('userId').equalTo(loginAuthService.currentUserId).on('value', snapshot => {
       this.totalOrders = snapshot.numChildren() ? snapshot.numChildren() : 0;
       snapshot.forEach(childSnapshot => {
         let key = childSnapshot.key;
         let value = childSnapshot.val();
         this.orders.push({
           key: key,
-          value: value
+          value: value,
+          animation: false,
+          animationIcon: false
         })
         return false;
       })
@@ -49,6 +52,10 @@ export class UserPageComponent {
         break;
       case UserPageType.Orders:
         this.userPageType = UserPageType.Orders;
+        this.pagePage = UserPageType[this.userPageType];
+        break;
+      case UserPageType.PaymentOptions:
+        this.userPageType = UserPageType.PaymentOptions;
         this.pagePage = UserPageType[this.userPageType];
         break;
     }

@@ -39,6 +39,15 @@
             </a>
           </li>
           <li class="g-py-3">
+            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer"
+              (click)="goToPage(2, $event)">
+              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
+                <i class="icon-finance-110 u-line-icon-pro"></i>
+              </span>
+              Payment Options
+            </a>
+          </li>
+          <li class="g-py-3">
             <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
               <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
                 <i class="icon-finance-115 u-line-icon-pro"></i>
@@ -68,14 +77,6 @@
                 <i class="icon-real-estate-027 u-line-icon-pro"></i>
               </span>
               Addresses
-            </a>
-          </li>
-          <li class="g-py-3">
-            <a class="d-block align-middle u-link-v5 g-color-text g-color-primary--hover g-bg-gray-light-v5--hover rounded g-pa-3 g-cursor-pointer">
-              <span class="u-icon-v1 g-color-gray-dark-v5 mr-2">
-                <i class="icon-finance-110 u-line-icon-pro"></i>
-              </span>
-              Payment Options
             </a>
           </li>
           <li class="g-py-3">
@@ -129,13 +130,16 @@
         </section>
 
         <div [@userPageAnimation]="userPageType === 0 ? 'expanded' : 'collapsed'">
-            <app-user-overview  [totalOrders]="totalOrders" (ordersClicked)="goToPage(1)"></app-user-overview>
+          <app-user-overview *ngIf="userPageType === 0" [totalOrders]="totalOrders" (ordersClicked)="goToPage(1)"></app-user-overview>
         </div>
         <div [@userPageAnimation]="userPageType === 1 ? 'expanded' : 'collapsed'">
-            <app-user-orders *ngIf="orders && orders.length > 0" [orders]="orders"></app-user-orders>
-            <div *ngIf="!orders || orders.length === 0" class="font-cg-bold g-color-lightred g-font-size-16 g-pa-15 text-center full-width">No orders found in your account!</div>
+          <app-user-orders *ngIf="userPageType === 1 && orders && orders.length > 0" [orders]="orders"></app-user-orders>
+          <div *ngIf="userPageType === 1 && !orders || orders.length === 0" class="font-cg-bold g-color-lightred g-font-size-16 g-pa-15 text-center full-width">No orders found in your account!</div>
         </div>
-        
+        <div [@userPageAnimation]="userPageType === 2 ? 'expanded' : 'collapsed'">
+          <app-user-payment-options *ngIf="userPageType === 2"></app-user-payment-options>
+        </div>
+
 
       </div>
     </div>

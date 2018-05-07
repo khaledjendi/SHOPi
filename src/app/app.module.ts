@@ -62,6 +62,7 @@ import { CheckoutDialogComponent } from './checkout/dialog/checkout-dialog.compo
 import { OrderCompletedComponent } from './checkout/order-completed/order-completed.component';
 import { UserOverviewComponent } from './user-pages/user-overview/user-overview.component';
 import { UserOrdersComponent } from './user-pages/user-orders/user-orders.component';
+import { UserPaymentOptionsComponent } from './user-pages/user-payment-options/user-payment-options.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -109,7 +110,8 @@ const routes: Routes = [
     CheckoutDialogComponent,
     OrderCompletedComponent,
     UserOverviewComponent,
-    UserOrdersComponent
+    UserOrdersComponent,
+    UserPaymentOptionsComponent
   ],
   imports: [
     BrowserModule,

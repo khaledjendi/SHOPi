@@ -1,5 +1,5 @@
-<div class="text-center mb-3">
-  <h3 class="h6 d-inline-block">2 orders
+<div class="text-center mt-3 mb-3">
+  <h3 class="h6 d-inline-block">{{orders.length}} {{orders.length === 1 ? 'order' : 'orders'}}
     <span class="g-color-gray-dark-v4 g-font-weight-400">placed in</span>
   </h3>
 
@@ -16,92 +16,135 @@
 </div>
 
 
-<div *ngFor="let order of orders" class="g-brd-around g-brd-gray-light-v4 rounded g-mb-30 order-header" style="position: relative;">
-    <header class="g-bg-gray-light-v4 g-pa-20" [class.expanded]="isExpanded">
-      <div class="g-cursor-pointer" [class.expand-order]="!isExpandedIcon" [class.collapse-order]="isExpandedIcon" (click)="toggle()"></div>
-      <div class="row">
-        <div class="col-lg-3 d-flex justify-content-center align-items-center">
-          <span class="g-color-black g-font-size-15 font-cg-bold">{{formatDate(order.value.date)}}</span>
-        </div>
+<div *ngFor="let order of orders; let i = index" class="g-brd-around g-brd-gray-light-v4 rounded g-mb-30 order-header" style="position: relative;">
+  <header class="g-bg-gray-light-v4 g-pa-20" [class.expanded]="order.animation">
+    <div class="g-cursor-pointer" [class.expand-order]="!order.animationIcon" [class.collapse-order]="order.animationIcon" (click)="toggle(order)"></div>
+    <div class="row">
+      <div class="col-lg-3 d-flex justify-content-center align-items-center">
+        <span class="g-color-black g-font-size-15 font-cg-bold">{{formatDate(order.value.date)}}</span>
+      </div>
 
-        <div class="col-lg-6">
-          <ul class="g-color-gray-dark-v3 g-font-size-13">
-            <li>
-              <span class="">Order #:</span>
-              <span class="g-color-indigo font-cg-bold">{{order.key}}</span>
-            </li>
-            <li>
-              <span class="">Order Status:</span>
-              <span class="g-color-indigo font-cg-bold">Processing</span>
-            </li>
-            <li>
-              <span class="">Track & Trace:</span>
-              <span class="g-color-indigo g-cursor-pointer font-cg-bold">95432886430SE</span>
-            </li>
-            <li>
-              <span class="g-color-primary g-cursor-pointer font-cg-bold">
-                Show Details
-              </span>
-            </li>
-          </ul>
-        </div>
+      <div class="col-lg-6">
+        <ul class="g-color-gray-dark-v3 g-font-size-13">
+          <li>
+            <span class="">Order #:</span>
+            <span class="g-color-indigo font-cg-bold">{{order.key}}</span>
+          </li>
+          <li>
+            <span class="">Order Status:</span>
+            <span class="g-color-indigo font-cg-bold">Processing</span>
+          </li>
+          <li>
+            <span class="">Track & Trace:</span>
+            <span class="g-color-indigo g-cursor-pointer font-cg-bold">95432886430SE</span>
+          </li>
+          <li>
+            <span class="g-color-primary g-cursor-pointer font-cg-bold">
+              Show Details
+            </span>
+          </li>
+        </ul>
+      </div>
 
-        <div class="col-lg-3">
-          <ul class="g-color-gray-dark-v3 g-font-size-13">
-            <li>
-              <span class="">Total:</span>
-              <span class="g-color-indigo font-cg-bold">{{order.value.totalCartPrice}} {{order.value.currency}}</span>
-            </li>
-            <li>
-              <span class="">Discount:</span>
-              <span class="g-color-indigo font-cg-bold">{{order.value.totalCartDiscount}} {{order.value.currency}}</span>
-            </li>
-            <li>
-              <span class="g-color-primary g-cursor-pointer font-cg-bold">
-                Invoice
-              </span>
-            </li>
-          </ul>
+      <div class="col-lg-3">
+        <ul class="g-color-gray-dark-v3 g-font-size-13">
+          <li>
+            <span class="">Total:</span>
+            <span class="g-color-indigo font-cg-bold">{{order.value.totalCartPrice}} {{order.value.currency}}</span>
+          </li>
+          <li>
+            <span class="">Discount:</span>
+            <span class="g-color-indigo font-cg-bold">{{order.value.totalCartDiscount}} {{order.value.currency}}</span>
+          </li>
+          <li>
+            <span class="g-color-primary g-cursor-pointer font-cg-bold">
+              Invoice
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div [@orderExpandCollapse]="order.animation ? 'expanded' : 'collapsed'">
+    <div class="row  g-pa-20">
+      <div class="col-md-6">
+        <h3 class="h5 mb-1">Shipping Address:</h3>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.firstName}}&nbsp;{{order.value.address.firstName}}</p>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.address}}</p>
+        <p *ngIf="order.value.address.address2" class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.address2}}</p>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.postalCode}}</p>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.city}}</p>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.country}}</p>
+      </div>
+      <div class="col-md-6" style="text-align: right">
+        <h3 class="h5 mb-1">Contact Details:</h3>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.email}}</p>
+        <p class="g-color-gray-dark-v4 g-font-size-14 mb-0 line-height-1">{{order.value.address.phoneNumber}}</p>
+      </div>
+    </div>
+    <div class="row g-pa-20">
+      <div class="col-md-9">
+        <div class="order-table-container mat-elevation-z0">
+          <div class="order-table-header">
+            <mat-form-field class="filter-input">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search your order (name or origibal price) ...">
+            </mat-form-field>
+          </div>
+
+          <mat-table #table [dataSource]="order.value.cartProducts">
+            <ng-container matColumnDef="item">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Item </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct" class="g-mb-10">
+                <div class="d-flex justify-content-center">
+                  <img [src]="cartProduct.product.mainImagePng ? cartProduct.product.mainImagePng : cartProduct.product.images[0]" style="height: 150px; object-fit: cover;">
+                </div>
+                <div class="text-center font-cg-bold g-font-size-13">{{cartProduct.product.name}}</div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Price </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct">
+                <div class="d-flex justify-content-center g-font-size-12">
+                  <span class="d-block g-color-black g-font-size-17" [class.g-color-primary]="eligibleDiscount(cartProduct.product.discount)">{{getPrice(cartProduct.product.price, cartProduct.product.discount)}}
+                    <s *ngIf="eligibleDiscount(cartProduct.product.discount)" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-12">{{cartProduct.product.price.formattedPrice}}</s>
+                  </span>
+                </div>
+
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="details">
+              <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Details </mat-header-cell>
+              <mat-cell *matCellDef="let cartProduct" class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center g-font-size-12 g-py-5">
+                  <ul class="g-color-gray-dark-v3 g-font-size-13">
+                    <li>
+                      <span class="">Qty:</span>
+                      <span class="g-color-indigo">{{cartProduct.amount}}&nbsp;piece(s)</span>
+                    </li>
+                    <li>
+                      <span class="">Color:</span>
+                      <span class="g-color-indigo">{{cartProduct.product.color}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [style.border-bottom-width]='0' ></mat-row>
+          </mat-table>
         </div>
       </div>
-    </header>
 
-    <div [@orderExpandCollapse]="isExpanded ? 'expanded' : 'collapsed'">
-      <div class="row g-pa-20">
-        <div class="col-md-8">
-          <div class="mb-4">
-            <h3 class="h5 mb-1">Delivered Yesterday</h3>
-            <p class="g-color-gray-dark-v4 g-font-size-13">Your package was delivered per the instructions.</p>
-          </div>
-
-          <div class="row">
-            <div class="col-4 col-sm-3 g-mb-30">
-              <img class="img-fluid" src="assets/img-temp/150x150/img9.jpg" alt="Image Description">
-            </div>
-
-            <div class="col-8 col-sm-9 g-mb-30">
-              <h4 class="h6 g-font-weight-400">
-                <a href="#!">Wacom Intuos Pro digital graphic clock for Mac or PC, Medium, (PTH660) NEW MODEL</a>
-              </h4>
-              <span class="d-block g-color-gray-dark-v4 g-font-size-13 mb-2">Sold by: Unify.com LLC</span>
-              <span class="d-block g-color-lightred mb-2">$364.80</span>
-              <a class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7"
-                href="#!">Buy it Again</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <a class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4" href="#!">Track Package</a>
-          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-            href="#!">Return Item</a>
-          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-            href="#!">Leave Package Feedback</a>
-          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-            href="#!">Write a Product Review</a>
-          <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-            href="#!">Archive Order</a>
-        </div>
+      <div class="col-md-3 g-mt-15">
+        <span class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4 g-cursor-pointer">Track Package</span>
+        <span class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25 g-cursor-pointer">Return Item</span>
+        <span class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25 g-cursor-pointer">Feedback</span>
+        <span class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25 g-cursor-pointer">Review</span>
       </div>
     </div>
   </div>
+</div>

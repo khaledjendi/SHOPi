@@ -34,6 +34,6 @@
   color: #fd7e14 !important;
 }
 
-::ng-deep .mat-select-content{
-  width:150px;
+::ng-deep .mat-form-field, .mat-select-content, .mat-select{
+  width:150px !important;
 }

@@ -45,7 +45,7 @@
                 <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-40 g-pb-20">
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select placeholder="Brands" [formControl]="brandControl" multiple (change)="brandsChanged($event)">
                                     <mat-select-trigger>
                                         {{brandControl.value && brandControl.value.length > 0 ? brandControl.value[0].name : ''}}
@@ -61,7 +61,7 @@
 
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select placeholder="Size" [formControl]="sizeControl" multiple>
                                     <mat-optgroup *ngFor="let group of sizeGroups" [label]="group.name" [disabled]="group.disabled">
                                         <mat-option *ngFor="let size of group.size" [value]="size">
@@ -75,7 +75,7 @@
 
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select placeholder="Colors" [formControl]="colorControl" multiple (change)="colorsChanged($event)">
                                     <mat-select-trigger>
                                         {{colorControl.value ? colorControl.value[0] : ''}}
@@ -114,7 +114,7 @@
                 <div class="d-flex justify-content-left align-items-center g-brd-bottom g-brd-gray-light-v4 g-pt-20 g-pb-20">
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select [(value)]="sortingOption" placeholder="Sorting">
                                     <mat-option>Newest</mat-option>
                                     <mat-option>Popular</mat-option>
@@ -128,7 +128,7 @@
 
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select [(value)]="perPage" placeholder="Per Page">
                                     <mat-option>35</mat-option>
                                     <mat-option>70</mat-option>
@@ -140,7 +140,7 @@
 
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150">
+                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
                                     <mat-select-trigger>
                                         {{materialControl.value ? materialControl.value[0] : ''}}

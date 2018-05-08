@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   onHeaderChanged(page: PageType) {
-    this.page = page;
+    //this.page = page; // I will work only for men section so I am disabling other sections
+    this.page = PageType.Men
   }
 }

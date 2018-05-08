@@ -1,3 +1,5 @@
+import { CartProduct } from './../common/Cart';
+import { CartService } from './../services/cart.service';
 import { Price } from './../common/Price';
 import { Config } from './../config';
 import { ToastrService } from 'ngx-toastr';
@@ -43,10 +45,11 @@ export class ProductDetailsComponent implements OnInit {
 
   @BlockUI() blockAllUI: NgBlockUI;
 
-  constructor(public sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router, private db: AngularFireDatabase) {
-    this.getProducts(); // to be replaced with related products
+  constructor(public cartService: CartService, public sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router, private db: AngularFireDatabase) {
+    //this.getProducts(); 
+    this.loadProducts(this.staticProducts);
   }
-  
+
   ngOnInit() {
     this.queryParams();
     jQuery(this.mainImage.nativeElement).xzoom({ zoomWidth: 500, title: true, tint: '#333', Xoffset: 15 })
@@ -60,8 +63,8 @@ export class ProductDetailsComponent implements OnInit {
           this.sessionService.selectedProduct.images = [];
           this.sessionService.selectedProduct.price = new Price();
           this.id = params.id;
-          this.getProduct(this.id);
-          //this.loadProduct(this.staticProducts);
+          //this.getProduct(this.id);
+          this.loadProduct(this.staticProduct);
         }
         this.mapSiteTree(params.returnPageUrl, params.returnSubPageUrl);
       });
@@ -281,6 +284,131 @@ export class ProductDetailsComponent implements OnInit {
     let storageRef = firebase.storage().ref();
     let starsRef = storageRef.child('product_images/' + imgId + '.png');
     return starsRef.getDownloadURL();
+  }
+
+  getArray(size) {
+    return new Array(size);
+  }
+
+  addToCart(event) {
+    event.stopPropagation();
+    for (let inCartProduct of this.cartService.cartProducts) {
+      if (inCartProduct.product.id === this.sessionService.selectedProduct.id) {
+        this.toast(this.sessionService.selectedProduct.name + " is already in your cart!", "Warning", "warning", 2500);
+        return;
+      }
+    }
+    let cartProduct = new CartProduct();
+    cartProduct.amount = 1;
+    cartProduct.product = this.sessionService.selectedProduct;
+    this.cartService.cartProducts.push(cartProduct);
+    this.cartService.saveCart();
+    this.cartService.setFloatCartView(true);
+  }
+
+  get staticProduct() {
+    return {
+      "type": "product",
+      "id": "ea9e61ab-8c8a-4353-b182-aa480bc4b5d0",
+      "name": "Gant Jeans",
+      "slug": "GCL1315008",
+      "sku": "GCL1315008",
+      "manage_stock": true,
+      "description": "Outer fabric: cotton 97%, polyester 2%, elastane 1%\nStraight leg\nFine wash at max. 40˚C",
+      "price": [
+        {
+          "amount": 1450,
+          "currency": "SEK",
+          "includes_tax": true
+        }
+      ],
+      "status": "live",
+      "commodity_type": "physical",
+      "meta": {
+        "timestamps": {
+          "created_at": "2018-04-30T17:25:08+00:00",
+          "updated_at": "2018-04-30T17:28:51+00:00"
+        },
+        "display_price": {
+          "with_tax": {
+            "amount": 1450,
+            "currency": "SEK",
+            "formatted": "1,450 kr"
+          },
+          "without_tax": {
+            "amount": 1450,
+            "currency": "SEK",
+            "formatted": "1,450 kr"
+          }
+        },
+        "stock": {
+          "level": 10,
+          "availability": "in-stock"
+        },
+        "variation_matrix": []
+      },
+      "relationships": {
+        "files": {
+          "data": [
+            {
+              "type": "file",
+              "id": "033b05cc-abc9-4e61-b931-5d1b7f426f13"
+            },
+            {
+              "type": "file",
+              "id": "332018ec-99e0-4830-af2f-232e7d5bb259"
+            }
+          ]
+        },
+        "categories": {
+          "data": [
+            {
+              "type": "category",
+              "id": "d24fbadd-0067-487c-b45e-508947304906"
+            },
+            {
+              "type": "category",
+              "id": "af431233-cb8b-4a50-8e73-88e159974d60"
+            },
+            {
+              "type": "category",
+              "id": "df939eff-eb74-43d6-a209-c6a6eb87807c"
+            }
+          ]
+        },
+        "collections": {
+          "data": [
+            {
+              "type": "collection",
+              "id": "cdaadc9f-4657-475b-9b6a-e21a0c5322a9"
+            }
+          ]
+        },
+        "brands": {
+          "data": [
+            {
+              "type": "brand",
+              "id": "1e0240ab-53fa-4f30-acef-b361754616d1"
+            }
+          ]
+        },
+        "main_image": {
+          "data": {
+            "type": "main_image",
+            "id": "0bb618e8-e392-49e3-9fe7-84c78a4d4dea"
+          }
+        }
+      },
+      "rating": 5,
+      "discount": 0,
+      "color": "Black",
+      "fit": "Regular",
+      "newArrival": true,
+      "reviews": 5,
+      "colorCode": "black",
+      "mainImage": null,
+      "brand": "Gant"
+    }
   }
 
   get staticProducts() {

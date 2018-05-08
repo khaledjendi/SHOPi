@@ -36,29 +36,29 @@ export class CommonProductComponent {
 
   dropProductSuccess($event: any) {
     let product: Product = JSON.parse($event.dragData);
-    this.addToCart(product);
+    this.addToCart(product, false);
   }
 
   addToCartClicked(event, product) {
     event.stopPropagation();
-    this.addToCart(product);
+    this.addToCart(product, true);
   }
 
-  private addToCart(product: Product) {
-    let cartProduct = new CartProduct();
-    cartProduct.amount = 1;
-    cartProduct.product = product;
-
+  private addToCart(product: Product, openFloatCart: boolean) {
     for (let inCartProduct of this.cartService.cartProducts) {
-      if (inCartProduct.product.id === cartProduct.product.id) {
+      if (inCartProduct.product.id === product.id) {
         //inCartProduct.amount++;
         this.toast(product.name + " is already in your cart!", "Warning", "warning", 2500);
         return;
       }
     }
+
+    let cartProduct = new CartProduct();
+    cartProduct.amount = 1;
+    cartProduct.product = product;
     this.cartService.cartProducts.push(cartProduct);
     this.cartService.saveCart();
-    this.toast(product.name + " has been added to your cart!", "Info", "info", 2500);
+    if (openFloatCart) this.cartService.setFloatCartView(true);
   }
 
   private filterProducts(filteredData: any) {

@@ -88,11 +88,11 @@
         <div class="order-table-container mat-elevation-z0">
           <div class="order-table-header">
             <mat-form-field class="filter-input">
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search your order (name or origibal price) ...">
+              <input matInput (keyup)="applyFilter($event.target.value, order.dataSource)" placeholder="Search your order (name or origibal price) ...">
             </mat-form-field>
           </div>
 
-          <mat-table #table [dataSource]="order.value.cartProducts">
+          <mat-table #table [dataSource]="order.dataSource">
             <ng-container matColumnDef="item">
               <mat-header-cell *matHeaderCellDef class="d-flex justify-content-center"> Item </mat-header-cell>
               <mat-cell *matCellDef="let cartProduct" class="g-mb-10">

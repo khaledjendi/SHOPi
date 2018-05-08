@@ -25,8 +25,6 @@
   </div>
 </section>
 
-
-<!-- Product Description -->
 <div class="container g-pt-50 u-shadow-v19 ">
 
   <div class="row">
@@ -42,7 +40,6 @@
         </div>
 
         <div class="col-10">
-          <!-- Carousel -->
           <div class="g-pt-10 g-mb-10">
             <div class="">
               <img #mainImage class="img-fluid w-100 img-carousel xzoom" src="{{sessionService.selectedProduct.images[0]}}" [attr.xoriginal]="sessionService.selectedProduct.images[0]"
@@ -51,50 +48,58 @@
           </div>
         </div>
       </div>
-      <!-- End Carousel -->
     </div>
 
     <div class="col-lg-5">
       <div class="g-px-40--lg">
-        <!-- Product Info -->
         <div class="">
           <h4 class="font-cg-bold">
             {{sessionService.selectedProduct.name}} -
             <span>{{sessionService.selectedProduct.brand}}</span>
           </h4>
         </div>
-        <!-- End Product Info -->
 
-        <!-- Price -->
+        <div>
+          <span class="stars">
+            <span *ngFor="let star of getArray(sessionService.selectedProduct.rating)" class="fa fa-star" aria-hidden="true"></span>
+          </span>
+          <span class="reviews">
+            ({{sessionService.selectedProduct.reviews}}&nbsp;reviews)
+          </span>
+        </div>
         <div class="g-mb-10">
           <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2" [class.g-color-primary]="eligibleDiscount()">{{getPrice()}}</span>
           <s *ngIf="eligibleDiscount()" class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">{{this.sessionService.selectedProduct.price.formattedPrice}}</s>
         </div>
-        <!-- End Price -->
 
-        <!-- Accordion -->
         <div id="accordion-01" role="tablist" aria-multiselectable="true">
           <div id="accordion-01-heading-01" class="g-brd-y g-brd-gray-light-v3 py-3" role="tab">
             <h5 class="g-font-weight-400 g-font-size-default mb-0">
               <a class="d-block g-color-gray-dark-v5 g-text-underline--none--hover" href="#accordion-01-body-01" data-toggle="collapse"
                 data-parent="#accordion-01" aria-expanded="false" aria-controls="accordion-01-body-01">Details
                 <span class="float-right g-pos-rel g-top-3 mr-1 fa fa-angle-down"></span>
+                <div *ngIf="sessionService.selectedProduct.newArrival" class="float-right g-px-10 g-mt-3 g-mr-10 g-color-white font-cg-bold g-font-size-12 new-arrival-label">New Arrival</div>
+                
               </a>
             </h5>
           </div>
           <div id="accordion-01-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-01-heading-01">
             <div class="g-py-10" style="white-space: pre-line">
-              {{this.sessionService.selectedProduct.description}}
+              {{sessionService.selectedProduct.description}}
             </div>
           </div>
         </div>
-        <!-- End Accordion -->
 
-        <!-- Color -->
+        <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
+          <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Fit</h5>
+          <span class="d-block g-font-size-12 g-color-primary--checked">
+            {{sessionService.selectedProduct.fit}}
+          </span>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
           <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Color</h5>
 
-          <!-- Checkbox -->
           <label class="form-check-inline u-check mb-0 ml-auto g-mr-10">
             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">
             <span class="d-block u-check-icon-checkbox-v4 g-brd-transparent g-brd-gray-dark-v4--checked rounded-circle">
@@ -119,15 +124,11 @@
               <i class="d-block g-absolute-centered g-width-12 g-height-12 g-bg-gray-dark-v4 rounded-circle"></i>
             </span>
           </label>
-          <!-- End Checkbox -->
         </div>
-        <!-- End Colour -->
 
-        <!-- Size -->
         <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
           <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Size</h5>
 
-          <!-- Checkbox -->
           <label class="form-check-inline u-check mb-0 ml-auto g-mr-15">
             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
             <span class="d-block g-font-size-12 g-color-primary--checked">
@@ -158,47 +159,27 @@
               XXL
             </span>
           </label>
-          <!-- End Checkbox -->
         </div>
-        <!-- End Size -->
 
-        <!-- Quantity -->
-        <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3 g-mb-30" role="tab">
-          <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Quantity</h5>
-
-          <div class="js-quantity input-group u-quantity-v1 g-width-80 g-brd-primary--focus">
-            <input class="js-result form-control text-center g-font-size-13 rounded-0" type="text" value="1" readonly>
-
-            <div class="input-group-addon d-flex align-items-center g-width-30 g-brd-gray-light-v2 g-bg-white g-font-size-13 rounded-0 g-pa-5">
-              <i class="js-plus g-color-gray g-color-primary--hover fa fa-angle-up"></i>
-              <i class="js-minus g-color-gray g-color-primary--hover fa fa-angle-down"></i>
-            </div>
-          </div>
-        </div>
-        <!-- End Quantity -->
-
-        <!-- Buttons -->
-        <div class="row g-mx-minus-5 g-mb-20">
-          <div class="col g-px-5 g-mb-10">
-            <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button">
+        <div class="full-width d-flex justify-content-center g-mx-minus-5 g-mt-30 g-mb-20">
+          <div>
+            <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button" (click)="addToCart($event)">
               Add to Cart
               <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
             </button>
           </div>
-          <div class="col g-px-5 g-mb-10">
-            <button class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
-              type="button">
-              Add to Wishlist
-              <i class="align-middle ml-2 icon-medical-022 u-line-icon-pro"></i>
-            </button>
+          <div>
+            <div class="add-to-fav">
+              <i class="align-middle ml-2 icon-medical-022 u-line-icon-pro" style="font-size: 1.7em;"></i>
+            </div>
           </div>
         </div>
-        <!-- End Buttons -->
 
         <mat-tab-group>
           <mat-tab label="Returns">
             <div class="tab-pane fade show active g-pt-30" id="nav-1-1-default-hor-left--3" role="tabpanel">
-              <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">30 days open shop with free-of-charge clothes returning Contact us for <a href="#">returning your item</a>.</p>
+              <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">30 days open shop with free-of-charge clothes returning Contact us for
+                <a href="#">returning your item</a>.</p>
             </div>
           </mat-tab>
           <mat-tab label="Size Guide">
@@ -239,7 +220,6 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- End Size -->
             </div>
           </mat-tab>
         </mat-tab-group>
@@ -247,7 +227,6 @@
     </div>
   </div>
 </div>
-<!-- End Product Description -->
 
 <div class="g-my-45">
   <div class="container g-pb-0">

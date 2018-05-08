@@ -1,3 +1,5 @@
+import { CartProduct } from './../common/Cart';
+import { MatTableDataSource } from '@angular/material';
 import { userPageAnimation } from './user-pages.component.animations';
 import { CartService } from './../services/cart.service';
 import { LoginAuthService } from './../services/login-auth.service';
@@ -31,11 +33,22 @@ export class UserPageComponent {
       snapshot.forEach(childSnapshot => {
         let key = childSnapshot.key;
         let value = childSnapshot.val();
+
+        let dataSource = new MatTableDataSource(<CartProduct[]>value.cartProducts)
+        dataSource.filterPredicate =
+          (data: CartProduct, filter: string) => {
+            console.log(data.product.name);
+            let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
+              data.product.price.amount.toString().toLowerCase().indexOf(filter) != -1
+            return bool;
+          };
+
         this.orders.push({
           key: key,
           value: value,
           animation: false,
-          animationIcon: false
+          animationIcon: false,
+          dataSource: dataSource
         })
         return false;
       })

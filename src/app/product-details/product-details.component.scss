@@ -33,3 +33,38 @@
     justify-content: center; /* align items in Main Axis */
     z-index: 99;
 }
+
+.stars span {
+    padding-left: 3px;
+    color: rgba(253, 126, 20, 0.8);
+    display: inline-block;
+}
+
+.reviews {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.new-arrival-label{
+    display: inline-block;
+    background-color: rgba(253, 126, 20, 0.7);
+}
+
+.add-to-fav {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding-top: 5px;
+    margin-top: 5px;
+    padding-left:1px;
+    margin-left: 15px;
+}
+
+.add-to-fav:hover {
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    background-color: rgba(88,199,167, 0.7);
+    color: rgb(255,255,255);
+    cursor: pointer;
+}

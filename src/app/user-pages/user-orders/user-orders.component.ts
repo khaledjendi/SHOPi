@@ -1,3 +1,4 @@
+import { CartProduct } from './../../common/Cart';
 import { Price } from './../../common/Price';
 import { MatTableDataSource } from '@angular/material';
 import { orderExpandCollapse } from './user-orders.component.animations';
@@ -14,25 +15,13 @@ export class UserOrdersComponent implements OnInit {
   @Input("orders") orders;
   ordersPeriod = "3"; // 3 months
   displayedColumns = ['item', 'price', 'details'];
-  dataSource = new MatTableDataSource();
 
 
   constructor() {
-    // this.dataSource.filterPredicate =
-    //   (data: CartProduct, filter: string) => {
-    //     let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
-    //       data.product.price.amount.toString().toLowerCase().indexOf(filter) != -1
-    //     return bool;
-    //   };
+
   }
 
   ngOnInit() {
-    console.log(this.orders);
-  }
-
-  getDataSource(order) {
-    console.log("me", order)
-    this.dataSource.data = order.value.cartProducts;
   }
 
   toggle(order) {
@@ -49,7 +38,6 @@ export class UserOrdersComponent implements OnInit {
     if (strDate.indexOf(',') !== -1)
       return strDate.split(',')[0];
     return strDate;
-
   }
 
   getWindowHeight() {
@@ -58,10 +46,10 @@ export class UserOrdersComponent implements OnInit {
       html.clientHeight, html.scrollHeight, html.offsetHeight) + "px";
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string, dataSource) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+    dataSource.filter = filterValue;
   }
 
   getPrice(price: Price, discount: number) {

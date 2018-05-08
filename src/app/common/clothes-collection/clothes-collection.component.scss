@@ -33,3 +33,7 @@
 ::ng-deep .mat-expanded .mat-expansion-panel-header .mat-content .mat-expansion-panel-header-title {
   color: #fd7e14 !important;
 }
+
+::ng-deep .mat-select-content{
+  width:150px;
+}

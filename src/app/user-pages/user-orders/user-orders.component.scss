@@ -21,7 +21,7 @@
 }
 
 .line-height-1 {
-    line-height: 1em
+    line-height: 1.4em
 }
 
 .order-table-container {
@@ -42,4 +42,8 @@
 ::ng-deep .filter-input .mat-input-wrapper {
     width: 100% !important;
     max-width: 100% !important
+}
+
+::ng-deep .orders-period .mat-input-wrapper {
+    width:120px !important;
 }

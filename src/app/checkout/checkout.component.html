@@ -294,8 +294,8 @@
                 By ordering you agree to the cancellation period, our cookies & privacy policy and our sales & delivery conditions.
               </p>
             </div>
-            <div class="mb-3">
-              <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 font-cg-bold g-font-size-15" type="submit">Checkout</button>
+            <div class="mb-3" >
+              <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 font-cg-bold g-font-size-15" type="submit" [attr.disabled]="submitButton.disabled ? '' : null">{{submitButton.html}}</button>
             </div>
           </div>
         </div>

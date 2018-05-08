@@ -260,7 +260,7 @@
 							animationDelay = $(this).data('scs-animation-delay'),
 							animationDuration = $(this).data('scs-animation-duration');
 
-							console.log(animationDuration);
+							//console.log(animationDuration);
 
 						$(this).css({
 							'animation-delay': animationDelay + 'ms',

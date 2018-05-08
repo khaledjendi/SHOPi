@@ -37,7 +37,7 @@ export class UserPageComponent {
         let dataSource = new MatTableDataSource(<CartProduct[]>value.cartProducts)
         dataSource.filterPredicate =
           (data: CartProduct, filter: string) => {
-            console.log(data.product.name);
+            //console.log(data.product.name);
             let bool = data.product.name.toLowerCase().indexOf(filter) != -1 ||
               data.product.price.amount.toString().toLowerCase().indexOf(filter) != -1
             return bool;

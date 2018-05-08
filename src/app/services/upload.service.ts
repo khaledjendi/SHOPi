@@ -19,7 +19,7 @@ export class UploadService {
       },
       (error) => {
         // save to firebase log [future work]. 
-        console.log(error)
+        //console.log(error)
       },
       () => {
         upload.url = uploadTask.snapshot.downloadURL

@@ -4,7 +4,7 @@
   </h3>
 
   <div class="d-inline-block  ml-2">
-    <mat-form-field>
+    <mat-form-field class="orders-period">
       <mat-select [(ngModel)]="ordersPeriod" color="orange">
         <mat-option value="3">last 3 months</mat-option>
         <mat-option value="6">last 6 months</mat-option>
@@ -122,7 +122,7 @@
                   <ul class="g-color-gray-dark-v3 g-font-size-13">
                     <li>
                       <span class="">Qty:</span>
-                      <span class="g-color-indigo">{{cartProduct.amount}}&nbsp;piece(s)</span>
+                      <span class="g-color-indigo">{{cartProduct.amount}}&nbsp;{{cartProduct.amount === 1 ? 'piece' : 'pieces'}}</span>
                     </li>
                     <li>
                       <span class="">Color:</span>

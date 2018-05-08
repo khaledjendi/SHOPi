@@ -1,9 +1,8 @@
 export class Price {
-    constructor(public amount?: number, public formattedPrice?: string, public currencyAbbr?: string, public currency?: string) {
+    constructor(public amount?: number, public formattedPrice?: string, public currencyAbbr?: string) {
         this.amount = amount;
         this.formattedPrice = formattedPrice;
         this.currencyAbbr = currencyAbbr === "SEK" ? "kr" : currencyAbbr;
-        this.currency = currency;
     }
 
     public static getDisountPrice(originalPrice: number, disount: number, currencyAbbr: string, decimals?: number, isNumber?: boolean) {

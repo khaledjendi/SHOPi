@@ -32,6 +32,10 @@ export class CheckoutComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   payment: PaymentMethod = PaymentMethod.KlarnaPayLater;
+  submitButton = {
+    html: "Checkout",
+    disabled: false
+  }
 
   payments = [{
     method: PaymentMethod.Card,
@@ -184,7 +188,7 @@ export class CheckoutComponent implements OnInit {
 
   getPrice(price: Price, discount: number) {
     if (this.eligibleDiscount(discount))
-      return Price.getDisountPrice(price.amount, discount, price.currencyAbbr);
+      return Price.getDisountPrice(price.amount, discount, price.currencyAbbr ? price.currencyAbbr : "");
     return price.formattedPrice;
   }
 
@@ -223,6 +227,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.checkoutForm.valid, this.checkoutForm)
     if (this.checkoutForm.valid) {
       this.openDialog();
     }
@@ -236,6 +241,7 @@ export class CheckoutComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result === "confirm") {
+        this.disbaleSubmit();
         let firstName = <string><any>this.checkoutForm.value.firstName;
         let lastName = <string><any>this.checkoutForm.value.lastName;
         let address = <string><any>this.checkoutForm.value.address;
@@ -263,7 +269,9 @@ export class CheckoutComponent implements OnInit {
               orderKey: orderRef.key
             }
           });
+          this.enableSubmit();
         }).catch(error => {
+          this.enableSubmit();
           this.toastr.error('Unexpected error while processing order. Admin is notified. Please try again later', 'Error', {
             timeOut: 5000,
             easing: 'easeOutBounce',
@@ -276,4 +284,14 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+
+  private enableSubmit() {
+    this.submitButton.disabled = false;
+    this.submitButton.html = "Checkout";
+  }
+
+  private disbaleSubmit() {
+    this.submitButton.disabled = true;
+    this.submitButton.html = "Processing...";
+  }
 }

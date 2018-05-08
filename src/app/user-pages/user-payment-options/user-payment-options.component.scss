@@ -31,3 +31,20 @@ strong {
     opacity:0.7;
     border: 1px dashed rgb(63, 63, 63);
   }
+
+  ::ng-deep .card-name-field .mat-input-wrapper {
+    width: 60px !important;
+  }
+
+  ::ng-deep .card-no-field .mat-input-wrapper {
+    width: 90px !important;
+  }
+
+  ::ng-deep .card-mm-field .mat-input-wrapper {
+    width: 35px !important;
+  }
+
+  ::ng-deep .card-yyyy-field .mat-input-wrapper {
+    width: 45px !important;
+    margin-left: 5px;
+  }

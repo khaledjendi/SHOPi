@@ -46,7 +46,7 @@
                 <div class="row g-mx-minus-5 mb-3">
                   <div class="col-lg-3 g-mb-20 g-pa-0 g-pr-5">
                     <div class="input-group g-pos-rel">
-                      <mat-form-field style="width: 60px;">
+                      <mat-form-field class="card-name-field">
                         <input matInput placeholder="Name" [formControl]="name" [errorStateMatcher]="matcher">
                         <mat-error *ngIf="name.hasError('required')">
                           Name is
@@ -57,7 +57,7 @@
                   </div>
 
                   <div class="col-lg-4 g-mb-20 g-pa-0 g-pr-5">
-                    <mat-form-field style="width: 90px">
+                    <mat-form-field class="card-no-field">
                       <input matInput placeholder="Card No." [formControl]="number" [errorStateMatcher]="matcher">
                       <mat-error *ngIf="!number.hasError('required')">
                         Incorrect card
@@ -71,13 +71,13 @@
 
                   <div class="col-lg-4 g-mb-20 g-pa-0">
                     <div class="row g-mx-minus-2">
-                      <mat-form-field style="width: 30px">
+                      <mat-form-field class="card-mm-field">
                         <input matInput placeholder="MM" [formControl]="month" [errorStateMatcher]="matcher">
                         <mat-error *ngIf="month.hasError('required')">
                           <strong>MM*</strong>
                         </mat-error>
                       </mat-form-field>
-                      <mat-form-field style="margin-left: 5px ; width: 40px">
+                      <mat-form-field class="card-yyyy-field">
                         <input matInput placeholder="YYYY" [formControl]="year" [errorStateMatcher]="matcher">
                         <mat-error *ngIf="year.hasError('required')">
                           <strong>YYYY*</strong>

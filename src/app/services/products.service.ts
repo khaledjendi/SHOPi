@@ -27,6 +27,11 @@ export enum CallOperator {
   File
 }
 
+export interface Pagination {
+  limit: number;
+  offset: number;
+}
+
 @Injectable()
 export class ProductsService {
   private httpOptions = {
@@ -37,39 +42,39 @@ export class ProductsService {
   }
 
 
-  callGet(operator: CallOperator, id?, filter?) {
+  callGet(operator: CallOperator, id?, filter?, pagination?: Pagination) {
     if (!this.auth.isValidToken()) {
       return this.auth.authenticate()
         .then(() => {
           this.validateHeaders();
-          return this.callGetMethod(operator, id, filter);
+          return this.callGetMethod(operator, id, filter, pagination);
         });
     }
     else {
-      return this.callGetMethod(operator, id, filter);
+      return this.callGetMethod(operator, id, filter, pagination);
     }
   }
 
-  private callGetMethod(operator: CallOperator, id?, filter?) {
+  private callGetMethod(operator: CallOperator, id?, filter?, pagination?: Pagination) {
     switch (operator) {
       case CallOperator.AllProducts:
-        return this.getProductsInternal();
+        return this.getProductsInternal("", pagination);
       case CallOperator.TopsProducts:
-        return this.getProductsByCategoryInternal("Tops")
+        return this.getProductsByCategoryInternal("Tops", pagination)
       case CallOperator.JeansProducts:
-        return this.getProductsByCategoryInternal("Jeans")
+        return this.getProductsByCategoryInternal("Jeans", pagination)
       case CallOperator.TShirtProducts:
-        return this.getProductsByCategoryInternal("TShirts")
+        return this.getProductsByCategoryInternal("TShirts", pagination)
       case CallOperator.SkinnyProducts:
-        return this.getProductsByCategoryInternal("Skinny")
+        return this.getProductsByCategoryInternal("Skinny", pagination)
       case CallOperator.ShirtsProducts:
-        return this.getProductsByCategoryInternal("Shirts")
+        return this.getProductsByCategoryInternal("Shirts", pagination)
       case CallOperator.RegularProducts:
-        return this.getProductsByCategoryInternal("Regular")
+        return this.getProductsByCategoryInternal("Regular", pagination)
       case CallOperator.PoloShirtsProducts:
-        return this.getProductsByCategoryInternal("PoloShirts")
+        return this.getProductsByCategoryInternal("PoloShirts", pagination)
       case CallOperator.KnitwearProducts:
-        return this.getProductsByCategoryInternal("Knitwear")
+        return this.getProductsByCategoryInternal("Knitwear", pagination)
       case CallOperator.AllBrands:
         return this.getBrandsInternal();
       case CallOperator.AllProductFlowEntries:
@@ -83,12 +88,15 @@ export class ProductsService {
     }
   }
 
-  private getProductsByCategoryInternal(category) {
+  private getProductsByCategoryInternal(category, pagination?: Pagination) {
     let url = `https://api.moltin.com/v2/categories?filter=eq(name,${category})`;
     return this.http.get<any>(url, this.httpOptions)
       .map(categories => {
         if (categories && categories.data.length > 0) {
-          url = `https://api.moltin.com/v2/products?filter=eq(category.id,${categories.data[0].id})`
+          if (pagination)
+            url = `https://api.moltin.com/v2/products?filter=eq(category.id,${categories.data[0].id})&page[limit]=${pagination.limit}&page[offset]=${pagination.offset}`;
+          else
+            url = `https://api.moltin.com/v2/products?filter=eq(category.id,${categories.data[0].id})`
           return this.http.get<any>(url, this.httpOptions)
             .map(response => response)
             .catch(this.handleError("getProductsByCategoryInternal -- nested call"))
@@ -105,10 +113,17 @@ export class ProductsService {
       .catch(this.handleError("getAllProductsInternal"))
   }
 
-  private getProductsInternal(id?) {
+  private getProductsInternal(id?, pagination?: Pagination) {
     let url: string;
-    if (id) url = 'https://api.moltin.com/v2/products/' + id
-    else url = 'https://api.moltin.com/v2/products'
+
+    if (id) url = `https://api.moltin.com/v2/products/${id}`
+    else {
+      if (pagination)
+        url = `https://api.moltin.com/v2/products?page[limit]=${pagination.limit}&page[offset]=${pagination.offset}`
+      else
+        url = 'https://api.moltin.com/v2/products'
+    }
+
     return this.http.get<any>(url, this.httpOptions)
       .map(response => response)
       .catch(this.handleError("getAllProductsInternal"))

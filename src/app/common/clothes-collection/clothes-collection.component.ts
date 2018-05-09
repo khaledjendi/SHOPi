@@ -4,16 +4,17 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { SessionService } from './../../services/session.service';
 import { Config } from './../../config';
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { ProductsService, CallOperator } from './../../services/products.service';
+import { ProductsService, CallOperator, Pagination } from './../../services/products.service';
 import { PageType } from './../headers/common-header/common-header.component';
 import { Product } from './../Product';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Price } from '../Price';
 import * as firebase from 'firebase'
 import { error } from 'protractor';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-clothes-collection',
@@ -53,7 +54,7 @@ export class ClothesCollectionComponent implements OnInit {
   priceCurrency = "kr";
   minPrice = 0;
   maxPrice = 5000;
-  priceRange = [ 200, 4500 ];
+  priceRange = [200, 4500];
   priceRangeHtml = "200 - 4500";
   perPage;
   sortingOption = "";
@@ -76,6 +77,13 @@ export class ClothesCollectionComponent implements OnInit {
 
   filteredBrands = [];
   filteredColors = [];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  length = 10; // total products
+  pageSize = 5; // limit
+  offset = 0;
+  pageSizeOptions = [5, 10, 25, 100];
+  currentContentType;
 
   constructor(private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router, private db: AngularFireDatabase, private productsDataService: ProductsDataService) {
     this.route.paramMap.subscribe(params => {
@@ -111,20 +119,21 @@ export class ClothesCollectionComponent implements OnInit {
 
   getProductsCall(callType: CallOperator) {
     this.startBlocking();
-    let productsService = this.productService.callGet(callType);
+    let pagination: Pagination = { limit: this.pageSize, offset: this.offset }
+    let productsService = this.productService.callGet(callType, "", "", pagination);
     if (productsService instanceof Promise) {
       productsService.then(
         promise => promise.subscribe(
           products => {
             if (products instanceof Observable) {
               products.subscribe(products => {
-                this.loadProducts(products.data);
+                this.loadPaginationProducts(products);
               }, error => {
                 this.loadProductsError();
               })
               return;
             }
-            this.loadProducts(products.data);
+            this.loadPaginationProducts(products);
           },
           error => { // catch observer error (in getting products)
             this.loadProductsError();
@@ -140,18 +149,23 @@ export class ClothesCollectionComponent implements OnInit {
         (products) => {
           if (products instanceof Observable) {
             products.subscribe(products => {
-              this.loadProducts(products.data);
+              this.loadPaginationProducts(products);
             }, error => {
               this.loadProductsError();
             })
             return;
           }
-          this.loadProducts(products.data);
+          this.loadPaginationProducts(products);
         },
         error => { // catch observer error (in getting products)
           this.loadProductsError();
         })
     }
+  }
+
+  private loadPaginationProducts(products: any) {
+    this.length = products.meta.results.all;
+    this.loadProducts(products.data);
   }
 
   private startBlocking() {
@@ -251,10 +265,11 @@ export class ClothesCollectionComponent implements OnInit {
   getProducts(type) {
     // Later I will change this code to load the content based on pageType
     // To simplify things for now, lets assume we have only Men's page 
+    if (type !== this.currentContentType) this.resetPaginator(type);
     switch (type) {
       case "all":
-        //this.getProductsCall(CallOperator.AllProducts);
-        this.loadProducts(this.staticProducts);
+        this.getProductsCall(CallOperator.AllProducts);
+        //this.loadProducts(this.staticProducts);
         break;
       case "tops":
         this.getProductsCall(CallOperator.TopsProducts);
@@ -412,11 +427,11 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   priceChange(value: any) {
-    if(value) {
+    if (value) {
       this.priceRangeHtml = `${value[0]} - ${value[1]}`;
       this.notifyChange();
     }
-    
+
   }
 
   private notifyChange() {
@@ -426,6 +441,52 @@ export class ClothesCollectionComponent implements OnInit {
       filteredColors: this.filteredColors,
       price: this.priceRange
     });
+  }
+
+  resetPaginator(type) {
+    // reseting paginator
+    this.pageSize = 5;
+    this.offset = 0;
+    if (this.paginator) this.paginator.pageIndex = 0;
+    this.currentContentType = type;
+
+    // resetting filters...
+    this.filteredBrands = [];
+    this.filteredColors = [];
+    this.brandControl.reset();
+    this.sizeControl.reset();
+    this.colorControl.reset();
+    this.materialControl.reset();
+    this.priceRange = [200, 4500];
+  }
+
+  onPageChanged(event) {
+    this.pageSize = event.pageSize;
+    this.offset = (this.pageSize * (event.pageIndex + 1)) - this.pageSize;
+    this.getProducts(this.currentContentType)
+  }
+
+  getPageIndex() {
+    return this.paginator ? this.paginator.pageIndex + 1 : 1
+  }
+
+  previousPage() {
+    if (!this.paginator) return;
+    if (this.paginator.hasPreviousPage()) {
+      this.paginator.pageIndex = this.paginator.pageIndex -1;
+      this.offset = (this.pageSize * (this.paginator.pageIndex + 1)) - this.pageSize;
+      this.getProducts(this.currentContentType)
+    }
+  }
+
+  nextPage() {
+    if (!this.paginator) return;
+    if (this.paginator.hasNextPage()) {
+      this.paginator.pageIndex = this.paginator.pageIndex +1;
+      this.offset = (this.pageSize * (this.paginator.pageIndex + 1)) - this.pageSize;
+      this.getProducts(this.currentContentType)
+    }
+
   }
 
   get staticBrandsList() {

@@ -129,18 +129,6 @@
                     <div class="g-mr-10">
                         <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
                             <mat-form-field class="g-width-150 mat-clothes-select">
-                                <mat-select [(value)]="perPage" placeholder="Per Page">
-                                    <mat-option>35</mat-option>
-                                    <mat-option>70</mat-option>
-                                    <mat-option>100</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="g-mr-10">
-                        <div class="d-inline-block btn-group g-line-height-1_2 g-pr-15--lg">
-                            <mat-form-field class="g-width-150 mat-clothes-select">
                                 <mat-select placeholder="Materials" [formControl]="materialControl" multiple>
                                     <mat-select-trigger>
                                         {{materialControl.value ? materialControl.value[0] : ''}}
@@ -188,51 +176,30 @@
 
                 </div>
 
-                <div class="row g-pt-30 g-mb-50">
+                <div class="row g-mb-15">
                     <div class="font-cg-bold g-font-size-16" style="color: #DE1818">{{errorMessage.text}}</div>
                     <div class="full-width" *blockUI="'block-products'; message: 'Loading'; template: blockTemplate; delayStop: 500">
+                        <mat-paginator class="" style="outline: none;" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                            (page)="onPageChanged($event)">
+                        </mat-paginator>
                         <app-common-product class="row g-ml-5" [returnPageUrl]="returnPageUrl" [returnSubPageUrl]="returnSubPageUrl"></app-common-product>
+
+                        <hr class="g-mb-15 g-mt-0">
+
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <button mat-button class="font-cg-bold g-font-size-14" style="outline: none !important;" color="accent" (click)="previousPage()">Previous</button>
+                            <p class="g-mx-10 g-my-0">[{{getPageIndex()}}]</p>
+                            <button mat-button class="font-cg-bold g-font-size-14" style="outline: none !important;" color="primary" (click)="nextPage()">Next</button>
+                        </div>
                     </div>
                 </div>
 
-                <hr class="g-mb-60">
 
-                <!-- Pagination -->
-                <nav class="g-mb-100" aria-label="Page Navigation">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item hidden-down">
-                            <a class="active u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--active g-color-white g-bg-primary--active g-font-size-12 rounded-circle g-pa-5"
-                                href="#!">1</a>
-                        </li>
-                        <li class="list-inline-item hidden-down">
-                            <a class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
-                                href="#!">2</a>
-                        </li>
-                        <li class="list-inline-item g-hidden-xs-down">
-                            <a class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
-                                href="#!">3</a>
-                        </li>
-                        <li class="list-inline-item hidden-down">
-                            <span class="g-width-30 g-height-30 g-color-gray-dark-v5 g-font-size-12 rounded-circle g-pa-5">...</span>
-                        </li>
-                        <li class="list-inline-item g-hidden-xs-down">
-                            <a class="u-pagination-v1__item g-width-30 g-height-30 g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5"
-                                href="#!">15</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="u-pagination-v1__item g-width-30 g-height-30 g-brd-gray-light-v3 g-brd-primary--hover g-color-gray-dark-v5 g-color-primary--hover g-font-size-12 rounded-circle g-pa-5 g-ml-15"
-                                href="#!" aria-label="Next">
-                                <span aria-hidden="true">
-                                    <i class="fa fa-angle-right"></i>
-                                </span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item float-right">
-                            <span class="u-pagination-v1__item-info g-color-gray-dark-v4 g-font-size-12 g-pa-5">Page 1 of 15</span>
-                        </li>
-                    </ul>
-                </nav>
+
+
+                <!-- <mat-paginator class="g-mb-30" style="outline: none;" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChanged($event)">
+                </mat-paginator> -->
+
             </div>
         </div>
 

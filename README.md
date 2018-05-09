@@ -38,7 +38,9 @@ Note: previous video is outdated! many new options are already added!
 ### What is remaining?
 - [Completed] Continue working with api to use it to call products by their brands, colors, ...
 
-- [Partially Completed ] Add the facility of adding product to favorites, or to cart. 
+- [Completed] Add the facility of adding product to cart. 
+
+- [Completed] Clothes listing has pagination inluding capability to change items per page. 
 
 - Viewing favorite items as sticky section on the page with angular animation 
 
@@ -56,9 +58,7 @@ Note: previous video is outdated! many new options are already added!
 
 - [Completed] Work with firebase to store personal data, orders, favorites, ...
 
-- Perform search on the product
-
-- Add more facilities to the product page with capability to veiw correct related items
+- [Completed] Perform filter and searching on the product in clothes product listing page
 
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies

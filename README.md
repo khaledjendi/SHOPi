@@ -61,6 +61,14 @@ https://www.youtube.com/watch?v=UTuSQpCJo-M
 
 - [Partially Completed] Viewing favorite items as sticky section on the page with angular animation 
 
+### How to setup?
+
+- Simple! Just git clone SHOPi repository, open terminal, change directory to where you cloned the repository, run command "npm install" and ... it's done! 
+
+- To test the project, run command "ng serve" then go to your browser's url and type "localhost:4200"
+
+- If you have any issues running the code, don't hesitate to contact me :) 
+
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies
 

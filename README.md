@@ -4,10 +4,9 @@
 SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project . Which is implemented using Angular, and firebase. It employs also moltin api and other apis such as Facebook login and google signin.
 You can watch a video at:
 
-[![""](https://i.ytimg.com/vi/FeL12Cszhh8/0.jpg)](https://www.youtube.com/watch?v=FeL12Cszhh8)
+[![""](https://i.ytimg.com/vi/FeL12Cszhh8/0.jpg)](https://www.youtube.com/watch?v=UTuSQpCJo-M)
 
-https://www.youtube.com/watch?v=FeL12Cszhh8
-Note: previous video is outdated! many new options are already added!
+https://www.youtube.com/watch?v=UTuSQpCJo-M
 
 ### What is done?
 

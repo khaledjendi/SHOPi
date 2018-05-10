@@ -19,6 +19,7 @@
   </div>
 </div>
 
+<div *ngIf="!products || products.length === 0" class="full-width text-center font-cg-bold g-color-lightred g-mt-20 g-mb-30 g-font-size-16">No products found, please change your filtering...</div>
 <div #productEl dnd-draggable *ngFor="let product of products" class="col-6 col-lg-4 g-mb-30 g-brd-gray--hover-edited g-cursor-pointer--hover panel panel-default"
   [attr.data-product]="stringifyProduct(product)" [dragEnabled]="true" [dragData]="stringifyProduct(product)" (click)="selectProduct(productEl.getAttribute('data-product'))"
   (dragstart)="dragStart()" (dragend)="dragEnd()">

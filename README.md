@@ -42,8 +42,6 @@ Note: previous video is outdated! many new options are already added!
 
 - [Completed] Clothes listing has pagination inluding capability to change items per page. 
 
-- Viewing favorite items as sticky section on the page with angular animation 
-
 - [Completed] Displaying orders per user (with expand/ collapse orders)
 
 - [Completed] managing payment cards with facility to sort (rearrange) them by dragging and dropping
@@ -59,6 +57,8 @@ Note: previous video is outdated! many new options are already added!
 - [Completed] Work with firebase to store personal data, orders, favorites, ...
 
 - [Completed] Perform filter and searching on the product in clothes product listing page
+
+- [Partially Completed] Viewing favorite items as sticky section on the page with angular animation 
 
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies

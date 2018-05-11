@@ -2,3 +2,5 @@
 /node_modules/*
 /src/assets/img-temp/*
 /src/assets/shopi-theme/img-temp/*
+/src/app/config.ts
+/src/environments/*

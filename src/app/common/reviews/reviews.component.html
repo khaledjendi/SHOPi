@@ -4,7 +4,7 @@
       <p class="lead">Total reviews: {{reviews.length}} <span class="g-color-primary">({{averageReviewsStars | number: '1.1-1'}} out of 5)</span></p>
     </div>
 
-    <div id="review-carousel" class="js-carousel g-pb-100 g-mx-minus-10"
+    <div #reviewElm class="js-carousel g-pb-100 g-mx-minus-10"
          data-infinite="false"
          data-slides-show="3"
          data-arrows-classes="u-arrow-v1 g-pos-abs g-bottom-0 g-width-45 g-height-45 g-color-gray-dark-v5 g-bg-secondary g-color-white--hover g-bg-primary--hover rounded"

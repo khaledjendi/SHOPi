@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductsService, CallOperator } from './../../services/products.service';
 import { Product } from './../../common/Product';
 import { expandCollapse } from '../home-category.animations';
-import { Component, OnInit, Injectable, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Injectable, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database'
 import * as firebase from 'firebase'
 
@@ -18,6 +18,7 @@ declare var jQuery: any;
 })
 
 export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
+  @ViewChild('contentHomeCategory') contentHomeCategory: ElementRef;
   private menuParts = {
     newArrival: {
       isInHeader: false,
@@ -92,13 +93,13 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getFirebaseImgUrl("summer_collection/summer_collection1.jpg").then(url => this.collectionBannerBg = url);
     this.getFirebaseImgUrl("product_images/BOG50302557;500;320.png").then(url => this.colltionBannerImg = url);
-    this.getProducts(); // This method will be replaced to load only new arrival or best selling items...
-    //this.loadProducts(this.staticProducts);
+    //this.getProducts(); // This method will be replaced to load only new arrival or best selling items...
+    this.loadProducts(this.staticProducts);
   }
 
   ngAfterViewInit() {
     setTimeout(() => { // we use settimeout to avoid error: ExpressionChangedAfterItHasBeenCheckedError
-      this.overlayHeight = (jQuery("#content-home-category").outerHeight() + 588) + "px";
+      this.overlayHeight = (jQuery(this.contentHomeCategory.nativeElement).outerHeight() + 588) + "px";
     }, 0);
   }
 

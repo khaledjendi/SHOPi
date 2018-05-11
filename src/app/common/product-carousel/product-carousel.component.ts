@@ -24,7 +24,7 @@ export class ProductCarouselComponent implements OnInit, AfterViewInit {
   @ViewChild('carouselSlider') carouselElm: ElementRef;
 
   ngAfterViewInit() {
-    jQuery.HSCore.components.HSCarousel.init('[class*="js-carousel"]');
+    jQuery.HSCore.components.HSCarousel.init(this.carouselElm.nativeElement);
 
     jQuery(this.carouselElm.nativeElement).slick('setOption', 'responsive', [{
       breakpoint: 1200,

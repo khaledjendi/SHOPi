@@ -14,7 +14,8 @@ export class PriceSliderComponent implements OnInit, AfterViewInit {
   @Input("max") max;
   @Input("priceRange") priceRange;
   @Input("sliderWidth") sliderWidth;
-
+  @ViewChild('rangeSlider') rangeSlider: ElementRef;
+   
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +23,6 @@ export class PriceSliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    jQuery.HSCore.components.HSSlider.init('#rangeSlider1');
+    jQuery.HSCore.components.HSSlider.init(this.rangeSlider.nativeElement);
   }
 }

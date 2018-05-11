@@ -1,5 +1,5 @@
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 declare var jQuery: any;
 
@@ -9,6 +9,7 @@ declare var jQuery: any;
   styleUrls: ['./reviews.component.scss']
 })
 export class ReviewsComponent implements OnInit, AfterViewInit {
+  @ViewChild('reviewElm') reviewElm: ElementRef;
   reviews;
 
   averageReviewsStars = 0;
@@ -18,7 +19,7 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
     }).subscribe(items => {
       this.reviews = items.map(item => item.value);
       setTimeout(() => {
-        jQuery.HSCore.components.HSCarousel.init('#review-carousel');
+        jQuery.HSCore.components.HSCarousel.init(this.reviewElm.nativeElement);
         this.averageReviewsStars = this.getAverage();
       });
     });

@@ -46,8 +46,8 @@ export class ProductDetailsComponent implements OnInit {
   @BlockUI() blockAllUI: NgBlockUI;
 
   constructor(public cartService: CartService, public sessionService: SessionService, private route: ActivatedRoute, private productService: ProductsService, private toastr: ToastrService, private router: Router, private db: AngularFireDatabase) {
-    //this.getProducts(); 
-    this.loadProducts(this.staticProducts);
+    this.getProducts(); 
+    //this.loadProducts(this.staticProducts);
   }
 
   ngOnInit() {
@@ -306,6 +306,13 @@ export class ProductDetailsComponent implements OnInit {
     this.cartService.setFloatCartView(true);
   }
 
+  /* 
+  * Note:
+  * These two properties are used only during development
+  * They will not be called during testing or running code.
+  * This is done to reduce the number of API calls during development, 
+  * Because API calls are limited for free version.
+  */
   get staticProduct() {
     return {
       "type": "product",

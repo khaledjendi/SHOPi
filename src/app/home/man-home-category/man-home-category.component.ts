@@ -92,8 +92,8 @@ export class ManHomeCategoryComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getFirebaseImgUrl("summer_collection/summer_collection1.jpg").then(url => this.collectionBannerBg = url);
     this.getFirebaseImgUrl("product_images/BOG50302557;500;320.png").then(url => this.colltionBannerImg = url);
-    //this.getProducts(); // This method will be replaced to load only new arrival or best selling items...
-    this.loadProducts(this.staticProducts);
+    this.getProducts(); // This method will be replaced to load only new arrival or best selling items...
+    //this.loadProducts(this.staticProducts);
   }
 
   ngAfterViewInit() {

@@ -104,13 +104,13 @@ export class ClothesCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getBrandsCallByAPI();
-    // this.getColorsCallByAPI();
+    this.getBrandsCallByAPI();
+    this.getColorsCallByAPI();
     /* 
-    * Below code is for development perposes ()
+    * Below code is for development perposes (hard coded to minimize api calls during development)
     */
-    this.brandsList = this.staticBrandsList;
-    this.colorsList = ["brown", "blue", "black", "white", "gray", "beige"];
+    //this.brandsList = this.staticBrandsList;
+    //this.colorsList = ["brown", "blue", "black", "white", "gray", "beige"];
   }
 
   getType() {

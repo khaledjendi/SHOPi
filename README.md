@@ -70,13 +70,39 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 - [Partially Completed] Viewing favorite items as sticky section on the page with angular animation 
 
+### What advanced interactions developed in this project?
+
+- Drag & drop product to a cart with auto animation to open and close. 
+
+- Product (cloth) photo album with zooming capability (zoom in/ out using mouse wheel)
+
+- Pagination with capability to select items per page
+
+- Many ways of filtering using different criteria
+
+- Partially blocking of the page while loading products from API
+
+- Carousel for related products (and also for reviews)
+
+- Sticky sliding floating cart to show the current items 
+
+- Expand/ collapse orders view
+
+- Payment preferences by capability to sort cards by dragging them to you prefered order
+
+- Customized toastr view and animation
+
+- When signing up, a user can drag their profile image (from computer file system) and drop it in the drop zone
+
+- Reactive forms are used around the project
+
 ### How to setup?
 
 - Simple! Just git clone SHOPi repository, open terminal, change directory to where you cloned the repository, run command "npm install" and ... it's done! 
 
-- To test the project, run command "ng serve" then go to your browser's url and type "localhost:4200"
+- To test the project, run command "ng serve" then open your browser, type in the address bar "localhost:4200" and enjoy :) 
 
-- If you have any issues running the code, don't hesitate to contact me :) 
+- If you have any issues running the code, you can always contact me or open an issue.
 
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies

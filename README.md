@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 - Re-usable components for different purposes
 
 - Services 
-    - Authentication services
+    - Login authentication service
 
     - Products service
 

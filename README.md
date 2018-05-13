@@ -56,6 +56,8 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 - [Completed] Add the facility of adding product to cart. 
 
+- [Completed] Shopping cart is saved per user in the local storage. When user login, she/ he finds their previous state of their shopping cart.
+
 - [Completed] Clothes listing has pagination inluding capability to change items per page. 
 
 - [Completed] Displaying orders per user (with expand/ collapse orders)
@@ -70,7 +72,7 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 - [Completed] Create Personal details page
 
-- [Completed] Work with firebase to store personal data, orders, favorites, ...
+- [Completed] Work with firebase to store personal data, orders, payment options, favorites, ...
 
 - [Completed] Perform filter and searching on the product in clothes product listing page
 

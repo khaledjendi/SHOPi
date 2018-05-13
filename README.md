@@ -1,7 +1,7 @@
 # SHOPi
 
 ### What is SHOPi?
-SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project . Which is implemented using:
+SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project. Which is implemented using:
 
 - Angular 5.2.0
 
@@ -13,25 +13,16 @@ It employs also other api interfaces such as Facebook login and Google signin (u
 
 You can watch a video at:
 
-[![""](https://i.ytimg.com/vi/cMj9HR-Vxoc/0.jpg)](https://www.youtube.com/watch?v=cMj9HR-Vxoc)
+[![""](https://drive.google.com/uc?id=1ozS5j4KprLDn3YZEXkHOiyPhpofvR1dU)](https://www.youtube.com/watch?v=cMj9HR-Vxoc)
 
 https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 ### What is done?
-
-- The skeleton of the project
-
-- Authentication services
-
-- Products service
-
-- Session service
-
 - Api calls to fetch items and other data
 
-- Drag an and drop: In product listing, when you drag an item, the shoping cart appears automatically in the right edge of the screen with angular animation.
+- Drag an and drop: In product listing, when you drag an item, the shoping cart appears automatically from the right edge of the screen edge. This is done using angular animations.
 
-- Item images zooming capability (in the item details page)  
+- Photo album with zooming in/ out capability (in the item details page)  
 
 - Different kind of carousels 
 
@@ -41,14 +32,29 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 - Re-usable components for different purposes
 
-- You can view the project online at: https://shopi5.herokuapp.com/
+- Services 
+    - Authentication services
+
+    - Products service
+
+    - Session service
+
+    - Api authentication service
+
+    - Cart service
+    
+    - Session service
+    
+    - Upload service
+
+- Signin using email & password, Facebook or Google
+
+- Not found page, when a user entered an invalid url or wrong page.
 
 ### What is remaining?
 - [Completed] Continue working with api to use it to call products by their brands, colors, ...
 
 - [Completed] Add the facility of adding product to cart. 
-
-- [Completed] Clothes listing has pagination inluding capability to change items per page. 
 
 - [Completed] Clothes listing has pagination inluding capability to change items per page. 
 
@@ -98,11 +104,21 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
 
 ### How to setup?
 
-- Simple! Just git clone SHOPi repository, open terminal, change directory to where you cloned the repository, run command "npm install" and ... it's done! 
+- Simple! Just git clone SHOPi repository, open terminal, change directory to where you cloned the repository, run command "npm install" as the following:
 
-- To test the project, run command "ng serve" then open your browser, type in the address bar "localhost:4200" and enjoy :) 
+    ```sh
+    $ cd <SHOPi cloned directory>
+    $ npm install
+    ```
+    Wait while installing node modules. After finishing installation, run command "ng serve"
+    ```sh
+    $ ng serve
+    ```
+    and ... it's done! 
 
-- If you have any issues running the code, you can always contact me or open an issue.
+- Open your browser, type in the address bar "localhost:4200" and enjoy :) 
+
+- If you have any issues running the code, you can always contact me or create a new issue.
 
 ### Upon more time remaing...
 - Use and implement currency api service to convert prices to different currencies
@@ -213,11 +229,3 @@ This service deploys all api calls required by SHOPi. It also catches custom err
 
 #### session service
 This service is responsible for all session data, including personal data
-
-
-
-
-
-
-
-

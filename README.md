@@ -114,11 +114,9 @@ https://www.youtube.com/watch?v=cMj9HR-Vxoc
     ```
     Wait while installing node modules. After finishing installation, run command "ng serve"
     ```sh
-    $ ng serve
+    $ ng serve --open
     ```
-    and ... it's done! 
-
-- Open your browser, type in the address bar "localhost:4200" and enjoy :) 
+    and ... it's done! enjoy :) 
 
 - If you have any issues running the code, you can always contact me or create a new issue.
 

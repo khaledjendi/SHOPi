@@ -156,6 +156,9 @@ It represent the footer for each page in SHOPi.
 #### common-header
 This reusable component contains the footer that is used in all pages except the product detail page and the cart page
 
+#### float cart
+This is a reusable cart component that is used almost in all pages. Then ever the user clicks on the cart icon, the float cart slide open from the right of the screen.
+
 #### common-mini-header
 It is exactly like common-header component but it has been redegined to contain the minimal view. It is used mainly in product details page and the cart page.
 
@@ -171,6 +174,11 @@ This component is used to represent the range price as a search criteria in clot
 #### product-carousel
 This component takes the list of items as input and it generates representation carousel. This component is used now in pro product-details and home component.
 
+#### reviews
+This component reads users reviews about shopi from firebase and for now it is used in the home page screen, and to be used in other pages in the future. 
+
+#### classes
+
 #### Cart.ts
 Is a class that represent the cart properties. It will be mainly used in cart-service
 
@@ -181,13 +189,37 @@ The price class also has some static methods to calculate correct price based on
 #### Product.ts
 Is a class that represent the product properties that will be used in product-service class and other classes.
 
+#### address
+The address that the user has.
+
+#### order
+The orders that the user has.
+
+#### upload
+This class is used to upload the user image
+
 
 ### custom-pipes folder
 #### summary.pipe.ts 
 This pipe will be used later in html pages to reduce the long paragraph to certain amount of characters and then they will be followed with: more... 
 
+#### file-size.pipe.ts
+This pipe is used to format the file size.
+
 ### custom-toast
 This component is a customized toast with differnet angular animations (such as opacity and transform). It is widely used in SHOPi web app
+
+### directives
+
+#### drop-zone.directive.ts
+This directive is used to drag and drop file to upload. 
+
+### login-auth 
+#### login
+This component is used to for users to login in SHOPi using their email, facebook or google plus account.
+
+#### signup
+This component is used to signup into SHOPi. It has drag and drop file zone.
 
 ### home folder
 
@@ -229,3 +261,13 @@ This service deploys all api calls required by SHOPi. It also catches custom err
 
 #### session service
 This service is responsible for all session data, including personal data
+
+#### cart service
+This service is responsible for managing shopping cart for the user 
+
+#### login-auth
+This service is used to manage different login ways for the user, and to manage login state.
+
+#### upload service
+User image upload service
+

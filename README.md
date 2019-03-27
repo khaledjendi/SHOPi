@@ -1,7 +1,7 @@
 # SHOPi
 
 ### What is SHOPi?
-SHOPi - https://shopi5.herokuapp.com/ - has is a leading e-commerce fashion store for the course project. Which is implemented using:
+SHOPi - https://shopi5.herokuapp.com/ - is a leading e-commerce fashion store for the course project. Which is implemented using:
 
 - Angular 5.2.0
 

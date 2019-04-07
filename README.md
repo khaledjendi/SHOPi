@@ -1,6 +1,6 @@
 # SHOPi
 
-## == Update ==
+## ==> Update <==
 Newer versions of Angular has been released since this project has been implemented. Some classes used in Angular 5 has been deprecated in newer versions of Angular. I will be updating SHOPi project as SHOPi-v2 upon my free time :) 
 
 ### What is SHOPi?

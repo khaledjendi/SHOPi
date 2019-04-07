@@ -1,8 +1,5 @@
 # SHOPi
 
-## ==> Update <==
-Newer versions of Angular has been released since this project has been implemented. Some classes used in Angular 5 has been deprecated in newer versions of Angular. I will be updating SHOPi project as SHOPi-v2 upon my free time :) 
-
 ### What is SHOPi?
 SHOPi - https://shopi5.herokuapp.com/ - is a leading e-commerce fashion store for the course project. Which is implemented using:
 
@@ -19,6 +16,9 @@ You can watch a video at:
 [![""](https://drive.google.com/uc?id=1ozS5j4KprLDn3YZEXkHOiyPhpofvR1dU)](https://www.youtube.com/watch?v=cMj9HR-Vxoc)
 
 https://www.youtube.com/watch?v=cMj9HR-Vxoc
+
+### ==> Update <==
+Newer versions of Angular has been released since this project has been implemented. Some classes used in Angular 5 has been deprecated in newer versions of Angular. I will be updating SHOPi project as SHOPi-v2 upon my free time :) 
 
 ### What is done?
 - Api calls to fetch items and other data
